@@ -35,8 +35,9 @@ function prompt {
 
 prompt
 
-alias bash='open -a "Atom.app" ~/.bash_profile'
-alias reload='source ~/.bash_profile'
+alias bash='atom ~/.dotfiles/bash_profile'
+alias reload='source ~/.dotfiles/bash_profile'
+alias vim='nvim'
 alias ls="ls -GFh"
 alias show='ls'
 alias c='clear'
@@ -49,7 +50,6 @@ alias mod1="cd ~/Turing/1module"
 alias mod2="cd ~/Turing/2module"
 alias mod3="cd ~/Turing/3module"
 alias drills="cd ~/exercism"
-alias bash="atom ~/.bash_profile"
 alias browse="hub browse"
 alias g='git'
 alias ga="git add ."
