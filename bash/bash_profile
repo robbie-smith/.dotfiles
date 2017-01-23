@@ -86,12 +86,12 @@ function lazyrails() {
   echo 'gem "faker", :group => [:development, :test]' >> Gemfile
   echo 'gem "pry", :group => [:development, :test]' >> Gemfile
   echo 'gem "shoulda-matchers", :group => [:development, :test]' >> Gemfile
-  bundle
+  bundle install
   rails g rspec:install
   mkdir spec/support
   mkdir spec/features
   mkdir spec/models
-  touch spec/support/factory_girl.r b
+  touch spec/support/factory_girl.rb
 }
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
