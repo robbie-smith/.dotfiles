@@ -8,6 +8,8 @@ export GOPATH=$HOME/Go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
+export GEM_HOME=$HOME/.gem
+export GEM_PATH=$HOME/.gem
 
 function prompt {
   local BLACK="\[\033[0;30m\]"
