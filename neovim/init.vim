@@ -33,6 +33,8 @@ Plug 'tpope/vim-fugitive'
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+"GitGutter
+Plug 'airblade/vim-gitgutter'
 " NeoSnippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -183,7 +185,7 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 28
 let g:NERDTreeIndicatorMapCustom = {
-      \ "Modified"  : "✹",
+      \ "Modified"  : "!",
       \ "Staged"    : "✚",
       \ "Untracked" : "✭",
       \ "Renamed"   : "➜",
@@ -197,11 +199,10 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Auto open nerdtree when vim is opened
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree
 
 " Auto close nerdtree when a file is opened
 let NERDTreeQuitOnOpen = 1
-
 " VimTest
 let test#strategy = 'neovim'
 
@@ -237,7 +238,6 @@ let g:airline_section_c = airline#section#create_left([' %l'])
 let g:ariline_section_x = 'filetype'
 let g:airline_section_y = '%{strftime("%H:%M")}'
 let g:airline_section_z = ''
-
 "*****************************************************************************
 " Functions
 "*****************************************************************************
@@ -286,9 +286,8 @@ nnoremap <S-Down> :<C-u>silent! move+<CR>==
 
 "FZF <space> p to open FZF
 nmap <leader>p :FZF <CR>
-imap <leader>p <plug>(fzf-maps-i)
-imap <leader>f <plug>(fzf-complete-line)
-imap <leader>l <plug>(fzf-complete-word)
+imap <C-f> <plug>(fzf-complete-line)
+imap <C-l> <plug>(fzf-complete-word)
 let g:fzf_action = {
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit'
@@ -326,7 +325,7 @@ augroup END
 " VimTest Mapping
 nmap <silent> <leader>T :TestFile <CR>
 nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>a :TestSuite -format documentation<CR>
+nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
