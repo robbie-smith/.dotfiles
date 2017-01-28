@@ -41,7 +41,7 @@ Plug 'Shougo/neosnippet-snippets'
 " Ulti Snips engine
 Plug 'SirVer/ultisnips'
 " Vim Snippets
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 " Syntastic
 Plug 'scrooloose/syntastic'
 "FZF
@@ -85,6 +85,7 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 set autoindent
+set smartindent
 set showcmd
 
 " Enable hidden buffers
@@ -99,7 +100,7 @@ set smartcase
 " Automatically resize splits when resizing window
 autocmd VimResized * wincmd =
 
-
+set updatetime=250
 
 " Directories for swp files
 set nobackup
