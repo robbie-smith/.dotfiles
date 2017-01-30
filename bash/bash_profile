@@ -77,24 +77,32 @@ function lazygit() {
 }
 
 function lazyrails() {
-  rails new "$1" -d postgresql --skip-test-unit --skip-spring -T --api
+  rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T --api
   cd "$1"
-  echo 'gem "rspec-rails", :group => [:development, :test]' >> Gemfile
-  echo 'gem "capybara", :group => [:development, :test]' >> Gemfile
-  echo 'gem "factory_girl_rails", :group => [:development, :test]' >> Gemfile
-  echo 'gem "launchy", :group => [:development, :test]' >> Gemfile
-  echo 'gem "database_cleaner", :group => [:development, :test]' >> Gemfile
-  echo 'gem "faker", :group => [:development, :test]' >> Gemfile
-  echo 'gem "pry", :group => [:development, :test]' >> Gemfile
-  echo 'gem "shoulda-matchers", :group => [:development, :test]' >> Gemfile
+  group :test, :development do
+    gem "rspec-rails"
+    gem "capybara"
+    gem "launchy"
+    gem "database_cleaner"
+    gem "faker"
+    gem "pry"
+    gem "shoulda-matchers"
+  end
   bundle install
   rails g rspec:install
   mkdir spec/support
   mkdir spec/features
   mkdir spec/models
   touch spec/support/factory_girl.rb
+  touch spec/support/factories.rb
 }
-
+# echo 'gem "rspec-rails", :group => [:development, :test]' >> Gemfile
+# echo 'gem "capybara", :group => [:development, :test]' >> Gemfile
+# echo 'gem "launchy", :group => [:development, :test]' >> Gemfile
+# echo 'gem "database_cleaner", :group => [:development, :test]' >> Gemfile
+# echo 'gem "faker", :group => [:development, :test]' >> Gemfile
+# echo 'gem "pry", :group => [:development, :test]' >> Gemfile
+# echo 'gem "shoulda-matchers", :group => [:development, :test]' >> Gemfile
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
