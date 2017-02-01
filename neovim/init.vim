@@ -42,7 +42,8 @@ Plug 'SirVer/ultisnips'
 " Vim Snippets
 Plug 'honza/vim-snippets'
 " Syntastic
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'neomake/neomake'
 "FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -58,8 +59,6 @@ Plug 'chiel92/vim-autoformat'
 Plug 'janko-m/vim-test'
 " AutoSave
 Plug '907th/vim-auto-save'
-" NerdCommenter
-Plug 'scrooloose/nerdcommenter'
 " VimPolyglot
 Plug 'sheerun/vim-polyglot'
 "Deoplete
@@ -160,8 +159,8 @@ ia sav <CR>save_and_open_page
 " Plug-in Configurations
 "******************************************************************************
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
-let g:deoplete#enable_at_startup = 1
+" let g:neosnippet#snippets_directory=['~/.config/nvim/plugged/vim-snippets/*.snippets', '~/.config/nvim/plugged/ultisnips/syntax/*.snippets']
+autocmd! BufWritePost * Neomake
 "**********************
 " Autoformat
 "**********************
@@ -220,6 +219,10 @@ if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
 endif
 "**********************
+" Deoplete
+"**********************
+let g:deoplete#enable_at_startup = 1
+"**********************
 " Airline
 "**********************
 " Powerline Symbols for Airline
@@ -252,8 +255,8 @@ nmap <leader>p :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
+      \ '<C-s>': 'split',
+      \ '<C-v>': 'vsplit'
       \ }
 function! s:fzf_statusline()
   " Override statusline as you like
@@ -268,7 +271,7 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " Utili Snips
 "**********************
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-b>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<C-R>=UltiSnips#ExpandSnippet()"
 "*****************************************************************************
@@ -292,7 +295,6 @@ nnoremap <leader>o :Gbrowse<CR>
 " Buffer switching
 map <C-]> :bnext<CR>
 map <C-[> :bprev<CR>
-map <Leader>q :bd <CR>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
