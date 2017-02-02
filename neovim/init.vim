@@ -42,8 +42,7 @@ Plug 'SirVer/ultisnips'
 " Vim Snippets
 Plug 'honza/vim-snippets'
 " Syntastic
-" Plug 'scrooloose/syntastic'
-Plug 'neomake/neomake'
+Plug 'scrooloose/syntastic'
 "FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -158,8 +157,6 @@ ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
-" Tell Neosnippet about the other snippets
-" let g:neosnippet#snippets_directory=['~/.config/nvim/plugged/vim-snippets/*.snippets', '~/.config/nvim/plugged/ultisnips/syntax/*.snippets']
 autocmd! BufWritePost * Neomake
 "**********************
 " Autoformat
@@ -250,13 +247,12 @@ let g:airline_section_z = ''
 "**********************
 " FZF
 "**********************
-" FZF <space> p to open FZF
 nmap <leader>p :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
-      \ '<C-s>': 'split',
-      \ '<C-v>': 'vsplit'
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
       \ }
 function! s:fzf_statusline()
   " Override statusline as you like
@@ -265,7 +261,6 @@ function! s:fzf_statusline()
   highlight fzf3 ctermfg=237 ctermbg=251
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
-
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 "**********************
 " Utili Snips
@@ -303,3 +298,7 @@ nmap <Leader>s :noh<CR>
 nmap <Leader>r :so %<CR>
 " Find and replace
 nmap <Leader>s :%s//gc<Left><Left>
+nmap <silent> <S-k> :wincmd k<CR>
+nmap <silent> <S-j> :wincmd j<CR>
+nmap <silent> <S-h> :wincmd h<CR>
+nmap <silent> <S-l> :wincmd l<CR>
