@@ -1,11 +1,8 @@
 set nocompatible               " Be iMproved
-
 " Path for python
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
 " Enable filetype detection
 filetype on
-
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " The Silver Searcher
@@ -14,57 +11,56 @@ let g:ackprg = 'ag --vimgrep'
 set autoread
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
-
 "*****************************************************************************
 " Plug install packages
 "*****************************************************************************
+" Airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" AutoSave
+Plug '907th/vim-auto-save'
 " Color Schemes
 Plug 'davb5/wombat256dave'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'morhetz/gruvbox'
-" NerdTree
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Deoplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Fugitive(git-addon)
 Plug 'tpope/vim-fugitive'
-" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" GitGutter
-Plug 'airblade/vim-gitgutter'
-" NeoSnippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-" Ulti Snips engine
-Plug 'SirVer/ultisnips'
-" Vim Snippets
-Plug 'honza/vim-snippets'
-" Syntastic
-" Plug 'scrooloose/syntastic'
-Plug 'Chiel92/vim-autoformat'
-" NeoMake
-Plug 'neomake/neomake'
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Surround
-Plug 'tpope/vim-surround'
-" Vim Rails
-Plug 'tpope/vim-rails'
-" Vim Bundler
-Plug 'tpope/vim-bundler'
-" VimTest
-Plug 'janko-m/vim-test'
-" AutoSave
-Plug '907th/vim-auto-save'
-" VimPolyglot
-Plug 'sheerun/vim-polyglot'
-" Deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" VimCommentary
-Plug 'tpope/vim-commentary'
+" GitGutter
+Plug 'airblade/vim-gitgutter'
+" NeoMake
+Plug 'neomake/neomake'
+" NerdTree
+Plug 'scrooloose/nerdtree'
+" NerdTree Git Plugin
+Plug 'Xuyuanp/nerdtree-git-plugin'
+" NeoSnippets
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
+" Ulti Snips engine
+Plug 'SirVer/ultisnips'
+" Vim AutoFormat
+Plug 'Chiel92/vim-autoformat'
+" Vim Bundler
+Plug 'tpope/vim-bundler'
+" Vim Commentary
+Plug 'tpope/vim-commentary'
+" Vim Polyglot
+Plug 'sheerun/vim-polyglot'
+" Vim Snippets
+Plug 'honza/vim-snippets'
+" Vim Surround
+Plug 'tpope/vim-surround'
+" VimTest
+Plug 'janko-m/vim-test'
+" Vim Rails
+Plug 'tpope/vim-rails'
 call plug#end()
 "*****************************************************************************
 " Basic Setup
@@ -91,6 +87,14 @@ set mouse=a
 let mapleader="\<SPACE>"
 " Use ; for commands
 nnoremap ; :
+"Text Wrapping
+if !exists('*s:setupWrapping')
+  set wm=2
+  set textwidth=80
+endif
+
+"Automatically delete whitespace, and repositions cursor
+autocmd BufWritePre * :%s/\s\+$//e
 "*****************************************************************************
 " Indenting
 "*****************************************************************************
@@ -144,83 +148,9 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 " Abbreviations
 "****************************************************************************
 ia sav <CR>save_and_open_page
-"******************************************************************************
+"****************************************************************************
 " Plug-in Configurations
-"******************************************************************************
-au BufWrite * :Autoformat
-" let g:formatters_javascript =['eslint']
-"**********************
-" Autosave
-"**********************
-" Enable AutoSave on Vim startup
-let g:auto_save = 1
-"**********************
-" NerdTree
-"**********************
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 28
-let g:NERDTreeIndicatorMapCustom = {
-      \ "Modified"  : "!",
-      \ "Staged"    : "✚",
-      \ "Untracked" : "✭",
-      \ "Renamed"   : "➜",
-      \ "Unmerged"  : "═",
-      \ "Deleted"   : "✖",
-      \ "Dirty"     : "✗",
-      \ "Clean"     : "✔︎",
-      \ "Unknown"   : "?"
-      \ }
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Auto close nerdtree when a file is opened
-let NERDTreeQuitOnOpen = 1
-
-noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-nnoremap <leader>q :bp<cr>:bd #<cr>
-"**********************
-" NeoMake
-"**********************
-autocmd! BufWritePost,BufEnter * Neomake
-let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {
-      \   'text': '⚠️ ',
-      \   'texthl': 'NeomakeWarningSign',
-      \ }
-let g:neomake_message_sign = {
-      \   'text': '➤',
-      \   'texthl': 'NeomakeMessageSign',
-      \ }
-let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
-let g:neomake_ruby_enabled_makers = ['mri']
-"**********************
-" VimTest
-"**********************
-let test#strategy = 'neovim'
-nmap <silent> <leader>T :TestFile <CR>
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>g :TestVisit<CR>
-"**********************
-" VimFugitive
-"**********************
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
-"**********************
-" Deoplete
-"**********************
-let g:deoplete#enable_at_startup = 1
-"Set shift-k and shift-j to cycle through autocomplete options
-inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
-inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+"****************************************************************************
 "**********************
 " Airline
 "**********************
@@ -251,6 +181,23 @@ let g:airline#extensions#default#layout = [
       \ [ 'y', 'z', 'error', 'warning']
       \ ]
 "**********************
+" Autoformat
+"**********************
+au BufWrite * :Autoformat
+" let g:formatters_javascript =['eslint']
+"**********************
+" Autosave
+"**********************
+" Enable AutoSave on Vim startup
+let g:auto_save = 1
+"**********************
+" Deoplete
+"**********************
+let g:deoplete#enable_at_startup = 1
+"Set shift-k and shift-j to cycle through autocomplete options
+inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
+inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+"**********************
 " FZF
 "**********************
 nmap <leader>p :FZF <CR>
@@ -269,22 +216,71 @@ function! s:fzf_statusline()
 endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 "**********************
+" NeoMake
+"**********************
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {
+      \   'text': '⚠️ ',
+      \   'texthl': 'NeomakeWarningSign',
+      \ }
+let g:neomake_message_sign = {
+      \   'text': '➤',
+      \   'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_ruby_enabled_makers = ['mri']
+"**********************
+" NerdTree
+"**********************
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 28
+let g:NERDTreeIndicatorMapCustom = {
+      \ "Modified"  : "!",
+      \ "Staged"    : "✚",
+      \ "Untracked" : "✭",
+      \ "Renamed"   : "➜",
+      \ "Unmerged"  : "═",
+      \ "Deleted"   : "✖",
+      \ "Dirty"     : "✗",
+      \ "Clean"     : "✔︎",
+      \ "Unknown"   : "?"
+      \ }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Auto close nerdtree when a file is opened
+let NERDTreeQuitOnOpen = 1
+" NerdTree Mappings
+noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
+nnoremap <leader>q :bp<cr>:bd #<cr>
+"**********************
 " Utili Snips
 "**********************
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
-"*****************************************************************************
-" Functions
-"*****************************************************************************
-"Text Wrapping
-if !exists('*s:setupWrapping')
-  set wm=2
-  set textwidth=80
+"**********************
+" VimFugitive
+"**********************
+if exists("*fugitive#statusline")
+  set statusline+=%{fugitive#statusline()}
 endif
-
-"Automatically delete whitespace, and repositions cursor
-autocmd BufWritePre * :%s/\s\+$//e
+"**********************
+" VimTest
+"**********************
+let test#strategy = 'neovim'
+nmap <silent> <leader>T :TestFile <CR>
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 "*****************************************************************************
 " Mappings
 "*****************************************************************************
