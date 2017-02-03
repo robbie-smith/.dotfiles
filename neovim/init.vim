@@ -1,7 +1,6 @@
 set nocompatible               " Be iMproved
 
 " Path for python
-let g:ycm_python_binary_path = '/usr/bin/python3'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable filetype detection
@@ -11,7 +10,6 @@ filetype on
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " The Silver Searcher
 let g:ackprg = 'ag --vimgrep'
-" Enable setting title
 " Reload files changed outside vim
 set autoread
 " Required:
@@ -27,12 +25,12 @@ Plug 'morhetz/gruvbox'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-"Fugitive(git-addon)
+" Fugitive(git-addon)
 Plug 'tpope/vim-fugitive'
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"GitGutter
+" GitGutter
 Plug 'airblade/vim-gitgutter'
 " NeoSnippets
 Plug 'Shougo/neosnippet'
@@ -43,9 +41,10 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Syntastic
 " Plug 'scrooloose/syntastic'
+Plug 'Chiel92/vim-autoformat'
 " NeoMake
 Plug 'neomake/neomake'
-"FZF
+" FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Surround
@@ -54,15 +53,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 " Vim Bundler
 Plug 'tpope/vim-bundler'
-" Vim AutoFormat
-Plug 'chiel92/vim-autoformat'
 " VimTest
 Plug 'janko-m/vim-test'
 " AutoSave
 Plug '907th/vim-auto-save'
 " VimPolyglot
 Plug 'sheerun/vim-polyglot'
-"Deoplete
+" Deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " VimCommentary
 Plug 'tpope/vim-commentary'
@@ -106,7 +103,8 @@ set expandtab
 set autoindent
 set smartindent
 set showcmd
-"****************************************************************************
+filetype plugin indent on
+"*****************************************************************************
 " Searching
 "*****************************************************************************
 set hlsearch  " Highlight all search results
@@ -129,32 +127,28 @@ if has("gui_running")
   set t_Co=256
 end
 "**********************
-" Color Scheme
+" color scheme
 "**********************
 "colorscheme gruvbox
 "colorscheme wombat256dave
 let g:neodark#background='brown' " black, gray or brown
 colorscheme neodark
-" Sets dark mode
-set background=dark
+" sets dark mode
+" set background=dark
 "**********************
-" Status bar
+" status bar
 "**********************
 set laststatus=2
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-" ****************************************************************************
+"****************************************************************************
 " Abbreviations
-" ****************************************************************************
+"****************************************************************************
 ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
-"**********************
-" Autoformat
-"**********************
-map <Leader>f :Autoformat<CR>
 au BufWrite * :Autoformat
-let g:autoformat_retab = 0 " uses default tabbing
+" let g:formatters_javascript =['eslint']
 "**********************
 " Autosave
 "**********************
@@ -194,8 +188,7 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 "**********************
 " NeoMake
 "**********************
-" autocmd! BufWritePost,BufEnter * Neomake
-autocmd InsertChange,TextChanged * update | Neomake
+autocmd! BufWritePost,BufEnter * Neomake
 let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = {
       \   'text': '⚠️ ',
@@ -236,7 +229,6 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -258,9 +250,9 @@ let g:airline#extensions#default#layout = [
       \ [ 'a', 'b', 'c' ],
       \ [ 'y', 'z', 'error', 'warning']
       \ ]
-" **********************
+"**********************
 " FZF
-" **********************
+"**********************
 nmap <leader>p :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
@@ -285,7 +277,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 "*****************************************************************************
 " Functions
 "*****************************************************************************
-" Text Wrapping
+"Text Wrapping
 if !exists('*s:setupWrapping')
   set wm=2
   set textwidth=80
@@ -299,7 +291,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Open current file on GitHub
 nnoremap <leader>o :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
-:nnoremap <CR> G
+nnoremap <CR> G
 " Buffer switching
 map <silent> <leader>l :bnext<CR>
 map <silent> <leader>h :bprev<CR>
@@ -310,8 +302,8 @@ nmap <Leader>c :noh<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 " Find and replace
-nmap <Leader>s :%s//gc<Left><Left>
-nmap <silent> <S-k> :wincmd k<CR>
-nmap <silent> <S-j> :wincmd j<CR>
-nmap <silent> <S-h> :wincmd h<CR>
-nmap <silent> <S-l> :wincmd l<CR>
+nmap <leader>s :%s//gc<left><left>
+nmap <silent> <s-k> :wincmd k<cr>
+nmap <silent> <s-j> :wincmd j<cr>
+nmap <silent> <s-h> :wincmd h<cr>
+nmap <silent> <s-l> :wincmd l<cr>
