@@ -202,8 +202,8 @@ fco() {
 
 fbd() {
   local branches branch
-  branches=$(git branch --all) &&
-  branch=$(echo "$branches" | fzf +m) &&
+    branches=$(git branch --all) &&
+    branch=$(echo "$branches" | fzf +m) &&
     git branch -d $(echo "$branch" | sed "s/.* //") && fbd
 }
 

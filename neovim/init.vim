@@ -42,7 +42,9 @@ Plug 'SirVer/ultisnips'
 " Vim Snippets
 Plug 'honza/vim-snippets'
 " Syntastic
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+" NeoMake
+Plug 'neomake/neomake'
 "FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -67,7 +69,6 @@ Plug 'tpope/vim-commentary'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
 call plug#end()
-
 "*****************************************************************************
 " Basic Setup
 "*****************************************************************************
@@ -79,6 +80,8 @@ set cursorline
 set hidden
 " Number of undo levels
 set undolevels=1000
+set undodir=~/.config/nvim/undodir
+set undofile
 " Set updatetime
 set updatetime=500
 " Directories for swp files
@@ -121,7 +124,6 @@ syntax on
 syntax enable
 set ruler
 set number
-set relativenumber
 " Tell the term has 256 colors
 if has("gui_running")
   set t_Co=256
@@ -143,21 +145,10 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 " ****************************************************************************
 " Abbreviations
 " ****************************************************************************
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
 ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
-autocmd! BufWritePost * Neomake
 "**********************
 " Autoformat
 "**********************
@@ -201,13 +192,28 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
 "**********************
+" NeoMake
+"**********************
+" autocmd! BufWritePost,BufEnter * Neomake
+autocmd InsertChange,TextChanged * update | Neomake
+let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {
+      \   'text': '⚠️ ',
+      \   'texthl': 'NeomakeWarningSign',
+      \ }
+let g:neomake_message_sign = {
+      \   'text': '➤',
+      \   'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_ruby_enabled_makers = ['mri']
+"**********************
 " VimTest
 "**********************
 let test#strategy = 'neovim'
 nmap <silent> <leader>T :TestFile <CR>
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 "**********************
 " VimFugitive
@@ -219,6 +225,9 @@ endif
 " Deoplete
 "**********************
 let g:deoplete#enable_at_startup = 1
+"Set shift-k and shift-j to cycle through autocomplete options
+inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
+inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
 "**********************
 " Airline
 "**********************
@@ -226,6 +235,7 @@ let g:deoplete#enable_at_startup = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
 
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -235,18 +245,22 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'neodark'
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline_skip_empty_sections = 1
-let g:airline_section_c = airline#section#create_left([' %l'])
-let g:ariline_section_x = 'filetype'
 let g:airline_section_y = '%{strftime("%H:%M")}'
-let g:airline_section_z = ''
-"**********************
+call airline#parts#define_raw('linenr', '%l:%c')
+call airline#parts#define_accent('linenr', 'bold')
+let g:airline_section_z = airline#section#create([
+      \ g:airline_symbols.linenr .' ', 'linenr'])
+let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'y', 'z', 'error', 'warning']
+      \ ]
+" **********************
 " FZF
-"**********************
+" **********************
 nmap <leader>p :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
@@ -268,7 +282,6 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<C-R>=UltiSnips#ExpandSnippet()"
 "*****************************************************************************
 " Functions
 "*****************************************************************************
@@ -288,12 +301,12 @@ nnoremap <leader>o :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 :nnoremap <CR> G
 " Buffer switching
-map <C-]> :bnext<CR>
-map <C-[> :bprev<CR>
+map <silent> <leader>l :bnext<CR>
+map <silent> <leader>h :bprev<CR>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
-nmap <Leader>s :noh<CR>
+nmap <Leader>c :noh<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 " Find and replace
