@@ -294,7 +294,7 @@ map <silent> <leader>h :bprev<CR>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
-nmap <Leader>c :noh<CR>
+nmap <silent> <Leader>c :noh<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 " Find and replace
