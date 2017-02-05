@@ -25,6 +25,8 @@ Plug 'morhetz/gruvbox'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" DelimitMate
+Plug 'Raimondi/delimitMate'
 " Fugitive(git-addon)
 Plug 'tpope/vim-fugitive'
 " Airline
