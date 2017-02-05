@@ -70,22 +70,29 @@ alias dotfiles="~/.dotfiles"
 
 function lazygit() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-                                                              git add .
-                                                              git commit -m "$1"
-                                                              git push -u origin "${BRANCH}"
-                                                              }
+  git add .
+  git commit -m "$1"
+  git push -u origin "${BRANCH}"
+}
 
-                                                              function lazyrails() {
-                                                              rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T
-                                                              cd "$1"
-                                                              bundle install
-                                                              }
+function lazyrails() {
+  rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T
+  cd "$1"
+  echo "
+  group :development, :test do
+    gem 'rspec-rails'
+    gem 'capybara'
+    gem 'launchy'
+    gem 'database_cleaner'
+    gem 'shoulda-matchers'
+  end " >> Gemfile
+  bundle install
+  rails g rspec:install
+}
 
-
-                                                              function md () { mkdir -p "$@" && cd "$@";}
+function md () { mkdir -p "$@" && cd "$@";}
 
 # git aware prompt
-
 function nonzero_return() {
 RETVAL=$?
 [ $RETVAL -ne 0 ] && echo "$RETVAL"
