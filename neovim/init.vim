@@ -147,13 +147,79 @@ ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
+"**********************
+" Airline
+"**********************
+" Powerline Symbols for Airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'neodark'
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#neomake#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_y = '%{strftime("%H:%M")}'
+call airline#parts#define_raw('linenr', '%l:%c')
+call airline#parts#define_accent('linenr', 'bold')
+let g:airline_section_z = airline#section#create([
+      \ g:airline_symbols.linenr .' ', 'linenr'])
+let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'y', 'z', 'error', 'warning']
+      \ ]
+"**********************
+" Autosave
+"**********************
 au BufWrite * :Autoformat
-" let g:formatters_javascript =['eslint']
 "**********************
 " Autosave
 "**********************
 " Enable AutoSave on Vim startup
 let g:auto_save = 1
+"**********************
+" FZF
+"**********************
+nmap <leader>p :FZF <CR>
+imap <C-f> <plug>(fzf-complete-file-ag)
+imap <C-l> <plug>(fzf-complete-line)
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+"**********************
+" Deoplete
+"**********************
+" For some reason these keybindings have to come after the FZF set up. Or
+" Deoplete will expand snippets and there will be an empty line and no
+" indentation.
+let g:deoplete#enable_at_startup = 1
+"Maps shift-k and shift-j to cycle through autocomplete options
+inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
+inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+"**********************
+" NeoMake
+"**********************
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {
+      \   'text': '⚠️ ',
+      \   'texthl': 'NeomakeWarningSign',
+      \ }
+let g:neomake_message_sign = {
+      \   'text': '➤',
+      \   'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
 " NerdTree
 "**********************
@@ -186,20 +252,17 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
 "**********************
-" NeoMake
+" Utili Snips
 "**********************
-autocmd! BufWritePost,BufEnter * Neomake
-let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {
-      \   'text': '⚠️ ',
-      \   'texthl': 'NeomakeWarningSign',
-      \ }
-let g:neomake_message_sign = {
-      \   'text': '➤',
-      \   'texthl': 'NeomakeMessageSign',
-      \ }
-let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
-let g:neomake_ruby_enabled_makers = ['mri']
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+"**********************
+" VimFugitive
+"**********************
+if exists("*fugitive#statusline")
+  set statusline+=%{fugitive#statusline()}
+endif
 "**********************
 " VimTest
 "**********************
@@ -208,72 +271,6 @@ nmap <silent> <leader>T :TestFile <CR>
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
-"**********************
-" VimFugitive
-"**********************
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
-"**********************
-" Deoplete
-"**********************
-let g:deoplete#enable_at_startup = 1
-"Set shift-k and shift-j to cycle through autocomplete options
-inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
-inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
-"**********************
-" Airline
-"**********************
-" Powerline Symbols for Airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'neodark'
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#neomake#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_y = '%{strftime("%H:%M")}'
-call airline#parts#define_raw('linenr', '%l:%c')
-call airline#parts#define_accent('linenr', 'bold')
-let g:airline_section_z = airline#section#create([
-      \ g:airline_symbols.linenr .' ', 'linenr'])
-let g:airline#extensions#default#layout = [
-      \ [ 'a', 'b', 'c' ],
-      \ [ 'y', 'z', 'error', 'warning']
-      \ ]
-"**********************
-" FZF
-"**********************
-nmap <leader>p :FZF <CR>
-imap <C-f> <plug>(fzf-complete-file-ag)
-imap <C-l> <plug>(fzf-complete-line)
-let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
-      \ }
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-"**********************
-" Utili Snips
-"**********************
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 "*****************************************************************************
 " Functions
 "*****************************************************************************
@@ -282,7 +279,6 @@ if !exists('*s:setupWrapping')
   set wm=2
   set textwidth=80
 endif
-
 "Automatically delete whitespace, and repositions cursor
 autocmd BufWritePre * :%s/\s\+$//e
 "*****************************************************************************
@@ -303,6 +299,7 @@ nmap <Leader>c :noh<CR>
 nmap <Leader>r :so %<CR>
 " Find and replace
 nmap <leader>s :%s//gc<left><left>
+" Maps Shift + k/j/h/l to move panes
 nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-j> :wincmd j<cr>
 nmap <silent> <s-h> :wincmd h<cr>
