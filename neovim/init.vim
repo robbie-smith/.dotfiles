@@ -19,9 +19,10 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Plug install packages
 "*****************************************************************************
 " Color Schemes
-Plug 'davb5/wombat256dave'
-Plug 'KeitaNakamura/neodark.vim'
+" Plug 'davb5/wombat256dave'
+" Plug 'KeitaNakamura/neodark.vim'
 Plug 'morhetz/gruvbox'
+" Plug 'altercation/vim-colors-solarized'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -133,10 +134,15 @@ end
 "**********************
 "colorscheme gruvbox
 "colorscheme wombat256dave
-let g:neodark#background='brown' " black, gray or brown
-colorscheme neodark
+" let g:neodark#background='gray' " black, gray or brown
+
 " sets dark mode
-" set background=dark
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark='low'
+" let g:solarized_termcolors=256
+" let g:solarized_contrast='low'
+" let g:solarized_visibility='normal'
 "**********************
 " status bar
 "**********************
@@ -149,7 +155,7 @@ ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
-"**********************
+
 " Airline
 "**********************
 " Powerline Symbols for Airline
@@ -161,10 +167,10 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
+let g:airline_symbols.branchi = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'neodark'
+let g:airline_theme = 'base16'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -287,7 +293,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Mappings
 "*****************************************************************************
 " Open current file on GitHub
-nnoremap <leader>o :Gbrowse<CR>
+inoremap <leader>o :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
@@ -305,4 +311,4 @@ nmap <leader>s :%s//gc<left><left>
 nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-j> :wincmd j<cr>
 nmap <silent> <s-h> :wincmd h<cr>
-nmap <silent> <s-l> :wincmd l<cr>
+cmap <silent> <s-l> :wincmd l<cr>
