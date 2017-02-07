@@ -9,7 +9,7 @@ filetype on
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " The Silver Searcher
-let g:ackprg = 'ag --vimgrep'
+" let g:ackprg = 'ag --vimgrep'
 " Reload files changed outside vim
 set autoread
 " Required:
@@ -20,9 +20,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 " Color Schemes
 " Plug 'davb5/wombat256dave'
-" Plug 'KeitaNakamura/neodark.vim'
-Plug 'morhetz/gruvbox'
-" Plug 'altercation/vim-colors-solarized'
+Plug 'KeitaNakamura/neodark.vim'
+" Plug 'morhetz/gruvbox'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -42,8 +41,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
 " Vim Snippets
 Plug 'honza/vim-snippets'
-" Syntastic
-" Plug 'scrooloose/syntastic'
+" AutoFormat
 Plug 'Chiel92/vim-autoformat'
 " NeoMake
 Plug 'neomake/neomake'
@@ -68,6 +66,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-commentary'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
+Plug 'euclio/vim-markdown-composer'
 call plug#end()
 "*****************************************************************************
 " Basic Setup
@@ -132,17 +131,8 @@ end
 "**********************
 " color scheme
 "**********************
-"colorscheme gruvbox
-"colorscheme wombat256dave
-" let g:neodark#background='gray' " black, gray or brown
-
-" sets dark mode
-colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark='low'
-" let g:solarized_termcolors=256
-" let g:solarized_contrast='low'
-" let g:solarized_visibility='normal'
+colorscheme neodark
+let g:neodark#background='brown' " black, gray or brown
 "**********************
 " status bar
 "**********************
@@ -155,7 +145,7 @@ ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
-
+"**********************
 " Airline
 "**********************
 " Powerline Symbols for Airline
@@ -170,7 +160,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branchi = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'base16'
+let g:airline_theme = 'neodark'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -203,6 +193,18 @@ let g:fzf_action = {
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit'
       \ }
+" Integrates ripgrep with FZF to search through my files
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 "**********************
 " Deoplete
 "**********************
@@ -210,9 +212,16 @@ let g:fzf_action = {
 " Deoplete will expand snippets and there will be an empty line and no
 " indentation.
 let g:deoplete#enable_at_startup = 1
+" let g:deoplete#sources = {}
+" let g:deoplete#sources._=['omni', 'buffer', 'ultisnips', 'vim-snippets', 'neosnippet-snippets', 'file']
 "Maps shift-k and shift-j to cycle through autocomplete options
+let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
 inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
 inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+"**********************
+" Vim-Markdown
+"**********************
+let g:markdown_composer_autostart = 1
 "**********************
 " NeoMake
 "**********************
@@ -297,8 +306,8 @@ inoremap <leader>o :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
-map <silent> <leader>l :bnext<CR>
-map <silent> <leader>h :bprev<CR>
+nmap <silent> <leader>] :bnext<CR>
+nmap <silent> <leader>[ :bprev<CR>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
@@ -311,4 +320,4 @@ nmap <leader>s :%s//gc<left><left>
 nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-j> :wincmd j<cr>
 nmap <silent> <s-h> :wincmd h<cr>
-cmap <silent> <s-l> :wincmd l<cr>
+nmap <silent> <s-l> :wincmd l<cr>
