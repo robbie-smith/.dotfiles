@@ -302,7 +302,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Mappings
 "*****************************************************************************
 " Open current file on GitHub
-inoremap <leader>o :Gbrowse<CR>
+noremap <leader>o :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
