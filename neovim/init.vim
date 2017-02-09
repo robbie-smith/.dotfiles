@@ -293,8 +293,8 @@ nnoremap <leader>o :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
-map <silent> <leader>l :bnext<CR>
-map <silent> <leader>h :bprev<CR>
+map <silent> <leader>] :bnext<CR>
+map <silent> <leader>[ :bprev<CR>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
