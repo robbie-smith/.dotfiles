@@ -8,8 +8,6 @@ filetype on
 
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-" The Silver Searcher
-" let g:ackprg = 'ag --vimgrep'
 " Reload files changed outside vim
 set autoread
 " Required:
@@ -66,7 +64,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-commentary'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
-Plug 'euclio/vim-markdown-composer'
 call plug#end()
 "*****************************************************************************
 " Basic Setup
