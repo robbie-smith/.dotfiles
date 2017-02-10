@@ -10,6 +10,11 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export EDITOR=atom
+export FZF_DEFAULT_OPTS='--height 40% --reverse'
+
+export HISTCONTROL=erasedups
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 function prompt {
   local BLACK="\[\033[0;30m\]"
@@ -58,7 +63,6 @@ alias gs="git status"
 alias gcm="git commit -m"
 alias gpo="git push origin"
 alias gb="git branch"
-alias gcb="fco"
 alias gc="git checkout"
 alias gmaster="git checkout master"
 alias gac="git add . && git commit -m"
@@ -149,6 +153,13 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
 
+# fhe() {
+#   (history | fzf --tac --tiebreak=index | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+# }
+# fh() {
+#   ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//'
+# }
+
 # fd - cd to selected directory
 fd() {
 DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
@@ -160,8 +171,8 @@ fda() {
   DIR=`find ${1:-.} -type d 2> /dev/null | fzf-tmux` && cd "$DIR"
 }
 
-# fdr - cd to selected parent directory
-fdr() {
+# cdu - cd to selected parent directory
+cdu() {
   local declare dirs=()
     get_parent_dirs() {
       if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
@@ -182,8 +193,8 @@ cdf() {
     file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
-# fbr - checkout git branch (including remote branches)
-fbr() {
+# gcrb - checkout git branch (including remote branches)
+gcrb() {
   local branches branch
     branches=$(git branch --all | grep -v HEAD) &&
     branch=$(echo "$branches" |
@@ -191,8 +202,8 @@ fbr() {
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
-# fco - checkout git branch/tag
-fco() {
+# gcb - checkout git branch/tag
+gcb() {
   local tags branches target
     tags=$(
         git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
@@ -206,20 +217,34 @@ fco() {
     git checkout $(echo "$target" | awk '{print $2}')
 }
 
-
-fbd() {
+# delete merged branch
+gdb() {
   local branches branch
-    branches=$(git branch --all) &&
-    branch=$(echo "$branches" | fzf +m) &&
-    git branch -d $(echo "$branch" | sed "s/.* //") && fbd
+  branches=$(git branch --merged) &&
+  branch=$(echo "$branches" | fzf +m) &&
+    git branch -d $(echo "$branch" | sed "s/.* //") && fbrd
 }
 
-# fcoc - checkout git commit
-fcoc() {
-  local commits commit
-    commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-    git checkout $(echo "$commit" | sed "s/ .*//")
+# show commit history, enter to select commit and see the diff
+fshow() {
+  local out shas sha q k
+  while out=$(
+      git log --graph --color=always \
+          --format="%C(auto)%h%d %s %C(green)%C(bold)%cr" "$@" |
+      fzf --ansi --multi --no-sort --reverse --query="$q" \
+          --print-query --expect=ctrl-d); do
+    q=$(head -1 <<< "$out")
+    k=$(head -2 <<< "$out" | tail -1)
+    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+    [ -z "$shas" ] && continue
+    if [ "$k" = ctrl-d ]; then
+      git diff --color=always $shas | less -R
+    else
+      for sha in $shas; do
+        git show --color=always $sha | less -R
+      done
+    fi
+  done
 }
 
 # fkill - kill process
