@@ -1,5 +1,12 @@
-export FZF_DEFAULT_OPTS='--height 40% --reverse'
+export FZF_DEFAULT_OPTS='--height 50% --reverse'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+csi() {
+  echo -en "\x1b[$@"
+}
+
+fzf-down() {
+  fzf --height 50% "$@"
+}
 
 fd() {
 DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
@@ -87,6 +94,38 @@ fshow() {
   done
 }
 
+gstash() {
+  local out k reflog
+  out=(
+    $(git stash list --pretty='%C(yellow)%gd %>(14)%Cgreen%cr %C(blue)%gs' |
+      fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
+          --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
+          --preview-window=down:50% --reverse \
+          --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+          --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+          --expect=ctrl-o,ctrl-y,ctrl-x))
+  k=${out[0]}
+  reflog=${out[1]}
+  [ -n "$reflog" ] && case "$k" in
+    ctrl-o) git stash pop $reflog ;;
+    ctrl-y) git stash apply $reflog ;;
+    ctrl-x) git stash drop $reflog ;;
+  esac
+}
+
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+gh() {
+  is_in_git_repo || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -200' |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
 # fkill - kill process
 fkill() {
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
@@ -95,11 +134,4 @@ fkill() {
       then
         kill -${1:-9} $pid
         fi
-}
-# rbenv integration
-frb() {
-  local rb
-    rb=$((echo system; rbenv versions | grep ruby | cut -c 4-) |
-        awk '{print $1}' |
-        fzf-tmux -l 30 +m --reverse) && rbenv global $rb
 }

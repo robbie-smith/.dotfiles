@@ -128,8 +128,8 @@ end
 "**********************
 " color scheme
 "**********************
+let g:neodark#background='black' " black, gray or brown
 colorscheme neodark
-let g:neodark#background='brown' " black, gray or brown
 "**********************
 " status bar
 "**********************
