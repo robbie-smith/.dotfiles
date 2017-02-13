@@ -8,6 +8,10 @@ fzf-down() {
   fzf --height 50% "$@"
 }
 
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
 fd() {
 DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
     && cd "$DIR"
@@ -73,7 +77,7 @@ gdb() {
 }
 
 # show commit history, enter to select commit and see the diff
-fshow() {
+gshow() {
   local out shas sha q k
   while out=$(
       git log --graph --color=always \
@@ -113,10 +117,6 @@ gstash() {
   esac
 }
 
-is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
-
 gh() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
@@ -124,6 +124,11 @@ gh() {
     --header 'Press CTRL-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -200' |
   grep -o "[a-f0-9]\{7,\}"
+}
+
+gd() {
+  is_in_git_repo || return
+  $(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)
 }
 
 # fkill - kill process

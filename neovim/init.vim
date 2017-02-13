@@ -19,10 +19,16 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Color Schemes
 " Plug 'davb5/wombat256dave'
 Plug 'KeitaNakamura/neodark.vim'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
+" Plug 'AlessandroYorba/Alduin'
+" Plug 'AlessandroYorba/sidonia'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'junegunn/zenburn'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" MatchTag
+Plug 'gregsexton/MatchTag'
 " DelimitMate
 Plug 'Raimondi/delimitMate'
 " Fugitive(git-addon)
@@ -64,6 +70,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-commentary'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
+" Git commit browser
+Plug 'junegunn/gv.vim'
 call plug#end()
 "*****************************************************************************
 " Basic Setup
@@ -125,11 +133,16 @@ set number
 if has("gui_running")
   set t_Co=256
 end
+set termguicolors
 "**********************
 " color scheme
 "**********************
-let g:neodark#background='black' " black, gray or brown
+" let g:neodark#background='black' " black, gray or brown
 colorscheme neodark
+set background=dark
+" let g:seoul256_background = 236
+" colo seoul256
+" colorscheme gruvbox
 "**********************
 " status bar
 "**********************
@@ -183,7 +196,7 @@ let g:auto_save = 1
 "**********************
 " FZF
 "**********************
-nmap <leader>p :FZF <CR>
+nmap <leader>o :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
@@ -215,10 +228,6 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
 inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
 inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
-"**********************
-" Vim-Markdown
-"**********************
-let g:markdown_composer_autostart = 1
 "**********************
 " NeoMake
 "**********************
@@ -299,7 +308,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Mappings
 "*****************************************************************************
 " Open current file on GitHub
-noremap <leader>o :Gbrowse<CR>
+noremap <leader>g :Gbrowse<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
@@ -314,8 +323,8 @@ nmap <Leader>r :so %<CR>
 " Find and replace
 nmap <leader>s :%s//gc<left><left>
 " Maps Shift + k/j/h/l to move panes
-nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-j> :wincmd j<cr>
+nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-h> :wincmd h<cr>
 nmap <silent> <s-l> :wincmd l<cr>
 
