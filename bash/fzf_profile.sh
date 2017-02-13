@@ -59,7 +59,7 @@ gcb() {
     tags=$(
         git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
     branches=$(
-        git branch --all | grep -v HEAD             |
+        git branch --color | grep -v HEAD             |
         sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
         sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
     target=$(
@@ -68,12 +68,11 @@ gcb() {
     git checkout $(echo "$target" | awk '{print $2}')
 }
 
-# delete merged branch
 gdb() {
   local branches branch
   branches=$(git branch --merged) &&
   branch=$(echo "$branches" | fzf +m) &&
-    git branch -d $(echo "$branch" | sed "s/.* //") && fbrd
+    git branch -d $(echo "$branch" | sed "s/.* //") && gdb
 }
 
 # show commit history, enter to select commit and see the diff
