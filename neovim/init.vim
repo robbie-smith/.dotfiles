@@ -314,6 +314,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 "*****************************************************************************
 " Open current file on GitHub
 noremap <leader>g :Gbrowse<CR>
+" Clears the paste mode
+noremap <leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
