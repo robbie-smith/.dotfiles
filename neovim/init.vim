@@ -8,8 +8,6 @@ filetype on
 
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-" The Silver Searcher
-let g:ackprg = 'ag --vimgrep'
 " Reload files changed outside vim
 set autoread
 " Required:
@@ -19,12 +17,21 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Plug install packages
 "*****************************************************************************
 " Color Schemes
-Plug 'davb5/wombat256dave'
+" Plug 'davb5/wombat256dave'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'morhetz/gruvbox'
+" Plug 'AlessandroYorba/Alduin'
+" Plug 'AlessandroYorba/sidonia'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'junegunn/zenburn'
+Plug 'mhartington/oceanic-next'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" MatchTag
+Plug 'gregsexton/MatchTag'
+" DelimitMate
+Plug 'Raimondi/delimitMate'
 " Fugitive(git-addon)
 Plug 'tpope/vim-fugitive'
 " Airline
@@ -39,8 +46,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
 " Vim Snippets
 Plug 'honza/vim-snippets'
-" Syntastic
-" Plug 'scrooloose/syntastic'
+" AutoFormat
 Plug 'Chiel92/vim-autoformat'
 " NeoMake
 Plug 'neomake/neomake'
@@ -65,6 +71,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-commentary'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
+" Git commit browser
+Plug 'junegunn/gv.vim'
 call plug#end()
 "*****************************************************************************
 " Basic Setup
@@ -123,18 +131,23 @@ syntax enable
 set ruler
 set number
 " Tell the term has 256 colors
-if has("gui_running")
-  set t_Co=256
-end
+if (has("termguicolors"))
+  set termguicolors
+endif
 "**********************
 " color scheme
 "**********************
-"colorscheme gruvbox
-"colorscheme wombat256dave
-let g:neodark#background='brown' " black, gray or brown
-colorscheme neodark
-" sets dark mode
-" set background=dark
+" let g:neodark#background='black' " black, gray or brown
+" colorscheme neodark
+set background=dark
+colorscheme OceanicNext
+" Makes the highlighting better for the OceanicNext theme
+highlight LineNr guibg=#1b2b34
+hi GitGutterChange guibg=#1b2b34
+hi GitGutterAdd  guibg=#1b2b34
+hi GitGutterDelete guibg=#1b2b34
+hi GitGutterChangeDelete guibg=#1b2b34
+" colorscheme gruvbox
 "**********************
 " status bar
 "**********************
@@ -147,13 +160,94 @@ ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
+"**********************
+" Airline
+"**********************
+" Powerline Symbols for Airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branchi = ''
+let g:airline_symbols.readonly = ''
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'neodark'
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#neomake#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_y = '%{strftime("%H:%M")}'
+call airline#parts#define_raw('linenr', '%l:%c')
+call airline#parts#define_accent('linenr', 'bold')
+let g:airline_section_z = airline#section#create([
+      \ g:airline_symbols.linenr .' ', 'linenr'])
+let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'y', 'z', 'error', 'warning']
+      \ ]
+"**********************
+" Autosave
+"**********************
 au BufWrite * :Autoformat
-" let g:formatters_javascript =['eslint']
 "**********************
 " Autosave
 "**********************
 " Enable AutoSave on Vim startup
 let g:auto_save = 1
+"**********************
+" FZF
+"**********************
+nmap <leader>o :FZF <CR>
+imap <C-f> <plug>(fzf-complete-file-ag)
+imap <C-l> <plug>(fzf-complete-line)
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+" Integrates ripgrep with FZF to search through my files
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+"**********************
+" Deoplete
+"**********************
+" For some reason these keybindings have to come after the FZF set up. Or
+" Deoplete will expand snippets and there will be an empty line and no
+" indentation.
+let g:deoplete#enable_at_startup = 1
+" let g:deoplete#sources = {}
+" let g:deoplete#sources._=['omni', 'buffer', 'ultisnips', 'vim-snippets', 'neosnippet-snippets', 'file']
+"Maps shift-k and shift-j to cycle through autocomplete options
+let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
+inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
+inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+"**********************
+" NeoMake
+"**********************
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {
+      \   'text': '⚠️ ',
+      \   'texthl': 'NeomakeWarningSign',
+      \ }
+let g:neomake_message_sign = {
+      \   'text': '➤',
+      \   'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
 " NerdTree
 "**********************
@@ -186,20 +280,17 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
 "**********************
-" NeoMake
+" Utili Snips
 "**********************
-autocmd! BufWritePost,BufEnter * Neomake
-let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {
-      \   'text': '⚠️ ',
-      \   'texthl': 'NeomakeWarningSign',
-      \ }
-let g:neomake_message_sign = {
-      \   'text': '➤',
-      \   'texthl': 'NeomakeMessageSign',
-      \ }
-let g:neomake_info_sign = {'text': '⁉️ ', 'texthl': 'NeomakeInfoSign'}
-let g:neomake_ruby_enabled_makers = ['mri']
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+"**********************
+" VimFugitive
+"**********************
+if exists("*fugitive#statusline")
+  set statusline+=%{fugitive#statusline()}
+endif
 "**********************
 " VimTest
 "**********************
@@ -208,72 +299,6 @@ nmap <silent> <leader>T :TestFile <CR>
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
-"**********************
-" VimFugitive
-"**********************
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
-"**********************
-" Deoplete
-"**********************
-let g:deoplete#enable_at_startup = 1
-"Set shift-k and shift-j to cycle through autocomplete options
-inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
-inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
-"**********************
-" Airline
-"**********************
-" Powerline Symbols for Airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'neodark'
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#neomake#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_y = '%{strftime("%H:%M")}'
-call airline#parts#define_raw('linenr', '%l:%c')
-call airline#parts#define_accent('linenr', 'bold')
-let g:airline_section_z = airline#section#create([
-      \ g:airline_symbols.linenr .' ', 'linenr'])
-let g:airline#extensions#default#layout = [
-      \ [ 'a', 'b', 'c' ],
-      \ [ 'y', 'z', 'error', 'warning']
-      \ ]
-"**********************
-" FZF
-"**********************
-nmap <leader>p :FZF <CR>
-imap <C-f> <plug>(fzf-complete-file-ag)
-imap <C-l> <plug>(fzf-complete-line)
-let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
-      \ }
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-"**********************
-" Utili Snips
-"**********************
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 "*****************************************************************************
 " Functions
 "*****************************************************************************
@@ -282,14 +307,15 @@ if !exists('*s:setupWrapping')
   set wm=2
   set textwidth=80
 endif
-
 "Automatically delete whitespace, and repositions cursor
 autocmd BufWritePre * :%s/\s\+$//e
 "*****************************************************************************
 " Mappings
 "*****************************************************************************
 " Open current file on GitHub
-nnoremap <leader>o :Gbrowse<CR>
+noremap <leader>g :Gbrowse<CR>
+" Clears the paste mode
+noremap <leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
@@ -303,7 +329,9 @@ nmap <Leader>c :noh<CR>
 nmap <Leader>r :so %<CR>
 " Find and replace
 nmap <leader>s :%s//gc<left><left>
-nmap <silent> <s-k> :wincmd k<cr>
+" Maps Shift + k/j/h/l to move panes
 nmap <silent> <s-j> :wincmd j<cr>
+nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-h> :wincmd h<cr>
 nmap <silent> <s-l> :wincmd l<cr>
+

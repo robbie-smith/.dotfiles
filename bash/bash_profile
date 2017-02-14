@@ -1,5 +1,8 @@
 [[ -s ~/.bashrc ]] && source ~/.bashrc
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+source ~/.dotfiles/bash/git_profile.sh
+source ~/.dotfiles/bash/colors.sh
+source ~/.dotfiles/bash/fzf_profile.sh
 eval "$(rbenv init -)"
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -9,32 +12,8 @@ export GOPATH=$HOME/Go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
-export EDITOR=atom
-
-function prompt {
-  local BLACK="\[\033[0;30m\]"
-    local BLACKBOLD="\[\033[1;30m\]"
-    local RED="\[\033[0;31m\]"
-    local REDBOLD="\[\033[1;31m\]"
-    local GREEN="\[\033[0;32m\]"
-    local GREENBOLD="\[\033[1;32m\]"
-    local YELLOW="\[\033[0;33m\]"
-    local YELLOWBOLD="\[\033[1;33m\]"
-    local BLUE="\[\033[0;34m\]"
-    local BLUEBOLD="\[\033[1;34m\]"
-    local PURPLE="\[\033[0;35m\]"
-    local PURPLEBOLD="\[\033[1;35m\]"
-    local CYAN="\[\033[0;36m\]"
-    local CYANBOLD="\[\033[1;36m\]"
-    local WHITE="\[\033[0;37m\]"
-    local WHITEBOLD="\[\033[1;37m\]"
-    local RESETCOLOR="\[\e[00m\]"
-
-    export PS1="\n$RED\u $PURPLE@ $GREEN\W $RESETCOLOR$GREENBOLD\$(parse_git_branch)\n$BLUE → $RESETCOLOR"
-    export PS2=" | → $RESETCOLOR"
-}
-
-prompt
+export EDITOR=nvim
+export HISTCONTROL=erasedups
 
 alias bash='atom ~/.dotfiles/bash/bash_profile'
 alias reload='source ~/.dotfiles/bash/bash_profile'
@@ -58,7 +37,6 @@ alias gs="git status"
 alias gcm="git commit -m"
 alias gpo="git push origin"
 alias gb="git branch"
-alias gcb="fco"
 alias gc="git checkout"
 alias gmaster="git checkout master"
 alias gac="git add . && git commit -m"
@@ -70,164 +48,24 @@ alias dotfiles="~/.dotfiles"
 
 function lazygit() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-                                                              git add .
-                                                              git commit -m "$1"
-                                                              git push -u origin "${BRANCH}"
-                                                              }
-
-                                                              function lazyrails() {
-                                                              rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T
-                                                              cd "$1"
-                                                              bundle install
-                                                              }
-
-
-                                                              function md () { mkdir -p "$@" && cd "$@";}
-
-# git aware prompt
-
-function nonzero_return() {
-RETVAL=$?
-[ $RETVAL -ne 0 ] && echo "$RETVAL"
+  git add .
+  git commit -m "$1"
+  git push -u origin "${BRANCH}"
 }
 
-# get current branch in git repo
-function parse_git_branch() {
-BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-if [ ! "${BRANCH}" == "" ]
-then
-STAT=`parse_git_dirty`
-echo -e "\033[m|\033[33m${BRANCH} \033[m${STAT}\033[m|\033[m"
-else
-echo ""
-fi
+function lazyrails() {
+  rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T
+  cd "$1"
+  echo "
+  group :development, :test do
+    gem 'rspec-rails'
+    gem 'capybara'
+    gem 'launchy'
+    gem 'database_cleaner'
+    gem 'shoulda-matchers'
+  end " >> Gemfile
+  bundle install
+  rails g rspec:install
 }
 
-# get current status of git repo
-function parse_git_dirty {
-status=`git status 2>&1 | tee`
-dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
-bits=''
-if [ "${renamed}" == "0" ]; then
-bits="R${bits}"
-fi
-if [ "${ahead}" == "0" ]; then
-bits="→${bits}"
-fi
-if [ "${newfile}" == "0" ]; then
-bits="+${bits}"
-fi
-if [ "${untracked}" == "0" ]; then
-bits="?${bits}"
-fi
-if [ "${deleted}" == "0" ]; then
-bits="✖${bits}"
-fi
-if [ "${dirty}" == "0" ]; then
-bits="✗${bits}"
-fi
-if [ ! "${bits}" == "" ]; then
-echo -e "\033[31m${bits}\033[m"
-else
-echo -e " \033[32m✓\033[m"
-fi
-}
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
-
-# fd - cd to selected directory
-fd() {
-DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
-    && cd "$DIR"
-}
-
-# fda - including hidden directories
-fda() {
-  DIR=`find ${1:-.} -type d 2> /dev/null | fzf-tmux` && cd "$DIR"
-}
-
-# fdr - cd to selected parent directory
-fdr() {
-  local declare dirs=()
-    get_parent_dirs() {
-      if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-        if [[ "${1}" == '/' ]]; then
-          for _dir in "${dirs[@]}"; do echo $_dir; done
-        else
-          get_parent_dirs $(dirname "$1")
-            fi
-    }
-  local DIR=$(get_parent_dirs $(realpath "${1:-$(pwd)}") | fzf-tmux --tac)
-    cd "$DIR"
-}
-
-# cdf - cd into the directory of the selected file
-cdf() {
-  local file
-    local dir
-    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
-
-# fbr - checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-    branches=$(git branch --all | grep -v HEAD) &&
-    branch=$(echo "$branches" |
-        fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# fco - checkout git branch/tag
-fco() {
-  local tags branches target
-    tags=$(
-        git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-    branches=$(
-        git branch --all | grep -v HEAD             |
-        sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-        sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-    target=$(
-        (echo "$tags"; echo "$branches") |
-        fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
-    git checkout $(echo "$target" | awk '{print $2}')
-}
-
-
-fbd() {
-  local branches branch
-    branches=$(git branch --all) &&
-    branch=$(echo "$branches" | fzf +m) &&
-    git branch -d $(echo "$branch" | sed "s/.* //") && fbd
-}
-
-# fcoc - checkout git commit
-fcoc() {
-  local commits commit
-    commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-    git checkout $(echo "$commit" | sed "s/ .*//")
-}
-
-# fkill - kill process
-fkill() {
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-    if [ "x$pid" != "x" ]
-      then
-        kill -${1:-9} $pid
-        fi
-}
-# rbenv integration
-frb() {
-  local rb
-    rb=$((echo system; rbenv versions | grep ruby | cut -c 4-) |
-        awk '{print $1}' |
-        fzf-tmux -l 30 +m --reverse) && rbenv global $rb
-}
+function md () { mkdir -p "$@" && cd "$@";}
