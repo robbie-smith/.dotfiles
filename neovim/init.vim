@@ -24,6 +24,7 @@ Plug 'morhetz/gruvbox'
 " Plug 'AlessandroYorba/sidonia'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'junegunn/zenburn'
+Plug 'mhartington/oceanic-next'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -130,18 +131,22 @@ syntax enable
 set ruler
 set number
 " Tell the term has 256 colors
-if has("gui_running")
-  set t_Co=256
-end
-set termguicolors
+if (has("termguicolors"))
+  set termguicolors
+endif
 "**********************
 " color scheme
 "**********************
 " let g:neodark#background='black' " black, gray or brown
-colorscheme neodark
+" colorscheme neodark
 set background=dark
-" let g:seoul256_background = 236
-" colo seoul256
+colorscheme OceanicNext
+" Makes the highlighting better for the OceanicNext theme
+highlight LineNr guibg=#1b2b34
+hi GitGutterChange guibg=#1b2b34
+hi GitGutterAdd  guibg=#1b2b34
+hi GitGutterDelete guibg=#1b2b34
+hi GitGutterChangeDelete guibg=#1b2b34
 " colorscheme gruvbox
 "**********************
 " status bar
