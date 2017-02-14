@@ -17,6 +17,23 @@ DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux
     && cd "$DIR"
 }
 
+# Modified version where you can press
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with the $EDITOR
+fo() {
+  local out file key
+  IFS=$'\n' read -d '' -r -a out < <(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
+  key=${out[0]}
+  file=${out[1]}
+  if [ -n "$file" ]; then
+    if [ "$key" = ctrl-o ]; then
+      open "$file"
+    else
+      ${EDITOR:-vim} "$file"
+    fi
+  fi
+}
+
 # fda - including hidden directories
 fda() {
   DIR=`find ${1:-.} -type d 2> /dev/null | fzf-tmux` && cd "$DIR"
@@ -44,9 +61,28 @@ cdf() {
     file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
+# fh - search history and enter to run command
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+# fkill - kill process
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+    if [ "x$pid" != "x" ]
+      then
+        kill -${1:-9} $pid
+        fi
+}
+
+
+
+##Git Functions
 # gcrb - checkout git branch (including remote branches)
 gcrb() {
   local branches branch
+    git fetch origin
     branches=$(git branch --all | grep -v HEAD) &&
     branch=$(echo "$branches" |
         fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
@@ -75,7 +111,7 @@ gdb() {
     git branch -d $(echo "$branch" | sed "s/.* //") && gdb
 }
 
-# show commit history, enter to select commit and see the diff
+# show commit history, enter to select commit and  ctrl-d to see the diff
 gshow() {
   local out shas sha q k
   while out=$(
@@ -116,6 +152,7 @@ gstash() {
   esac
 }
 
+#show git history and diff
 gh() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
@@ -125,17 +162,4 @@ gh() {
   grep -o "[a-f0-9]\{7,\}"
 }
 
-gd() {
-  is_in_git_repo || return
-  $(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)
-}
-
-# fkill - kill process
-fkill() {
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-    if [ "x$pid" != "x" ]
-      then
-        kill -${1:-9} $pid
-        fi
-}
+bind '"\er": redraw-current-line'
