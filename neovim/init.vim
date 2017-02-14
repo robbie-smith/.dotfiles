@@ -8,8 +8,6 @@ filetype on
 
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-" The Silver Searcher
-" let g:ackprg = 'ag --vimgrep'
 " Reload files changed outside vim
 set autoread
 " Required:
@@ -21,10 +19,17 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Color Schemes
 " Plug 'davb5/wombat256dave'
 Plug 'KeitaNakamura/neodark.vim'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
+" Plug 'AlessandroYorba/Alduin'
+" Plug 'AlessandroYorba/sidonia'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'junegunn/zenburn'
+Plug 'mhartington/oceanic-next'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" MatchTag
+Plug 'gregsexton/MatchTag'
 " DelimitMate
 Plug 'Raimondi/delimitMate'
 " Fugitive(git-addon)
@@ -66,7 +71,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-commentary'
 " Nvim GO
 Plug 'zchee/nvim-go', { 'do': 'make'}
-Plug 'euclio/vim-markdown-composer'
+" Git commit browser
+Plug 'junegunn/gv.vim'
 call plug#end()
 "*****************************************************************************
 " Basic Setup
@@ -125,14 +131,23 @@ syntax enable
 set ruler
 set number
 " Tell the term has 256 colors
-if has("gui_running")
-  set t_Co=256
-end
+if (has("termguicolors"))
+  set termguicolors
+endif
 "**********************
 " color scheme
 "**********************
-colorscheme neodark
-let g:neodark#background='brown' " black, gray or brown
+" let g:neodark#background='black' " black, gray or brown
+" colorscheme neodark
+set background=dark
+colorscheme OceanicNext
+" Makes the highlighting better for the OceanicNext theme
+highlight LineNr guibg=#1b2b34
+hi GitGutterChange guibg=#1b2b34
+hi GitGutterAdd  guibg=#1b2b34
+hi GitGutterDelete guibg=#1b2b34
+hi GitGutterChangeDelete guibg=#1b2b34
+" colorscheme gruvbox
 "**********************
 " status bar
 "**********************
@@ -186,7 +201,7 @@ let g:auto_save = 1
 "**********************
 " FZF
 "**********************
-nmap <leader>p :FZF <CR>
+nmap <leader>o :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
@@ -204,7 +219,7 @@ let g:fzf_action = {
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 "**********************
 " Deoplete
 "**********************
@@ -218,10 +233,6 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
 inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
 inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
-"**********************
-" Vim-Markdown
-"**********************
-let g:markdown_composer_autostart = 1
 "**********************
 " NeoMake
 "**********************
@@ -302,7 +313,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Mappings
 "*****************************************************************************
 " Open current file on GitHub
-noremap <leader>o :Gbrowse<CR>
+noremap <leader>g :Gbrowse<CR>
+" Clears the paste mode
+noremap <leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Buffer switching
@@ -317,7 +330,8 @@ nmap <Leader>r :so %<CR>
 " Find and replace
 nmap <leader>s :%s//gc<left><left>
 " Maps Shift + k/j/h/l to move panes
-nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-j> :wincmd j<cr>
+nmap <silent> <s-k> :wincmd k<cr>
 nmap <silent> <s-h> :wincmd h<cr>
 nmap <silent> <s-l> :wincmd l<cr>
+
