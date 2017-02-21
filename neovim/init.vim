@@ -330,11 +330,13 @@ nmap <leader>s :%s//gc<left><left>
 " AutoFormat
 noremap <s-f> :Autoformat<CR>
 " Buffer switching
-nmap <silent> <leader>[ :bprev<cr>
-nmap <silent> <leader>] :bnext<cr>
+nmap <silent> <s-h> :bprev<cr>
+nmap <silent> <s-l> :bnext<cr>
+" nmap <silent> <leader>[ :bprev<cr>
+" nmap <silent> <leader>] :bnext<cr>
 
 " Maps Shift + k/j/h/l to move panes
-nmap <silent> <s-j> :wincmd j<cr>
-nmap <silent> <s-k> :wincmd k<cr>
-nmap <silent> <s-h> :wincmd h<cr>
-nmap <silent> <s-l> :wincmd l<cr>
+nmap <silent> <c-j> :wincmd j<cr>
+nmap <silent> <c-k> :wincmd k<cr>
+nmap <silent> <c-h> :wincmd h<cr>
+nmap <silent> <c-l> :wincmd l<cr>
