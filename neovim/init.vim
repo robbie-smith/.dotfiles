@@ -72,6 +72,12 @@ Plug 'zchee/nvim-go', { 'do': 'make'}
 " Git commit browser
 Plug 'junegunn/gv.vim'
 " Vim Elixir
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+  endif
+endfunction
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
