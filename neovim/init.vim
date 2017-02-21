@@ -200,7 +200,7 @@ let g:airline#extensions#default#layout = [
 "**********************
 " Autoformat
 "**********************
-au BufWrite * :Autoformat
+au InsertLeave * :Autoformat
 "**********************
 " FZF
 "**********************
@@ -306,7 +306,8 @@ if !exists('*s:setupWrapping')
 endif
 "Automatically delete whitespace, and repositions cursor
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd InsertLeave * :w
+" autocmd BufWritePre * :Autoformat
+autocmd InsertLeave * :update
 "*****************************************************************************
 " Mappings
 "*****************************************************************************
