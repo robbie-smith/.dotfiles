@@ -76,8 +76,6 @@ fkill() {
         fi
 }
 
-
-
 ##Git Functions
 # gcrb - checkout git branch (including remote branches)
 gcrb() {

@@ -3,6 +3,8 @@
 source ~/.dotfiles/bash/git_profile.sh
 source ~/.dotfiles/bash/colors.sh
 source ~/.dotfiles/bash/fzf_profile.sh
+export PATH=$PATH:/path/to/geckodriver
+export PATH="/usr/local/bin:$PATH"
 eval "$(rbenv init -)"
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -57,12 +59,19 @@ function lazyrails() {
   rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T
   cd "$1"
   echo "
+  group :test do
+  gem 'rack_session_access'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'shoulda-matchers'
+ end
   group :development, :test do
     gem 'rspec-rails'
-    gem 'capybara'
-    gem 'launchy'
     gem 'database_cleaner'
-    gem 'shoulda-matchers'
+    gem 'byebug', platform: :mri
+    gem 'factory_girl_rails'
+    gem 'pry'
+    gem 'pry-byebug'
   end " >> Gemfile
   bundle install
   rails g rspec:install

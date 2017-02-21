@@ -61,8 +61,6 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 " VimTest
 Plug 'janko-m/vim-test'
-" AutoSave
-Plug '907th/vim-auto-save'
 " VimPolyglot
 Plug 'sheerun/vim-polyglot'
 " Deoplete
@@ -73,6 +71,16 @@ Plug 'tpope/vim-commentary'
 Plug 'zchee/nvim-go', { 'do': 'make'}
 " Git commit browser
 Plug 'junegunn/gv.vim'
+" Vim Elixir
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+  endif
+endfunction
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+Plug 'elixir-lang/vim-elixir'
+Plug 'thinca/vim-ref'
+Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
 "*****************************************************************************
 " Basic Setup
@@ -190,14 +198,9 @@ let g:airline#extensions#default#layout = [
       \ [ 'y', 'z', 'error', 'warning']
       \ ]
 "**********************
-" Autosave
+" Autoformat
 "**********************
 au BufWrite * :Autoformat
-"**********************
-" Autosave
-"**********************
-" Enable AutoSave on Vim startup
-let g:auto_save = 1
 "**********************
 " FZF
 "**********************
@@ -239,7 +242,7 @@ inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
 autocmd! BufWritePost,BufEnter * Neomake
 hi NeomakeErrorSign guibg=#1b2b34
 hi NeomakeWarningSign guibg=#1b2b34
-let g:neomake_error_sign = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
@@ -289,8 +292,8 @@ endif
 " VimTest
 "**********************
 let test#strategy = 'neovim'
-nmap <silent> <leader>T :TestFile <CR>
-nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>t :TestFile <CR>
+nmap <silent> <leader>l :TestNearest<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 "*****************************************************************************
@@ -303,6 +306,7 @@ if !exists('*s:setupWrapping')
 endif
 "Automatically delete whitespace, and repositions cursor
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd InsertLeave * :w
 "*****************************************************************************
 " Mappings
 "*****************************************************************************
@@ -312,9 +316,9 @@ noremap <leader>g :Gbrowse<CR>
 noremap <leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
-" Buffer switching
-map <silent> <leader>] :bnext<CR>
-map <silent> <leader>[ :bprev<CR>
+" Save
+noremap <Leader>w :w <cr>
+nmap <c-q> <ESC>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
@@ -323,9 +327,16 @@ nmap <Leader>c :noh<CR>
 nmap <Leader>r :so %<CR>
 " Find and replace
 nmap <leader>s :%s//gc<left><left>
-" Maps Shift + k/j/h/l to move panes
-nmap <silent> <s-j> :wincmd j<cr>
-nmap <silent> <s-k> :wincmd k<cr>
-nmap <silent> <s-h> :wincmd h<cr>
-nmap <silent> <s-l> :wincmd l<cr>
+" AutoFormat
+noremap <s-f> :Autoformat<CR>
+" Buffer switching
+nmap <silent> <s-h> :bprev<cr>
+nmap <silent> <s-l> :bnext<cr>
+" nmap <silent> <leader>[ :bprev<cr>
+" nmap <silent> <leader>] :bnext<cr>
 
+" Maps Shift + k/j/h/l to move panes
+nmap <silent> <c-j> :wincmd j<cr>
+nmap <silent> <c-k> :wincmd k<cr>
+nmap <silent> <c-h> :wincmd h<cr>
+nmap <silent> <c-l> :wincmd l<cr>
