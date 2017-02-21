@@ -102,27 +102,12 @@ gcb() {
     git checkout $(echo "$target" | awk '{print $2}')
 }
 
-# gdb() {
-#   local branches branch
-#   branches=$(git branch --merged) &&
-#   branch=$(echo "$branches" | fzf +m) &&
-#     git branch -d $(echo "$branch" | sed "s/.* //") && gdb
-# }
-
 gdb() {
-  local tags branches target
-    tags=$(
-        git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-    branches=$(
-        git branch --color --merged | grep -v HEAD             |
-        sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-        sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-    target=$(
-        (echo "$tags"; echo "$branches") |
-        fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
-    git branch -d $(echo "$target" | awk '{print $2}') && gdb
+  local branches branch
+  branches=$(git branch --merged) &&
+  branch=$(echo "$branches" | fzf +m) &&
+    git branch -d $(echo "$branch" | sed "s/.* //") && gdb
 }
-
 
 # show commit history, enter to select commit and  ctrl-d to see the diff
 gshow() {
