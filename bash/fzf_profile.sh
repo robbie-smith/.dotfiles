@@ -1,5 +1,6 @@
 export FZF_DEFAULT_OPTS='--height 50% --reverse'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
 csi() {
   echo -en "\x1b[$@"
 }
