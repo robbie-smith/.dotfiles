@@ -1,4 +1,4 @@
-# dotfiles
+### Dotfiles
 My bash profile and neovim setup
 #### Useful commands
 ``` vim
