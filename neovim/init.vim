@@ -298,6 +298,7 @@ nnoremap <space>gd :Gvdiff<CR>
 nnoremap <space>gb :Git branch<Space>
 nnoremap <space>gcb :Git checkout<Space>
 nnoremap <space>gc :Gcommit -v -q<CR>
+nnoremap <space>gp :Gpush origin -u <CR>
 "**********************
 " VimTest
 "**********************
@@ -322,7 +323,7 @@ autocmd InsertLeave * :update
 " Mappings
 "*****************************************************************************
 " Open current file on GitHub
-noremap <leader>g :Gbrowse<CR>
+noremap <leader>b :! hub browse<CR>
 " Clears the paste mode
 noremap <leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
