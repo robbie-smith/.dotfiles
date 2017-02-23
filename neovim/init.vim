@@ -236,8 +236,6 @@ command! -bang -nargs=* Rg
 " Deoplete will expand snippets and there will be an empty line and no
 " indentation.
 let g:deoplete#enable_at_startup = 1
-" let g:deoplete#sources = {}
-" let g:deoplete#sources._=['omni', 'buffer', 'ultisnips', 'vim-snippets', 'neosnippet-snippets', 'file']
 "Maps shift-k and shift-j to cycle through autocomplete options
 let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
 inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
@@ -329,7 +327,7 @@ nmap <c-q> <ESC>
 " Exit normal
 imap <Leader>q <ESC>
 " Clear search
-nmap <Leader>c :noh<CR>
+nmap <Leader>c :nohlsearch<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 " Find and replace
