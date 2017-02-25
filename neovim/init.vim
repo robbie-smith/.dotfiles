@@ -209,7 +209,7 @@ let g:codi#width = 90
 "**********************
 " FZF
 "**********************
-nmap <leader>o :FZF <CR>
+nmap <Leader>o :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
@@ -284,7 +284,7 @@ let NERDTreeQuitOnOpen = 1
 noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
-nnoremap <leader>q :bp<cr>:bd #<cr>
+nnoremap <Leader>q :bp<CR>:bd #<CR>
 "**********************
 " Utili Snips
 "**********************
@@ -308,10 +308,10 @@ nnoremap <space>gp :Gpush origin -u <CR>
 " VimTest
 "**********************
 let test#strategy = 'neovim'
-nmap <silent> <leader>t :TestFile <CR>
-nmap <silent> <leader>l :TestNearest<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nmap <silent> <Leader>t :TestFile <CR>
+nmap <silent> <Leader>l :TestNearest<CR>
+nmap <silent> <Leader>a :TestSuite<CR>
+nmap <silent> <Leader>g :TestVisit<CR>
 "*****************************************************************************
 " Functions
 "*****************************************************************************
@@ -327,14 +327,23 @@ autocmd InsertLeave * :update
 "*****************************************************************************
 " Mappings
 "*****************************************************************************
+" Turns off the arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+imap <Up> <NOP>
+imap <Down> <NOP>
+imap <Left> <NOP>
+imap <Right> <NOP>
 " Open current file on GitHub
-noremap <leader>b :! hub browse<CR>
+noremap <Leader>b :! hub browse<CR>
 " Clears the paste mode
-noremap <leader>p :set nopaste<CR>
+noremap <Leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Save
-noremap <Leader>w :w <cr>
+noremap <Leader>w :w <CR>
 " nmap <c-q> <ESC>
 " Exit normal
 " imap <Leader>q <ESC>
@@ -343,17 +352,18 @@ nmap <Leader>c :nohlsearch<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 " Find and replace
-nmap <leader>s :%s//gc<left><left>
+nmap <Leader>s :%s//gc<left><left>
 " AutoFormat
 noremap <s-f> :Autoformat<CR>
 " Buffer switching
-nmap <silent> <s-h> :bprev<cr>
-nmap <silent> <s-l> :bnext<cr>
-" nmap <silent> <leader>[ :bprev<cr>
-" nmap <silent> <leader>] :bnext<cr>
+nmap <silent> <s-h> :bprev<CR>
+nmap <silent> <s-l> :bnext<CR>
+" nmap <silent> <Leader>[ :bprev<CR>
+" nmap <silent> <Leader>] :bnext<CR>
 
 " Maps Shift + k/j/h/l to move panes
-nmap <silent> <c-j> :wincmd j<cr>
-nmap <silent> <c-k> :wincmd k<cr>
-nmap <silent> <c-h> :wincmd h<cr>
-nmap <silent> <c-l> :wincmd l<cr>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+nmap <silent> <c-q> :q <CR>
