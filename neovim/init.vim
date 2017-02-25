@@ -335,9 +335,9 @@ noremap <leader>p :set nopaste<CR>
 nnoremap <CR> G
 " Save
 noremap <Leader>w :w <cr>
-nmap <c-q> <ESC>
+" nmap <c-q> <ESC>
 " Exit normal
-imap <Leader>q <ESC>
+" imap <Leader>q <ESC>
 " Clear search
 nmap <Leader>c :nohlsearch<CR>
 " Reload Source
