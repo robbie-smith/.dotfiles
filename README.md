@@ -24,4 +24,7 @@ Git
 
 :Gvdiff Shows the diff in a vertical split
 :Gblame Show git blame in a vertical split
+
+Codi
+:Codi Opens up scratch pad
 ```
