@@ -80,6 +80,7 @@ endfunction
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
+Plug 'metakirby5/codi.vim'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
 "*****************************************************************************
@@ -201,6 +202,10 @@ let g:airline#extensions#default#layout = [
 " Autoformat
 "**********************
 au InsertLeave * :Autoformat
+"**********************
+" Codi
+"**********************
+let g:codi#width = 90
 "**********************
 " FZF
 "**********************
