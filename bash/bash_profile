@@ -48,6 +48,10 @@ alias hidedotfiles='defaults write com.apple.finder AppleShowAllFiles NO; killal
 alias today="open http://today.turing.io"
 alias dotfiles="~/.dotfiles"
 
+function gpush() {
+  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  git push -u origin "${BRANCH}"
+}
 function lazygit() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
   git add .
@@ -78,3 +82,15 @@ function lazyrails() {
 }
 
 function md () { mkdir -p "$@" && cd "$@";}
+
+function codi() {
+  local syntax="${1:-python}"
+  shift
+  vim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}

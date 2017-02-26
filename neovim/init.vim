@@ -12,19 +12,9 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 set autoread
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
-
 "*****************************************************************************
 " Plug install packages
 "*****************************************************************************
-" Color Schemes
-" Plug 'davb5/wombat256dave'
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'morhetz/gruvbox'
-" Plug 'AlessandroYorba/Alduin'
-" Plug 'AlessandroYorba/sidonia'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'junegunn/zenburn'
-Plug 'mhartington/oceanic-next'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -80,6 +70,7 @@ endfunction
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 Plug 'elixir-lang/vim-elixir'
 Plug 'thinca/vim-ref'
+Plug 'metakirby5/codi.vim'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
 "*****************************************************************************
@@ -145,17 +136,9 @@ endif
 "**********************
 " color scheme
 "**********************
-" let g:neodark#background='black' " black, gray or brown
-" colorscheme neodark
-set background=dark
 colorscheme OceanicNext
+set background=dark
 " Makes the highlighting better for the OceanicNext theme
-highlight LineNr guibg=#1b2b34
-hi GitGutterChange guibg=#1b2b34
-hi GitGutterAdd  guibg=#1b2b34
-hi GitGutterDelete guibg=#1b2b34
-hi GitGutterChangeDelete guibg=#1b2b34
-" colorscheme gruvbox
 "**********************
 " status bar
 "**********************
@@ -183,7 +166,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branchi = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'neodark'
+let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -202,9 +185,13 @@ let g:airline#extensions#default#layout = [
 "**********************
 au InsertLeave * :Autoformat
 "**********************
+" Codi
+"**********************
+let g:codi#width = 90
+"**********************
 " FZF
 "**********************
-nmap <leader>o :FZF <CR>
+nmap <Leader>o :FZF <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
@@ -224,7 +211,6 @@ nnoremap <silent> <Leader>f :Rg <C-R><C-W><CR>
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep(
       \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -279,7 +265,7 @@ let NERDTreeQuitOnOpen = 1
 noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
-nnoremap <leader>q :bp<cr>:bd #<cr>
+nnoremap <Leader>q :bp<CR>:bd #<CR>
 "**********************
 " Utili Snips
 "**********************
@@ -292,14 +278,21 @@ let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
 endif
+nnoremap <space>ga :Gwrite<CR><CR>
+nnoremap <space>gs :Gstatus<CR>
+nnoremap <space>gd :Gvdiff<CR>
+nnoremap <space>gb :Git branch<Space>
+nnoremap <space>gcb :Git checkout<Space>
+nnoremap <space>gc :Gcommit -v -q<CR>
+nnoremap <space>gp :Gpush<CR>
 "**********************
 " VimTest
 "**********************
 let test#strategy = 'neovim'
-nmap <silent> <leader>t :TestFile <CR>
-nmap <silent> <leader>l :TestNearest<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nmap <silent> <Leader>t :TestFile <CR>
+nmap <silent> <Leader>l :TestNearest<CR>
+nmap <silent> <Leader>a :TestSuite<CR>
+nmap <silent> <Leader>g :TestVisit<CR>
 "*****************************************************************************
 " Functions
 "*****************************************************************************
@@ -315,33 +308,43 @@ autocmd InsertLeave * :update
 "*****************************************************************************
 " Mappings
 "*****************************************************************************
+" Turns off the arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+imap <Up> <NOP>
+imap <Down> <NOP>
+imap <Left> <NOP>
+imap <Right> <NOP>
 " Open current file on GitHub
-noremap <leader>g :Gbrowse<CR>
+noremap <Leader>b :! hub browse<CR>
 " Clears the paste mode
-noremap <leader>p :set nopaste<CR>
+noremap <Leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
 " Save
-noremap <Leader>w :w <cr>
-nmap <c-q> <ESC>
+noremap <Leader>w :w <CR>
+" nmap <c-q> <ESC>
 " Exit normal
-imap <Leader>q <ESC>
+" imap <Leader>q <ESC>
 " Clear search
 nmap <Leader>c :nohlsearch<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 " Find and replace
-nmap <leader>s :%s//gc<left><left>
+nmap <Leader>s :%s//gc<left><left>
 " AutoFormat
 noremap <s-f> :Autoformat<CR>
 " Buffer switching
-nmap <silent> <s-h> :bprev<cr>
-nmap <silent> <s-l> :bnext<cr>
-" nmap <silent> <leader>[ :bprev<cr>
-" nmap <silent> <leader>] :bnext<cr>
+nmap <silent> <s-h> :bprev<CR>
+nmap <silent> <s-l> :bnext<CR>
+" nmap <silent> <Leader>[ :bprev<CR>
+" nmap <silent> <Leader>] :bnext<CR>
 
 " Maps Shift + k/j/h/l to move panes
-nmap <silent> <c-j> :wincmd j<cr>
-nmap <silent> <c-k> :wincmd k<cr>
-nmap <silent> <c-h> :wincmd h<cr>
-nmap <silent> <c-l> :wincmd l<cr>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+nmap <silent> <c-q> :q <CR>
