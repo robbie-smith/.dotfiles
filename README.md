@@ -24,6 +24,9 @@ Git
 
 :Gvdiff Shows the diff in a vertical split
 :Gblame Show git blame in a vertical split
+:Gwrite Stage the current file to the index
+:Gread  Revert current file to last checked in version
+:Gremove  Delete the current file and the corresponding Vim buffer
 
 Codi
 :Codi Opens up scratch pad
