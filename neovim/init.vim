@@ -12,18 +12,22 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 set autoread
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
-
 "*****************************************************************************
 " Plug install packages
 "*****************************************************************************
 " Color Schemes
-" Plug 'davb5/wombat256dave'
+Plug 'w0ng/vim-hybrid'
+Plug 'wesgibbs/vim-irblack'
+Plug 'tpope/vim-vividchalk'
+Plug 'vim-scripts/vibrantink'
+Plug 'nanotech/jellybeans.vim'
+Plug 'davb5/wombat256dave'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'morhetz/gruvbox'
-" Plug 'AlessandroYorba/Alduin'
-" Plug 'AlessandroYorba/sidonia'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'junegunn/zenburn'
+Plug 'AlessandroYorba/Alduin'
+Plug 'AlessandroYorba/sidonia'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/zenburn'
 Plug 'mhartington/oceanic-next'
 " NerdTree
 Plug 'scrooloose/nerdtree'
@@ -146,17 +150,14 @@ endif
 "**********************
 " color scheme
 "**********************
-" let g:neodark#background='black' " black, gray or brown
-" colorscheme neodark
-set background=dark
 colorscheme OceanicNext
+set background=dark
 " Makes the highlighting better for the OceanicNext theme
 highlight LineNr guibg=#1b2b34
 hi GitGutterChange guibg=#1b2b34
 hi GitGutterAdd  guibg=#1b2b34
 hi GitGutterDelete guibg=#1b2b34
 hi GitGutterChangeDelete guibg=#1b2b34
-" colorscheme gruvbox
 "**********************
 " status bar
 "**********************
