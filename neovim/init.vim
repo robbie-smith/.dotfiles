@@ -303,7 +303,7 @@ nnoremap <space>gs :Gstatus<CR>
 nnoremap <space>gd :Gvdiff<CR>
 nnoremap <space>gb :Git branch<Space>
 nnoremap <space>gcb :Git checkout<Space>
-nnoremap <space>gc :Gcommit -m -q<CR>
+nnoremap <space>gc :Gcommit -v -q<CR>
 nnoremap <space>gp :Gpush<CR>
 "**********************
 " VimTest
