@@ -49,6 +49,7 @@ alias today="open http://today.turing.io"
 alias dotfiles="~/.dotfiles"
 
 function gpush() {
+  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
   git push -u origin "${BRANCH}"
 }
 function lazygit() {
