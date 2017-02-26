@@ -48,6 +48,9 @@ alias hidedotfiles='defaults write com.apple.finder AppleShowAllFiles NO; killal
 alias today="open http://today.turing.io"
 alias dotfiles="~/.dotfiles"
 
+function gpush() {
+  git push -u origin "${BRANCH}"
+}
 function lazygit() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
   git add .
