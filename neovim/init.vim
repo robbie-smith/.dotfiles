@@ -15,20 +15,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 " Plug install packages
 "*****************************************************************************
-" Color Schemes
-Plug 'w0ng/vim-hybrid'
-Plug 'wesgibbs/vim-irblack'
-Plug 'tpope/vim-vividchalk'
-Plug 'vim-scripts/vibrantink'
-Plug 'nanotech/jellybeans.vim'
-Plug 'davb5/wombat256dave'
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'morhetz/gruvbox'
-Plug 'AlessandroYorba/Alduin'
-Plug 'AlessandroYorba/sidonia'
-Plug 'junegunn/seoul256.vim'
-Plug 'junegunn/zenburn'
-Plug 'mhartington/oceanic-next'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -153,11 +139,6 @@ endif
 colorscheme OceanicNext
 set background=dark
 " Makes the highlighting better for the OceanicNext theme
-highlight LineNr guibg=#1b2b34
-hi GitGutterChange guibg=#1b2b34
-hi GitGutterAdd  guibg=#1b2b34
-hi GitGutterDelete guibg=#1b2b34
-hi GitGutterChangeDelete guibg=#1b2b34
 "**********************
 " status bar
 "**********************
@@ -185,7 +166,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branchi = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'neodark'
+let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -230,7 +211,6 @@ nnoremap <silent> <Leader>f :Rg <C-R><C-W><CR>
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep(
       \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,

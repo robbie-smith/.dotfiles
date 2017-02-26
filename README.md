@@ -1,5 +1,8 @@
 ### Dotfiles
 My bash profile and neovim setup
+Symlink the colors directory with neovims colors, assuming homebrew was used to
+install neovim
+ln -s ~/.config/nvim/colors /usr/local/cellar/neovim/0.1.7/share/nvim/runtime/colors
 #### Useful commands
 ``` vim
 FZF-Vim
