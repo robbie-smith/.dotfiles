@@ -138,7 +138,7 @@ endif
 "**********************
 " color scheme
 "**********************
-colorscheme Tomorrow-Night-Eighties
+colorscheme OceanicNext
 set background=dark
 " Makes the highlighting better for the OceanicNext theme
 "**********************
