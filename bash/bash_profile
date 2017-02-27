@@ -5,6 +5,7 @@ source ~/.dotfiles/bash/colors.sh
 source ~/.dotfiles/bash/fzf_profile.sh
 export PATH=$PATH:/path/to/geckodriver
 export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/Cellar:$PATH"
 eval "$(rbenv init -)"
 export CLICOLOR=1
 export TERM=xterm-256color
