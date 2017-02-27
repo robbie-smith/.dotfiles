@@ -17,6 +17,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Plug install packages
 "*****************************************************************************
 Plug 'w0rp/ale'
+Plug 'chriskempson/base16-vim'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -139,7 +140,10 @@ endif
 " color scheme
 "**********************
 set background=dark
-colorscheme OceanicNext
+" colorscheme OceanicNext
+" colorscheme Tomorrow-Night-Eighties
+colorscheme base16-gruvbox-dark-hard
+hi LineNr guibg=bg
 " Makes the highlighting better for the OceanicNext theme
 "**********************
 " status bar
@@ -178,7 +182,7 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 "       \ 'args': ['-c'],
 "       \ 'errorformat': '%f: line %l\, col %c\, %m',
 "       \ }
-let g:ale_linters = {'javascript': ['jshint']}
+let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy']}
 hi ALEErrorSign guibg=#1b2b34
 hi ALEWarningSign guibg=#1b2b34
 " let g:ale_sign_error = '>>'
