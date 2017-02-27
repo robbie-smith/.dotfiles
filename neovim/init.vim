@@ -5,7 +5,8 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable filetype detection
 filetype on
-
+set rtp+='/usr/local/bin'
+set rtp+='/usr/local/Cellar'
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " Reload files changed outside vim
@@ -15,6 +16,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 " Plug install packages
 "*****************************************************************************
+Plug 'w0rp/ale'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -39,7 +41,7 @@ Plug 'honza/vim-snippets'
 " AutoFormat
 Plug 'Chiel92/vim-autoformat'
 " NeoMake
-Plug 'neomake/neomake'
+" Plug 'neomake/neomake'
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -136,7 +138,7 @@ endif
 "**********************
 " color scheme
 "**********************
-colorscheme OceanicNext
+colorscheme Tomorrow-Night-Eighties
 set background=dark
 " Makes the highlighting better for the OceanicNext theme
 "**********************
@@ -147,10 +149,44 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 "****************************************************************************
 " Abbreviations
 "****************************************************************************
-ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
+" let g:ale_linters = {
+"       \   'javascript': ['eslint'],
+"       \}
+" let g:ale_html_tidy_executable = 'tidy'
+" let g:neomake_jsx_enabled_makers = ['eslint']
+" augroup FiletypeGroup
+"   autocmd!
+"   au BufNewFile,BufRead *.jsx set filetype=js
+" augroup END
+" let g:neomake_javascript_eslint_exe='/usr/local/bin/eslint'
+" let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_verbose=3
+" let g:ale_javascript_eslint_use_global = 1
+" let g:ale_linters = {
+"       \   'javascript': ['jscs'],
+"       \}
+" let g:neomake_logfile='/tmp/error.log'
+" let g:ale_sign_column_always = 1
+" let g:neomake_open_list = 2
+" let g:neomake_javascript_enabled_makers = ['jshint']
+" let b:neomake_javascript_jscs_exe = '/usr/local/bin/jshint'
+" let g:neomake_javascript_jscs_maker = {
+"       \ 'exe': 'jshint',
+"       \ 'args': ['-c'],
+"       \ 'errorformat': '%f: line %l\, col %c\, %m',
+"       \ }
+let g:ale_linters = {'javascript': ['jshint']}
+hi ALEErrorSign guibg=#1b2b34
+hi ALEWarningSign guibg=#1b2b34
+" let g:ale_sign_error = '>>'
+" let g:ale_sign_warning = '--'
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️ '
+let g:ale_sign_column_always = 1
+" autocmd! BufWritePost,BufEnter * Neomake
 "**********************
 " Airline
 "**********************
@@ -229,12 +265,12 @@ inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
 "**********************
 " NeoMake
 "**********************
-autocmd! BufWritePost,BufEnter * Neomake
-hi NeomakeErrorSign guibg=#1b2b34
-hi NeomakeWarningSign guibg=#1b2b34
-let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
-let g:neomake_ruby_enabled_makers = ['mri']
+" autocmd! BufWritePost,BufEnter * Neomake
+" hi NeomakeErrorSign guibg=#1b2b34
+" hi NeomakeWarningSign guibg=#1b2b34
+" let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
+" let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
+" let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
 " NerdTree
 "**********************
