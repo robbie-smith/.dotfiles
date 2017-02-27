@@ -138,8 +138,8 @@ endif
 "**********************
 " color scheme
 "**********************
-colorscheme OceanicNext
 set background=dark
+colorscheme OceanicNext
 " Makes the highlighting better for the OceanicNext theme
 "**********************
 " status bar
