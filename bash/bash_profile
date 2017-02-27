@@ -21,6 +21,7 @@ export HISTCONTROL=erasedups
 alias bash='atom ~/.dotfiles/bash/bash_profile'
 alias reload='source ~/.dotfiles/bash/bash_profile'
 alias vim='nvim'
+alias vi='nvim'
 alias ls="ls -GFh"
 alias show='ls'
 alias c='clear'
