@@ -140,11 +140,10 @@ endif
 " color scheme
 "**********************
 set background=dark
-" colorscheme OceanicNext
-" colorscheme Tomorrow-Night-Eighties
-colorscheme base16-gruvbox-dark-hard
+colorscheme base16-eighties
 " Highlighting
-hi LineNr guifg=#83a598 guibg=bg
+" guifg=#99cc99
+hi LineNr guifg=String guibg=bg
 hi ALEErrorSign guibg=bg
 hi ALEWarningSign guibg=bg
 hi NeomakeErrorSign guibg=bg
@@ -154,7 +153,7 @@ hi GitGutterChangeDelete guibg=bg
 hi GitGutterDelete guibg=bg
 hi GitGutterChange guibg=bg
 hi GitGutterAddLine guibg=bg
-hi MatchParen guibg=#fabd2f
+hi MatchParen gui=bold guifg=#66cccc
 "**********************
 " status bar
 "**********************
@@ -204,7 +203,7 @@ let g:airline_section_z = airline#section#create([
       \ g:airline_symbols.linenr .' ', 'linenr'])
 let g:airline#extensions#default#layout = [
       \ [ 'a', 'b', 'c' ],
-      \ [ 'y', 'z', 'error', 'warning']
+      \ [ 'y', 'z']
       \ ]
 "**********************
 " Autoformat
