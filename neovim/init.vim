@@ -5,7 +5,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable filetype detection
 filetype on
-
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " Reload files changed outside vim
@@ -15,6 +14,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 " Plug install packages
 "*****************************************************************************
+Plug 'w0rp/ale'
+Plug 'chriskempson/base16-vim'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -39,7 +40,7 @@ Plug 'honza/vim-snippets'
 " AutoFormat
 Plug 'Chiel92/vim-autoformat'
 " NeoMake
-Plug 'neomake/neomake'
+Plug 'neomake/neomake', { 'for': 'ruby'}
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -61,15 +62,20 @@ Plug 'tpope/vim-commentary'
 Plug 'zchee/nvim-go', { 'do': 'make'}
 " Git commit browser
 Plug 'junegunn/gv.vim'
-" Vim Elixir
+" Vim Markdown Composer
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     !cargo build --release
   endif
 endfunction
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+" Vim Elixir
 Plug 'elixir-lang/vim-elixir'
+<<<<<<< HEAD
+" Plug 'thinca/vim-ref'
+=======
 Plug 'thinca/vim-ref'
+>>>>>>> 88c28b530cd7823799fb443ecf02a8d32c81fda5
 Plug 'metakirby5/codi.vim'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
@@ -78,8 +84,6 @@ call plug#end()
 "*****************************************************************************
 " Encoding
 set encoding=utf-8
-" Highlight cursor line
-set cursorline
 " Enable hidden buffers
 set hidden
 " Number of undo levels
@@ -129,6 +133,7 @@ syntax on
 syntax enable
 set ruler
 set number
+
 " Tell the term has 256 colors
 if (has("termguicolors"))
   set termguicolors
@@ -136,21 +141,43 @@ endif
 "**********************
 " color scheme
 "**********************
-colorscheme OceanicNext
 set background=dark
-" Makes the highlighting better for the OceanicNext theme
+colorscheme base16-eighties
+" Highlighting
+" guifg=#99cc99
+hi LineNr guifg=String guibg=bg
+hi ALEErrorSign guibg=bg
+hi ALEWarningSign guibg=bg
+hi NeomakeErrorSign guibg=bg
+hi NeomakeWarningSign guibg=bg
+hi GitGutterAdd guibg=bg
+hi GitGutterChangeDelete guibg=bg
+hi GitGutterDelete guibg=bg
+hi GitGutterChange guibg=bg
+hi GitGutterAddLine guibg=bg
+hi MatchParen gui=bold guifg=#66cccc
 "**********************
 " status bar
 "**********************
 set laststatus=2
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-"****************************************************************************
-" Abbreviations
-"****************************************************************************
-ia sav <CR>save_and_open_page
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
+"**********************
+" Ale and Neomake
+"**********************
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_set_highlights = 0
+let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy']}
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️ '
+let g:ale_sign_column_always = 1
+
+autocmd InsertChange,TextChanged *.rb update | Neomake
+let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
+let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
 " Airline
 "**********************
@@ -178,7 +205,7 @@ let g:airline_section_z = airline#section#create([
       \ g:airline_symbols.linenr .' ', 'linenr'])
 let g:airline#extensions#default#layout = [
       \ [ 'a', 'b', 'c' ],
-      \ [ 'y', 'z', 'error', 'warning']
+      \ [ 'y', 'z']
       \ ]
 "**********************
 " Autoformat
@@ -198,7 +225,7 @@ let g:fzf_action = {
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit'
       \ }
-
+" Searches the project for the word under the cursor
 nnoremap <silent> <Leader>f :Rg <C-R><C-W><CR>
 " Integrates ripgrep with FZF to search through my files
 " --column: Show column number
@@ -226,15 +253,20 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
 inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
 inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+
+"**********************
+" GitGutter
+"**********************
+let g:gitgutter_highlight_lines = 0
 "**********************
 " NeoMake
 "**********************
-autocmd! BufWritePost,BufEnter * Neomake
-hi NeomakeErrorSign guibg=#1b2b34
-hi NeomakeWarningSign guibg=#1b2b34
-let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
-let g:neomake_ruby_enabled_makers = ['mri']
+" autocmd! BufWritePost,BufEnter * Neomake
+" hi NeomakeErrorSign guibg=#1b2b34
+" hi NeomakeWarningSign guibg=#1b2b34
+" let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
+" let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
+" let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
 " NerdTree
 "**********************
@@ -313,10 +345,6 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-imap <Up> <NOP>
-imap <Down> <NOP>
-imap <Left> <NOP>
-imap <Right> <NOP>
 " Open current file on GitHub
 noremap <Leader>b :! hub browse<CR>
 " Clears the paste mode
