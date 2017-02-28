@@ -162,24 +162,11 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
-" let g:ale_linters = {
-"       \   'javascript': ['eslint'],
-"       \}
-" let g:ale_html_tidy_executable = 'tidy'
 " let g:neomake_jsx_enabled_makers = ['eslint']
-" augroup FiletypeGroup
-"   autocmd!
-"   au BufNewFile,BufRead *.jsx set filetype=js
-" augroup END
 " let g:neomake_javascript_eslint_exe='/usr/local/bin/eslint'
 " let g:neomake_javascript_enabled_makers = ['eslint']
 " let g:neomake_verbose=3
-" let g:ale_javascript_eslint_use_global = 1
-" let g:ale_linters = {
-"       \   'javascript': ['jscs'],
-"       \}
 " let g:neomake_logfile='/tmp/error.log'
-" let g:ale_sign_column_always = 1
 " let g:neomake_open_list = 2
 " let g:neomake_javascript_enabled_makers = ['jshint']
 " let b:neomake_javascript_jscs_exe = '/usr/local/bin/jshint'
