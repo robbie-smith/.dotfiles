@@ -132,6 +132,7 @@ syntax on
 syntax enable
 set ruler
 set number
+
 " Tell the term has 256 colors
 if (has("termguicolors"))
   set termguicolors
@@ -143,16 +144,21 @@ set background=dark
 " colorscheme OceanicNext
 " colorscheme Tomorrow-Night-Eighties
 colorscheme base16-gruvbox-dark-hard
+" Highlighting
 hi LineNr guibg=bg
-" Makes the highlighting better for the OceanicNext theme
+hi ALEErrorSign guibg=bg
+hi ALEWarningSign guibg=bg
+hi GitGutterAdd guibg=bg
+hi GitGutterChangeDelete guibg=bg
+hi GitGutterDelete guibg=bg
+hi GitGutterChange guibg=bg
+hi GitGutterAddLine guibg=bg
+hi MatchParen guibg=#fabd2f
 "**********************
 " status bar
 "**********************
 set laststatus=2
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-"****************************************************************************
-" Abbreviations
-"****************************************************************************
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
@@ -182,11 +188,10 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 "       \ 'args': ['-c'],
 "       \ 'errorformat': '%f: line %l\, col %c\, %m',
 "       \ }
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_set_highlights = 0
 let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy']}
-hi ALEErrorSign guibg=#1b2b34
-hi ALEWarningSign guibg=#1b2b34
-" let g:ale_sign_error = '>>'
-" let g:ale_sign_warning = '--'
+
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️ '
 let g:ale_sign_column_always = 1
@@ -266,6 +271,10 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/plug/vim-snippets/snippets'
 inoremap <expr><S-k> pumvisible() ? "\<c-n>" : "\<S-k>"
 inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
+
+"**********************
+" GitGutter
+"**********************
 "**********************
 " NeoMake
 "**********************
