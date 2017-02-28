@@ -71,11 +71,6 @@ endfunction
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 " Vim Elixir
 Plug 'elixir-lang/vim-elixir'
-<<<<<<< HEAD
-" Plug 'thinca/vim-ref'
-=======
-Plug 'thinca/vim-ref'
->>>>>>> 88c28b530cd7823799fb443ecf02a8d32c81fda5
 Plug 'metakirby5/codi.vim'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
