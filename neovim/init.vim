@@ -5,8 +5,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable filetype detection
 filetype on
-" set rtp+='/usr/local/bin'
-" set rtp+='/usr/local/Cellar'
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " Reload files changed outside vim
@@ -73,7 +71,11 @@ endfunction
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 " Vim Elixir
 Plug 'elixir-lang/vim-elixir'
+<<<<<<< HEAD
 " Plug 'thinca/vim-ref'
+=======
+Plug 'thinca/vim-ref'
+>>>>>>> 88c28b530cd7823799fb443ecf02a8d32c81fda5
 Plug 'metakirby5/codi.vim'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
