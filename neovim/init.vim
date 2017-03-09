@@ -1,14 +1,33 @@
 set nocompatible               " Be iMproved
+" turn off any existing search
+if has("autocmd")
+  au VimEnter * :nohlsearch
+endif
 
-" Path for python
+"Text Wrapping
+if !exists('*s:setupWrapping')
+  set wm=2
+  set textwidth=80
+endif
+
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable filetype detection
 filetype on
+
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
 " Reload files changed outside vim
 set autoread
+
+" Needed for vim markdown
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+  endif
+endfunction
+
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
@@ -63,17 +82,13 @@ Plug 'zchee/nvim-go', { 'do': 'make'}
 " Git commit browser
 Plug 'junegunn/gv.vim'
 " Vim Markdown Composer
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    !cargo build --release
-  endif
-endfunction
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 " Vim Elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'metakirby5/codi.vim'
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 call plug#end()
+
 "*****************************************************************************
 " Basic Setup
 "*****************************************************************************
@@ -90,9 +105,10 @@ set updatetime=500
 " Directories for swp files
 set nobackup
 set noswapfile
-filetype plugin on
+filetype plugin indent on
 set clipboard=unnamed
 set mouse=a
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " Map the leader key to SPACE
 let mapleader="\<SPACE>"
 " Use ; for commands
@@ -109,7 +125,6 @@ set expandtab
 set autoindent
 set smartindent
 set showcmd
-filetype plugin indent on
 "*****************************************************************************
 " Searching
 "*****************************************************************************
@@ -121,7 +136,7 @@ set incsearch " Searches for strings incrementally
 " Visual Settings
 "*****************************************************************************
 " Automatically resize splits when resizing window
-autocmd VimResized * wincmd =
+" au VimResized * wincmd =
 " Also highlight all tabs and trailing whitespace characters.
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 syntax on
@@ -134,12 +149,13 @@ if (has("termguicolors"))
   set termguicolors
 endif
 "**********************
-" color scheme
+" Color Scheme
 "**********************
 set background=dark
 colorscheme base16-eighties
+""**********************
 " Highlighting
-" guifg=#99cc99
+"**********************
 hi LineNr guifg=String guibg=bg
 hi ALEErrorSign guibg=bg
 hi ALEWarningSign guibg=bg
@@ -154,8 +170,8 @@ hi MatchParen gui=bold guifg=#66cccc
 "**********************
 " status bar
 "**********************
-set laststatus=2
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+" set laststatus=2
+" set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 "******************************************************************************
 " Plug-in Configurations
 "******************************************************************************
@@ -169,7 +185,7 @@ let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️ '
 let g:ale_sign_column_always = 1
 
-autocmd InsertChange,TextChanged *.rb update | Neomake
+" au InsertChange,TextChanged *.rb update | Neomake
 let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_ruby_enabled_makers = ['mri']
@@ -254,17 +270,10 @@ inoremap <expr><S-j> pumvisible() ? "\<c-p>" : "\<S-j>"
 "**********************
 let g:gitgutter_highlight_lines = 0
 "**********************
-" NeoMake
-"**********************
-" autocmd! BufWritePost,BufEnter * Neomake
-" hi NeomakeErrorSign guibg=#1b2b34
-" hi NeomakeWarningSign guibg=#1b2b34
-" let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
-" let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
-" let g:neomake_ruby_enabled_makers = ['mri']
-"**********************
 " NerdTree
 "**********************
+" Auto close nerdtree when a file is opened
+let NERDTreeQuitOnOpen = 1
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
@@ -283,18 +292,14 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Clean"     : "✔︎",
       \ "Unknown"   : "?"
       \ }
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Auto close nerdtree when a file is opened
-let NERDTreeQuitOnOpen = 1
+" au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>q :bp<CR>:bd #<CR>
 "**********************
-" Utili Snips
+" Utili snips
 "**********************
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -302,9 +307,10 @@ let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 "**********************
 " VimFugitive
 "**********************
-if exists("*fugitive#statusline")
-  set statusline+=%{fugitive#statusline()}
-endif
+" if exists("*fugitive#statusline")
+"   set statusline+=%{fugitive#statusline()}
+" endif
+
 nnoremap <space>ga :Gwrite<CR><CR>
 nnoremap <space>gs :Gstatus<CR>
 nnoremap <space>gd :Gvdiff<CR>
@@ -320,20 +326,24 @@ nmap <silent> <Leader>t :TestFile <CR>
 nmap <silent> <Leader>l :TestNearest<CR>
 nmap <silent> <Leader>a :TestSuite<CR>
 nmap <silent> <Leader>g :TestVisit<CR>
+"**********************
+" VimMarkdown Composer
+"**********************
+let g:markdown_composer_autostart=0
 "*****************************************************************************
-" Functions
+" Auto Commands
 "*****************************************************************************
-"Text Wrapping
-if !exists('*s:setupWrapping')
-  set wm=2
-  set textwidth=80
-endif
+" Automatically resize splits when resizing window
+au VimResized * wincmd =
+au InsertChange,TextChanged *.rb update | Neomake
+au InsertLeave * :Autoformat
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "Automatically delete whitespace, and repositions cursor
-autocmd BufWritePre * :%s/\s\+$//e
-" autocmd BufWritePre * :Autoformat
-autocmd InsertLeave * :update
+au BufWritePre * :%s/\s\+$//e
+" au BufWritePre * :Autoformat
+au InsertLeave * :update
 "*****************************************************************************
-" Mappings
+" MAPPINGS
 "*****************************************************************************
 " Turns off the arrow keys
 noremap <Up> <NOP>
@@ -346,28 +356,24 @@ noremap <Leader>b :! hub browse<CR>
 noremap <Leader>p :set nopaste<CR>
 " Maps G to the enter key for jumping to a line, ex: 223 <enter>
 nnoremap <CR> G
+nnoremap <Leader>j <gu>
 " Save
 noremap <Leader>w :w <CR>
-" nmap <c-q> <ESC>
-" Exit normal
-" imap <Leader>q <ESC>
 " Clear search
 nmap <Leader>c :nohlsearch<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
-" Find and replace
+" Find and Replace
 nmap <Leader>s :%s//gc<left><left>
 " AutoFormat
 noremap <s-f> :Autoformat<CR>
 " Buffer switching
 nmap <silent> <s-h> :bprev<CR>
 nmap <silent> <s-l> :bnext<CR>
-" nmap <silent> <Leader>[ :bprev<CR>
-" nmap <silent> <Leader>] :bnext<CR>
-
 " Maps Shift + k/j/h/l to move panes
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
+" Map Ctrl + q to close a window
 nmap <silent> <c-q> :q <CR>

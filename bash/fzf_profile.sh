@@ -1,6 +1,16 @@
-export FZF_DEFAULT_OPTS='--height 50% --reverse'
+export FZF_DEFAULT_OPTS='--height 50% --reverse --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
+--color info:183,prompt:110,spinner:107,pointer:167,marker:215'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-
+# --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
+# --color info:183,prompt:110,spinner:107,pointer:167,marker:215
+# export FZF_CTRL_T_OPTS="--preview='file {}' --preview-window=down:1"
+# export FZF_CTRL_T_OPTS="--preview 'sleep 1 > /dev/null 2>&1 & echo {}'"
+# fzf --preview 'echo {}' --preview-window up:10 --bind ?:toggle-preview
+# export FZF_DEFAULT_OPTS='--height 40% --reverse'
+# FZF_CTRL_T_OPTS='--height 40% --reverse'
+# FZF_CTRL_R_OPTS='--height 40%'
+# FZF_ALT_C_OPTS='--height 40% --reverse'
+# FZF_COMPLETION_OPTS='--height 40% --reverse'
 csi() {
   echo -en "\x1b[$@"
 }
@@ -13,9 +23,20 @@ is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
-fd() {
+fda() {
 DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
     && cd "$DIR"
+}
+
+fd() {
+  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+      && cd "$DIR"
+}
+
+cdf() {
+  local file
+    local dir
+    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 # Modified version where you can press
@@ -23,12 +44,12 @@ DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux
 #   - CTRL-E or Enter key to open with the $EDITOR
 fo() {
   local out file key
-  IFS=$'\n' read -d '' -r -a out < <(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
+  IFS=$'\n' read -d '' -r -a out < <(fzf-tmux --header='ctrl-e:editor, ctrl-o:open finder' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
   key=${out[0]}
   file=${out[1]}
   if [ -n "$file" ]; then
     if [ "$key" = ctrl-o ]; then
-      open "$file"
+      open -R "$file"
     else
       ${EDITOR:-vim} "$file"
     fi
@@ -36,7 +57,7 @@ fo() {
 }
 
 # fda - including hidden directories
-fda() {
+fdh() {
   DIR=`find ${1:-.} -type d 2> /dev/null | fzf-tmux` && cd "$DIR"
 }
 
@@ -103,7 +124,7 @@ gcb() {
     git checkout $(echo "$target" | awk '{print $2}')
 }
 
-gdb() {
+fdb() {
   local tags branches target
     tags=$(
         git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
@@ -176,3 +197,11 @@ gh() {
 }
 
 bind '"\er": redraw-current-line'
+
+gf() {
+  is_in_git_repo || return
+  git -c color.status=always status --short |
+  fzf-down -m --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+  cut -c4- | sed 's/.* -> //'
+}
