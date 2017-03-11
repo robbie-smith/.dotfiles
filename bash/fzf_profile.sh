@@ -124,7 +124,7 @@ gcb() {
     git checkout $(echo "$target" | awk '{print $2}')
 }
 
-fdb() {
+gdb() {
   local tags branches target
     tags=$(
         git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
