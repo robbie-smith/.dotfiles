@@ -1,6 +1,6 @@
-"******************************************************************************
+"***********************
 " Plug-in Configurations
-"******************************************************************************
+"***********************
 "**********************
 " Ale and Neomake
 "**********************
@@ -43,10 +43,6 @@ let g:airline#extensions#default#layout = [
       \ [ 'y', 'z']
       \ ]
 "**********************
-" Autoformat
-"**********************
-" au InsertLeave * :Autoformat
-"**********************
 " Codi
 "**********************
 let g:codi#width = 90
@@ -72,6 +68,8 @@ command! -bang -nargs=* Rg
 " Deoplete
 "**********************
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources={}
+let g:deoplete#sources._=['buffer', 'file', 'ultisnips']
 "**********************
 " GitGutter
 "**********************
@@ -103,6 +101,7 @@ let g:NERDTreeIndicatorMapCustom = {
 "**********************
 " UltiSnips
 "**********************
+let g:UltiSnipsEnableSnipMate=1
 "**********************
 " VimTest
 "**********************

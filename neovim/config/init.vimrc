@@ -1,9 +1,9 @@
 set nocompatible               " Be iMproved
 " turn off any existing search
-if has("autocmd")
-  au VimEnter * :nohlsearch
-endif
-
+" if has("autocmd")
+"   au VimEnter * :nohlsearch
+" endif
+au VimEnter,VimLeavePre * :nohlsearch
 "Text Wrapping
 if !exists('*s:setupWrapping')
   set wm=2
@@ -72,10 +72,8 @@ Plug 'metakirby5/codi.vim'
 " Snippets
 "*******************
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets', { 'frozen': '1' }
 "**********
 " Visual
 "**********

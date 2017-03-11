@@ -32,6 +32,7 @@ nnoremap <Leader>q :bp<CR>:bd #<CR>
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsListSnippets='<S-J>'
 "**********************
 " VimFugitive
 "**********************
@@ -84,8 +85,8 @@ nmap <Leader>s :%s//gc<left><left>
 noremap <s-f> :Autoformat<CR>
 
 " Buffer switching
-nmap <silent> <s-h> :bprev<CR>
-nmap <silent> <s-l> :bnext<CR>
+nmap <silent> <S-TAB> :bprev<CR>
+nmap <silent> <TAB> :bnext<CR>
 
 " Maps Ctrl + k/j/h/l to move panes
 nmap <silent> <c-j> :wincmd j<CR>
@@ -95,4 +96,3 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " Map Ctrl + q to close a window
 nmap <silent> <c-q> :q <CR>
-
