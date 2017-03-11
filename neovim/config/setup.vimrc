@@ -44,9 +44,7 @@ set incsearch " Searches for strings incrementally
 "*****************************************************************************
 " Visual Settings
 "*****************************************************************************
-" Automatically resize splits when resizing window
-" au VimResized * wincmd =
-" Also highlight all tabs and trailing whitespace characters.
+" Highlight all tabs and trailing whitespace characters.
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 syntax on
 syntax enable

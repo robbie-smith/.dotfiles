@@ -1,6 +1,6 @@
-"*****************************************************************************
+"**********************
 " MAPPINGS
-"*****************************************************************************
+"**********************
 "**********************
 " FZF
 "**********************
@@ -16,7 +16,7 @@ nnoremap <silent> <Leader>f :Rg <C-R><C-W><CR>
 "**********************
 " Deoplete
 "**********************
-"Maps shift-k and shift-j to cycle through autocomplete options
+"Maps tab and shift-tab to cycle through autocomplete options
 inoremap <expr><TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<c-p>" : "\<S-TAB>"
 "**********************
