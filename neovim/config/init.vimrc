@@ -34,7 +34,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Plug install packages
 "*****************************************************************************
 Plug 'w0rp/ale'
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 " NerdTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'

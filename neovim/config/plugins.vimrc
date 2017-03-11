@@ -76,6 +76,7 @@ let g:deoplete#enable_at_startup = 1
 " GitGutter
 "**********************
 let g:gitgutter_highlight_lines = 0
+let g:gitgutter_max_signs = 1000
 "**********************
 " NerdTree
 "**********************
