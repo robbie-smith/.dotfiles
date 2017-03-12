@@ -1,16 +1,7 @@
 export FZF_DEFAULT_OPTS='--height 50% --reverse --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
 --color info:183,prompt:110,spinner:107,pointer:167,marker:215'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-# --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
-# --color info:183,prompt:110,spinner:107,pointer:167,marker:215
-# export FZF_CTRL_T_OPTS="--preview='file {}' --preview-window=down:1"
-# export FZF_CTRL_T_OPTS="--preview 'sleep 1 > /dev/null 2>&1 & echo {}'"
-# fzf --preview 'echo {}' --preview-window up:10 --bind ?:toggle-preview
-# export FZF_DEFAULT_OPTS='--height 40% --reverse'
-# FZF_CTRL_T_OPTS='--height 40% --reverse'
-# FZF_CTRL_R_OPTS='--height 40%'
-# FZF_ALT_C_OPTS='--height 40% --reverse'
-# FZF_COMPLETION_OPTS='--height 40% --reverse'
+
 csi() {
   echo -en "\x1b[$@"
 }
