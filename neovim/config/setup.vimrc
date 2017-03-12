@@ -60,8 +60,8 @@ endif
 " Color Scheme
 "**********************
 set background=dark
-colorscheme base16-eighties
-""**********************
+colorscheme base16-tomorrow-night
+"**********************
 " Highlighting
 "**********************
 hi LineNr guifg=String guibg=bg
