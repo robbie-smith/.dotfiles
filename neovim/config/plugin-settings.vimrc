@@ -47,6 +47,12 @@ let g:airline#extensions#default#layout = [
 "**********************
 let g:codi#width = 90
 "**********************
+" Deoplete
+"**********************
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources={}
+let g:deoplete#sources._=['buffer', 'file', 'ultisnips', 'mysnippets']
+"**********************
 " FZF
 "**********************
 " Integrates ripgrep with FZF to search through my files
@@ -64,12 +70,6 @@ command! -bang -nargs=* Rg
       \ call fzf#vim#grep(
       \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
       \   <bang>0)
-"**********************
-" Deoplete
-"**********************
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources={}
-let g:deoplete#sources._=['buffer', 'file', 'ultisnips']
 "**********************
 " GitGutter
 "**********************
@@ -102,6 +102,8 @@ let g:NERDTreeIndicatorMapCustom = {
 " UltiSnips
 "**********************
 let g:UltiSnipsEnableSnipMate=1
+let g:UltiSnipsSnippetDirectories=["UltiSnips", 'mysnippets']
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.dotfiles/neovim/mysnippets', 'UltiSnips']
 "**********************
 " VimTest
 "**********************
