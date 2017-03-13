@@ -1,6 +1,6 @@
 set nocompatible               " Be iMproved
 " turn off any existing search
-au VimEnter,VimLeavePre * :nohlsearch
+au VimEnter,VimLeavePre,VimLeave,BufEnter,BufLeave * :nohlsearch
 
 "Text Wrapping
 if !exists('*s:setupWrapping')
