@@ -1,3 +1,4 @@
+au BufEnter,BufLeave * :nohlsearch
 "***********************
 " Plug-in Configurations
 "***********************

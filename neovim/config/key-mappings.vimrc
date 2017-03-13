@@ -1,3 +1,4 @@
+au BufEnter,BufLeave * :nohlsearch
 "**********************
 " MAPPINGS
 "**********************
@@ -32,7 +33,6 @@ nnoremap <Leader>q :bp<CR>:bd #<CR>
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-let g:UltiSnipsListSnippets='<S-J>'
 "**********************
 " VimFugitive
 "**********************
@@ -79,8 +79,7 @@ nmap <Leader>c :nohlsearch<CR>
 nmap <Leader>r :so %<CR>
 
 " Find and Replace
-nmap <Leader>s :%s//gc<left><left>
-
+nmap <Leader>s :%s/\<<C-r><C-w>\>//gc<left><left><left>
 " AutoFormat
 noremap <s-f> :Autoformat<CR>
 
@@ -96,3 +95,16 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " Map Ctrl + q to close a window
 nmap <silent> <c-q> :q <CR>
+
+" Relative numbering
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+    set number
+  else
+    set rnu
+  endif
+endfunc
+
+" Toggle between normal and relative numbering.
+nnoremap <S-Q> :call NumberToggle()<cr>

@@ -1,9 +1,7 @@
 set nocompatible               " Be iMproved
 " turn off any existing search
-" if has("autocmd")
-"   au VimEnter * :nohlsearch
-" endif
 au VimEnter,VimLeavePre * :nohlsearch
+
 "Text Wrapping
 if !exists('*s:setupWrapping')
   set wm=2
