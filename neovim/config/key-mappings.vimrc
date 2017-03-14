@@ -3,6 +3,12 @@ au BufEnter,BufLeave * :nohlsearch
 " MAPPINGS
 "**********************
 "**********************
+" Deoplete
+"**********************
+"Maps tab and shift-tab to cycle through autocomplete options
+inoremap <expr><TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<c-p>" : "\<S-TAB>"
+"**********************
 " FZF
 "**********************
 nmap <Leader>o :FZF <CR>
@@ -15,11 +21,16 @@ let g:fzf_action = {
 " Searches the project for the word under the cursor
 nnoremap <silent> <Leader>f :Rg <C-R><C-W><CR>
 "**********************
-" Deoplete
+" NeoSnippet
 "**********************
-"Maps tab and shift-tab to cycle through autocomplete options
-inoremap <expr><TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<c-p>" : "\<S-TAB>"
+imap <C-j>     <Plug>(neosnippet_expand_or_jump)
+smap <C-j>     <Plug>(neosnippet_expand_or_jump)
+" imap <expr><TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ neosnippet#expandable_or_jumpable() ?
+"       \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"       \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 "**********************
 " NerdTree
 "**********************
@@ -27,12 +38,6 @@ noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>q :bp<CR>:bd #<CR>
-"**********************
-" Utili snips
-"**********************
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 "**********************
 " VimFugitive
 "**********************
@@ -95,16 +100,16 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 " Map Ctrl + q to close a window
-  nmap <silent> <c-q> :q <CR>
+nmap <silent> <c-q> :q <CR>
 
 " Relative numbering
 function! NumberToggle()
-if(&relativenumber == 1)
-  set nornu
-  set number
-else
-  set rnu
-endif
+  if(&relativenumber == 1)
+    set nornu
+    set number
+  else
+    set rnu
+  endif
 endfunc
 
 " Toggle between normal and relative numbering.
