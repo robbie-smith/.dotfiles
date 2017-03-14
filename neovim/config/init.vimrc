@@ -70,8 +70,9 @@ Plug 'metakirby5/codi.vim'
 " Snippets
 "*******************
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets', { 'frozen': '1' }
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 "**********
 " Visual
 "**********
