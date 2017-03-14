@@ -52,7 +52,6 @@ let g:codi#width = 90
 "**********************
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
-" let g:deoplete#sources._=['ultisnips', 'snippets', 'buffer', 'file', 'mysnippets', 'neosnippet']
 let g:deoplete#sources._=['neosnippet', 'buffer', 'file' ]
 "**********************
 " FZF
