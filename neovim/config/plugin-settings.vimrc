@@ -52,7 +52,8 @@ let g:codi#width = 90
 "**********************
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
-let g:deoplete#sources._=['ultisnips', 'snippets', 'buffer', 'file', 'mysnippets']
+" let g:deoplete#sources._=['ultisnips', 'snippets', 'buffer', 'file', 'mysnippets', 'neosnippet']
+let g:deoplete#sources._=['neosnippet', 'buffer', 'file' ]
 "**********************
 " FZF
 "**********************
@@ -103,7 +104,9 @@ let g:NERDTreeIndicatorMapCustom = {
 " UltiSnips
 "**********************
 let g:UltiSnipsEnableSnipMate=1
-let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME.'/.dotfiles/neovim/mysnippets']
+
+let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
+let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " VimTest
 "**********************
