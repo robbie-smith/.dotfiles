@@ -1,0 +1,65 @@
+snippet desc
+abbr    describe
+options head
+  describe('${1:description}', () =>  {
+    ${0:TARGET}
+  });
+
+snippet cont
+abbr    context
+options head
+  context('${1:context}', () => {
+    ${0:TARGET}
+  });
+
+snippet itd
+abbr    it..test
+options head
+  it('${1:test_case}', () => {
+    ${0:TARGET};
+  });
+
+snippet    as.
+abbr        assert
+options     head
+  assert.${0:TARGET}
+
+snippet     eq
+abbr        assert.equal()
+options     word
+  equal(${1:actual}, ${2:expected}, '${0:message}');
+
+snippet     neq
+abbr        assert.notEqual()
+options     word
+  notEqual(${1:actual}, ${2:expected}, '${0:message}');
+
+snippet     deq
+abbr        assert.deepEqual()
+options     word
+  deepEqual(${1:actual}, ${2:expected}, '${0:message}');
+
+snippet     ndeq
+abbr        assert.notDeepEqual()
+options     word
+  notDeepEqual(${1:actual}, ${2:expected}, '${0:message}');
+
+snippet     isa
+abbr        assert.isArray()
+options     word
+  isArray(${1:actual}, '${0:message}');
+
+snippet     isna
+abbr        assert.isNotArray()
+options     word
+  isNotArray(${1:actual}, '${0:message}');
+
+snippet     inc
+abbr        assert.include()
+options     word
+  include(${1:haystack}, ${2:needle}, '${0:message}');
+
+snippet     ninc
+abbr        assert.notInclude()
+options     word
+  notInclude(${1:haystack}, ${2:needle}, '${0:message}');
