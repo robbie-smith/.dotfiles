@@ -1,3 +1,16 @@
+snippet     pry
+abbr        eval(pry.it);
+options     head
+  eval(pry.it);
+
+snippet     reqpry
+abbr        const pry = require('pryjs');
+options     head
+  const pry = require('pryjs');
+
+# ##########################
+# #     Mocha snippets     #
+# ##########################
 snippet desc
 abbr    describe
 options head
@@ -73,14 +86,4 @@ snippet     asntru
 abbr        assert.isNotTrue()
 options     word
   assert.isNotTrue(${1:value},'${0:message}');
-
-snippet     pry
-abbr        eval(pry.it);
-options     head
-  eval(pry.it);
-
-snippet     reqpry
-abbr        const pry = require('pryjs');
-options     head
-  const pry = require('pryjs');
 
