@@ -1,0 +1,22 @@
+Pry.config.theme = "pry-modern-256"
+
+
+if defined?(PryByebug)
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'f', 'finish'
+end
+
+# Hit Enter to repeat last command
+Pry::Commands.command /^$/, "repeat last command" do
+  _pry_.run_command Pry.history.to_a.last
+end
+
+Pry::Commands.block_command 'pl', "Alias for 'play -l'" do |lines|
+  _pry_.run_command("play -l #{lines}")
+end
+
+Pry::Commands.block_command 'jk', "Alias for 'exit!'" do
+  exit
+end
