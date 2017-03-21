@@ -85,6 +85,7 @@ nmap <Leader>r :so %<CR>
 
 " Find and Replace
 nmap <Leader>s :%s/\<<C-r><C-w>\>//gc<left><left><left>
+" nmap <Leader>s :%s//gc<left><left>
 
 " AutoFormat
 noremap <s-f> :Autoformat<CR>
@@ -104,12 +105,12 @@ nmap <silent> <c-q> :q <CR>
 
 " Relative numbering
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set nornu
-    set number
-  else
-    set rnu
-  endif
+if(&relativenumber == 1)
+  set nornu
+  set number
+else
+  set rnu
+endif
 endfunc
 
 " Toggle between normal and relative numbering.

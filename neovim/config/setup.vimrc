@@ -35,7 +35,6 @@ set expandtab
 set autoindent
 set smartindent
 set showcmd
-
 "****************
 " Searching
 "****************

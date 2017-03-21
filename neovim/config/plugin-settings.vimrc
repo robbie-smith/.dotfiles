@@ -102,9 +102,6 @@ let g:NERDTreeIndicatorMapCustom = {
 "**********************
 " UltiSnips
 "**********************
-let g:UltiSnipsEnableSnipMate=1
-
-let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets']
 let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
