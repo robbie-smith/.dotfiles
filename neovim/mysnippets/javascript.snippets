@@ -32,6 +32,34 @@ options head
     ${0:TARGET};
   });
 
+snippet     bef
+abbr        before
+options     head
+  before((${1:arguments}) => {
+    ${0:TARGET};
+  });
+
+snippet     befe
+abbr        beforeEach
+options     head
+  beforeEach(() => {
+      ${0:TARGET};
+    });
+
+snippet     aft
+abbr        after
+options     head
+  after(() => {
+    ${0:TARGET};
+  });
+
+snippet     afte
+abbr        afterEach
+options     head
+  afterEach(() => {
+      ${0:TARGET};
+    });
+
 snippet    as.
 abbr        assert
 options     head
