@@ -1,6 +1,0 @@
-machine api.heroku.com
-  login robert.smith160@icloud.com
-  password d612bcee-4696-4451-9fa3-3761e12b3b47
-machine git.heroku.com
-  login robert.smith160@icloud.com
-  password d612bcee-4696-4451-9fa3-3761e12b3b47
