@@ -52,7 +52,7 @@ let g:codi#width = 90
 "**********************
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
-let g:deoplete#sources._=['neosnippet', $HOME.'/.dotfiles/neovim/mysnippets', 'buffer', 'file' ]
+let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/neovim/mysnippets']
 "**********************
 " FZF
 "**********************

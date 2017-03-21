@@ -1,58 +1,62 @@
-snippet bye
-require 'byebug'; byebug
-endsnippet
+snippet    attr
+abbr        attr_reader
+options     head
+  attr_reader :${0:TARGET}
+# snippet bye
+# require 'byebug'; byebug
+# endsnippet
 
-snippet "(\S+)\.each" "<elements>.each do |<element>| <block> end" r
-`!p snip.rv=match.group(1)`.each { |${1:e}| $0 }
-endsnippet
+# snippet "(\S+)\.each" "<elements>.each do |<element>| <block> end" r
+# `!p snip.rv=match.group(1)`.each { |${1:e}| $0 }
+# endsnippet
 
-snippet "(\S+)\.red" "<array>.reduce(n) do |memo, var| <block> end" r
-`!p snip.rv=match.group(1)`.reduce(${2:init}) do |${3:memo}, ${4:var}|
-	$0
-end
-endsnippet
+# snippet "(\S+)\.red" "<array>.reduce(n) do |memo, var| <block> end" r
+# `!p snip.rv=match.group(1)`.reduce(${2:init}) do |${3:memo}, ${4:var}|
+# 	$0
+# end
+# endsnippet
 
-snippet "(\S+)\.mapi" "<array>.map.with_index do |index, var| <block> end" r
-`!p snip.rv=match.group(1)`.map.with_index do |index, ${2:var}|
-	$0
-end
-endsnippet
+# snippet "(\S+)\.mapi" "<array>.map.with_index do |index, var| <block> end" r
+# `!p snip.rv=match.group(1)`.map.with_index do |index, ${2:var}|
+# 	$0
+# end
+# endsnippet
 
-snippet "(\S+)\.map" "<array>.map do |var| <block> end" r
-`!p snip.rv=match.group(1)`.map do | ${2:var}|
-	$0
-end
-endsnippet
+# snippet "(\S+)\.map" "<array>.map do |var| <block> end" r
+# `!p snip.rv=match.group(1)`.map do | ${2:var}|
+# 	$0
+# end
+# endsnippet
 
-##########################
-#     Rspec snippets     #
-##########################
-snippet bef
-	before { ${0} }
-endsnippet
+# ##########################
+# #     Rspec snippets     #
+# ##########################
+# snippet bef
+# 	before { ${0} }
+# endsnippet
 
-snippet befd
-	before do
-		${0}
-	end
-endsnippet
+# snippet befd
+# 	before do
+# 		${0}
+# 	end
+# endsnippet
 
-snippet sav
-save_and_open_page
-endsnippet
+# snippet sav
+# save_and_open_page
+# endsnippet
 
-snippet get
-	get '${1:message}'
-endsnippet
+# snippet get
+# 	get '${1:message}'
+# endsnippet
 
-snippet feat
-	feature '${1:message}' do
-		${0}
-	end
-endsnippet
+# snippet feat
+# 	feature '${1:message}' do
+# 		${0}
+# 	end
+# endsnippet
 
-snippet scen
-	scenario '${1:message}' do
-		${0}
-	end
-endsnippet
+# snippet scen
+# 	scenario '${1:message}' do
+# 		${0}
+# 	end
+# endsnippet
