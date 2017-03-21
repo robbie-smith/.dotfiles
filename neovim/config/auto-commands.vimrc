@@ -9,4 +9,4 @@ au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 au BufWritePre * :%s/\s\+$//e
 "Saves on buffer leave, if changes were made
 au InsertLeave * :update
-au BufEnter,BufLeave * :nohlsearch
+au BufEnter,BufLeave,BufWritePre * :nohlsearch

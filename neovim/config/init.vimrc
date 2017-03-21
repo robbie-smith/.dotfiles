@@ -1,9 +1,7 @@
 set nocompatible               " Be iMproved
 " turn off any existing search
-" if has("autocmd")
-"   au VimEnter * :nohlsearch
-" endif
 au VimEnter,VimLeavePre * :nohlsearch
+
 "Text Wrapping
 if !exists('*s:setupWrapping')
   set wm=2
@@ -51,7 +49,7 @@ Plug 'Chiel92/vim-autoformat'
 "**********
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'airblade/vim-gitgutter'
 "**********
 " Languages
@@ -59,7 +57,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
 Plug 'zchee/nvim-go', { 'do': 'make'}
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') , 'for': 'markdown'}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 "**************
@@ -72,12 +70,13 @@ Plug 'metakirby5/codi.vim'
 " Snippets
 "*******************
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets', { 'frozen': '1' }
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets', { 'frozen': '1'}
 "**********
 " Visual
 "**********
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()

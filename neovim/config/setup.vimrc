@@ -1,6 +1,7 @@
-"*****************************************************************************
+au BufEnter,BufLeave * :nohlsearch
+"****************
 " Basic Setup
-"*****************************************************************************
+"****************
 " Encoding
 set encoding=utf-8
 " Enable hidden buffers
@@ -22,9 +23,9 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 let mapleader="\<SPACE>"
 " Use ; for commands
 nnoremap ; :
-"*****************************************************************************
+"****************
 " Indenting
-"*****************************************************************************
+"****************
 " Fix backspace indent
 " Tabs. May be overriten by autocmd rules
 set tabstop=2
@@ -34,17 +35,16 @@ set expandtab
 set autoindent
 set smartindent
 set showcmd
-
-"*****************************************************************************
+"****************
 " Searching
-"*****************************************************************************
+"****************
 set hlsearch  " Highlight all search results
 set smartcase " Enable smart-case search
 set ignorecase  " Always case-insensitive
 set incsearch " Searches for strings incrementally
-"*****************************************************************************
+"****************
 " Visual Settings
-"*****************************************************************************
+"****************
 " Highlight all tabs and trailing whitespace characters.
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 syntax on
@@ -56,15 +56,16 @@ set number
 if (has("termguicolors"))
   set termguicolors
 endif
-"**********************
+"****************
 " Color Scheme
-"**********************
+"****************
 set background=dark
 colorscheme base16-tomorrow-night
-"**********************
+"****************
 " Highlighting
-"**********************
+"****************
 hi LineNr guifg=String guibg=bg
+hi IncSearch guibg=#66cccc
 hi ALEErrorSign guibg=bg
 hi ALEWarningSign guibg=bg
 hi NeomakeErrorSign guibg=bg

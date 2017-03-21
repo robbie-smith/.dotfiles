@@ -1,3 +1,4 @@
+au BufEnter,BufLeave * :nohlsearch
 "***********************
 " Plug-in Configurations
 "***********************
@@ -51,7 +52,7 @@ let g:codi#width = 90
 "**********************
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
-let g:deoplete#sources._=['ultisnips', 'snippets', 'buffer', 'file', 'mysnippets']
+let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/neovim/mysnippets']
 "**********************
 " FZF
 "**********************
@@ -101,8 +102,8 @@ let g:NERDTreeIndicatorMapCustom = {
 "**********************
 " UltiSnips
 "**********************
-let g:UltiSnipsEnableSnipMate=1
-let g:UltiSnipsSnippetDirectories=['UltiSnips', $HOME.'/.dotfiles/neovim/mysnippets']
+let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets']
+let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " VimTest
 "**********************
