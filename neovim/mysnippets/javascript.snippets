@@ -8,6 +8,12 @@ abbr        const pry = require('pryjs');
 options     head
   const pry = require('pryjs');
 
+snippet     fun
+abbr        () => {}
+options     word
+  (${1:arguments}) =>  {
+    ${0:TARGET}
+  });
 # ##########################
 # #     Mocha snippets     #
 # ##########################
@@ -28,42 +34,42 @@ options head
 snippet itd
 abbr    it..test
 options head
-  it('${1:test_case}', () => {
-    ${0:TARGET};
+  it('${1:test_case}', (${2:arguments}) => {
+    ${0:TARGET}
   });
 
 snippet     bef
 abbr        before
 options     head
   before((${1:arguments}) => {
-    ${0:TARGET};
+    ${0:TARGET}
   });
 
 snippet     befe
 abbr        beforeEach
 options     head
   beforeEach(() => {
-      ${0:TARGET};
+      ${0:TARGET}
     });
 
 snippet     aft
 abbr        after
 options     head
   after(() => {
-    ${0:TARGET};
+    ${0:TARGET}
   });
 
 snippet     afte
 abbr        afterEach
 options     head
   afterEach(() => {
-      ${0:TARGET};
+      ${0:TARGET}
     });
 
 snippet    as.
 abbr        assert
 options     head
-  assert.${0:TARGET}
+  assert${0:TARGET}
 
 snippet     aseq
 abbr        assert.equal()
