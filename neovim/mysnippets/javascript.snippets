@@ -24,42 +24,63 @@ abbr        assert
 options     head
   assert.${0:TARGET}
 
-snippet     eq
+snippet     aseq
 abbr        assert.equal()
 options     word
-  equal(${1:actual}, ${2:expected}, '${0:message}');
+  assert.equal(${1:actual}, ${2:expected}, '${0:message}');
 
-snippet     neq
+snippet     asneq
 abbr        assert.notEqual()
 options     word
-  notEqual(${1:actual}, ${2:expected}, '${0:message}');
+  assert.notEqual(${1:actual}, ${2:expected}, '${0:message}');
 
-snippet     deq
+snippet     asdeq
 abbr        assert.deepEqual()
 options     word
-  deepEqual(${1:actual}, ${2:expected}, '${0:message}');
+  assert.deepEqual(${1:actual}, ${2:expected}, '${0:message}');
 
-snippet     ndeq
+snippet     asndeq
 abbr        assert.notDeepEqual()
 options     word
-  notDeepEqual(${1:actual}, ${2:expected}, '${0:message}');
+  assert.notDeepEqual(${1:actual}, ${2:expected}, '${0:message}');
 
-snippet     isa
+snippet     asisa
 abbr        assert.isArray()
 options     word
-  isArray(${1:actual}, '${0:message}');
+  assert.isArray(${1:actual}, '${0:message}');
 
-snippet     isna
+snippet     asisna
 abbr        assert.isNotArray()
 options     word
-  isNotArray(${1:actual}, '${0:message}');
+  assert.isNotArray(${1:actual}, '${0:message}');
 
-snippet     inc
+snippet     asinc
 abbr        assert.include()
 options     word
-  include(${1:haystack}, ${2:needle}, '${0:message}');
+  assert.include(${1:haystack}, ${2:needle}, '${0:message}');
 
-snippet     ninc
+snippet     asninc
 abbr        assert.notInclude()
 options     word
-  notInclude(${1:haystack}, ${2:needle}, '${0:message}');
+  assert.notInclude(${1:haystack}, ${2:needle}, '${0:message}');
+
+snippet     astru
+abbr        assert.isTrue()
+options     word
+  assert.isTrue(${1:value},'${0:message}');
+
+snippet     asntru
+abbr        assert.isNotTrue()
+options     word
+  assert.isNotTrue(${1:value},'${0:message}');
+
+snippet     pry
+abbr        eval(pry.it);
+options     head
+  eval(pry.it);
+
+snippet     reqpry
+abbr        const pry = require('pryjs');
+options     head
+  const pry = require('pryjs');
+
