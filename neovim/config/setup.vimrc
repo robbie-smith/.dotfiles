@@ -67,6 +67,7 @@ colorscheme gruvbox
 "****************
 hi LineNr guifg=String guibg=bg
 hi IncSearch guibg=#66cccc
+hi SignColumn guibg=bg
 hi ALEErrorSign guibg=bg
 hi ALEWarningSign guibg=bg
 hi NeomakeErrorSign guibg=bg
