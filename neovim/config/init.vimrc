@@ -41,7 +41,7 @@ Plug 'tpope/vim-commentary'
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'for': 'javascript'}
 Plug 'neomake/neomake', { 'for': 'ruby'}
 Plug 'Chiel92/vim-autoformat'
 "**********
@@ -56,7 +56,7 @@ Plug 'airblade/vim-gitgutter'
 "**********
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'zchee/nvim-go', { 'do': 'make'}
+Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') , 'for': 'markdown'}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
@@ -65,7 +65,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 "**************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim', {'on': 'Codi'}
 "*******************
 " Snippets
 "*******************
