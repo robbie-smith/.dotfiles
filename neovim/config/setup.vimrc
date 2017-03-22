@@ -68,13 +68,13 @@ colorscheme gruvbox
 hi LineNr guifg=String guibg=bg
 hi IncSearch guibg=#66cccc
 hi SignColumn guibg=bg
-hi ALEErrorSign guibg=bg
-hi ALEWarningSign guibg=bg
+hi ALEErrorSign gui=bold guifg=#fb4934 guibg=bg
+hi ALEWarningSign gui=bold guifg=#60ff60 guibg=bg
 hi NeomakeErrorSign guibg=bg
 hi NeomakeWarningSign guibg=bg
-hi GitGutterAdd guibg=bg
-hi GitGutterChangeDelete guibg=bg
-hi GitGutterDelete guibg=bg
-hi GitGutterChange guibg=bg
-hi GitGutterAddLine guibg=bg
+hi GitGutterAdd gui=bold guifg=#8ec07c guibg=bg
+" hi GitGutterChangeDelete gui=bold guifg=#fb4934 guibg=bg
+hi GitGutterDelete gui=bold guifg=#fb4934 guibg=bg
+hi GitGutterChange gui=bold guifg=#fabd2f guibg=bg
+hi GitGutterAddLine gui=bold guifg=#8ec07c guibg=bg
 hi MatchParen gui=bold guifg=#66cccc

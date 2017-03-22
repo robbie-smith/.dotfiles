@@ -8,8 +8,10 @@ au BufEnter,BufLeave * :nohlsearch
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_set_highlights = 0
 let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy']}
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️ '
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️ '
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 let g:ale_sign_column_always = 1
 let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = { 'text': '⚠️ ', 'texthl': 'NeomakeWarningSign'}
