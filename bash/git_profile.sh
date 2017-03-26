@@ -1,4 +1,3 @@
-
 # git aware prompt
 function nonzero_return() {
 RETVAL=$?

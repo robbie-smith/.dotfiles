@@ -1,5 +1,5 @@
 function prompt {
-  local BLACK="\[\033[0;30m\]"
+    local BLACK="\[\033[0;30m\]"
     local BLACKBOLD="\[\033[1;30m\]"
     local RED="\[\033[0;31m\]"
     local REDBOLD="\[\033[1;31m\]"
