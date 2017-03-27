@@ -56,7 +56,6 @@ Plug 'airblade/vim-gitgutter'
 "**********
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') , 'for': 'markdown'}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
@@ -79,4 +78,5 @@ Plug 'Shougo/neosnippet-snippets', { 'frozen': '1'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug '~/.dotfiles/neovim/colors'
 call plug#end()

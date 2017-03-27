@@ -1,10 +1,15 @@
 ### Dotfiles
 My bash profile and neovim setup
 
-Symlink the colors directory with neovims colors, assuming homebrew was used to
-install neovim
+If you would like to use my dotfiles, git clone the repo into your home
+directory (~/). Then run the following script and follow the prompts, the script will symlink the
+dotfiles/dotfiles in this repo to the ones that are currently in your home directory.
 
-ln -s ~/.config/nvim/colors /usr/local/cellar/neovim/0.1.7/share/nvim/runtime/colors
+```ruby setup.rb```
+
+* Note if you already have dotfiles in your home directory that exist in this
+  repo you must delete the one in your home directory if you want to use these.
+
 #### Useful commands
 ``` vim
 FZF-Vim
