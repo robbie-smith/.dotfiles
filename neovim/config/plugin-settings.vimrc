@@ -5,7 +5,7 @@ au BufEnter,BufLeave * :nohlsearch
 "**********************
 " Ale and Neomake
 "**********************
-let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_warn_about_trailing_whitespace = 1
 let g:ale_set_highlights = 0
 let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy']}
 " let g:ale_sign_error = '❌'
@@ -45,6 +45,12 @@ let g:airline#extensions#default#layout = [
       \ [ 'a', 'b', 'c' ],
       \ [ 'y', 'z']
       \ ]
+"**********************
+" Autoformat
+"**********************
+let g:autoformat_remove_trailing_spaces = 1
+autocmd FileType javascript,ruby let b:autoformat_remove_trailing_spaces=1
+autocmd FileType ruby let b:autoformat_autoindent=1
 "**********************
 " Codi
 "**********************
