@@ -41,7 +41,7 @@ Plug 'tpope/vim-commentary'
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'w0rp/ale', { 'for': 'javascript'}
+Plug 'w0rp/ale', { 'for': ['javascript', 'html']}
 Plug 'neomake/neomake', { 'for': 'ruby'}
 Plug 'Chiel92/vim-autoformat'
 "**********
