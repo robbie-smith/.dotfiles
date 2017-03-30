@@ -20,7 +20,7 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 " Reload files changed outside vim
 set autoread
-
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 " Needed for vim markdown
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -41,8 +41,9 @@ Plug 'tpope/vim-commentary'
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'w0rp/ale', { 'for': ['javascript', 'html']}
+Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go']}
 Plug 'neomake/neomake', { 'for': 'ruby'}
+Plug 'vim-syntastic/syntastic', { 'for': 'solidity'}
 Plug 'Chiel92/vim-autoformat'
 "**********
 " Git
