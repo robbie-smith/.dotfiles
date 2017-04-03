@@ -70,10 +70,9 @@ hi IncSearch guibg=#66cccc
 hi SignColumn guibg=bg
 hi ALEErrorSign gui=bold guifg=#fb4934 guibg=bg
 hi ALEWarningSign gui=bold guifg=#60ff60 guibg=bg
-hi NeomakeErrorSign guibg=bg
-hi NeomakeWarningSign guibg=bg
+hi NeomakeErrorSign gui=bold guifg=#fb4934 guibg=bg
+hi NeomakeWarningSign gui=bold guifg=#fb4934 guibg=bg
 hi GitGutterAdd gui=bold guifg=#8ec07c guibg=bg
-" hi GitGutterChangeDelete gui=bold guifg=#fb4934 guibg=bg
 hi GitGutterDelete gui=bold guifg=#fb4934 guibg=bg
 hi GitGutterChange gui=bold guifg=#fabd2f guibg=bg
 hi GitGutterAddLine gui=bold guifg=#8ec07c guibg=bg
