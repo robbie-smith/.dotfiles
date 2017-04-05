@@ -1,3 +1,4 @@
+let g:ale_emit_conflict_warnings = 0
 au BufEnter,BufLeave * :nohlsearch
 "***********************
 " Plug-in Configurations
@@ -16,6 +17,8 @@ let g:ale_sign_column_always = 1
 let g:neomake_error_sign = {'text':  '>>', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = { 'text': '--', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_ruby_enabled_makers = ['mri']
+let g:syntastic_javascript_checkers = [" "]
+let g:syntastic_ruby_checkers = [" "]
 let g:syntastic_solidity_checkers = ["solium"]
 let g:syntastic_check_on_open = 1
 "**********************
@@ -85,6 +88,7 @@ command! -bang -nargs=* Rg
 " GitGutter
 "**********************
 let g:gitgutter_highlight_lines = 0
+let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1000
 "**********************
 " NerdTree
@@ -112,7 +116,7 @@ let g:NERDTreeIndicatorMapCustom = {
 "**********************
 " UltiSnips
 "**********************
-let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets']
+let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " VimTest
