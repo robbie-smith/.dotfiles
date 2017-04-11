@@ -43,7 +43,7 @@ Plug 'tpope/vim-commentary'
 "*******************
 Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go']}
 Plug 'neomake/neomake', { 'for': 'ruby'}
-Plug 'vim-syntastic/syntastic', { 'for': 'solidity'}
+Plug 'vim-syntastic/syntastic', { 'for': 'solidity' }
 Plug 'Chiel92/vim-autoformat'
 "**********
 " Git

@@ -7,7 +7,7 @@ csi() {
 }
 
 fzf-down() {
-  fzf --height 50% "$@"
+fzf --height 50% "$@"
 }
 
 is_in_git_repo() {
@@ -15,19 +15,19 @@ is_in_git_repo() {
 }
 
 fda() {
-DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
+  DIR=`find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf-tmux` \
     && cd "$DIR"
 }
 
 fd() {
   DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-      && cd "$DIR"
+    && cd "$DIR"
 }
 
 cdf() {
   local file
-    local dir
-    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+  local dir
+  file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 # Modified version where you can press
@@ -47,7 +47,7 @@ fo() {
   fi
 }
 
-# fda - including hidden directories
+# fdh - including hidden directories
 fdh() {
   DIR=`find ${1:-.} -type d 2> /dev/null | fzf-tmux` && cd "$DIR"
 }
@@ -55,23 +55,23 @@ fdh() {
 # cdu - cd to selected parent directory
 cdu() {
   local declare dirs=()
-    get_parent_dirs() {
-      if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-        if [[ "${1}" == '/' ]]; then
-          for _dir in "${dirs[@]}"; do echo $_dir; done
-        else
-          get_parent_dirs $(dirname "$1")
-            fi
-    }
+  get_parent_dirs() {
+    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
+    if [[ "${1}" == '/' ]]; then
+      for _dir in "${dirs[@]}"; do echo $_dir; done
+    else
+      get_parent_dirs $(dirname "$1")
+    fi
+  }
   local DIR=$(get_parent_dirs $(realpath "${1:-$(pwd)}") | fzf-tmux --tac)
-    cd "$DIR"
+  cd "$DIR"
 }
 
 # cdf - cd into the directory of the selected file
 cdf() {
   local file
-    local dir
-    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+  local dir
+  file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 # fh - search history and enter to run command
@@ -83,67 +83,67 @@ fh() {
 fkill() {
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
-    if [ "x$pid" != "x" ]
-      then
-        kill -${1:-9} $pid
-        fi
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
 }
 
 ##Git Functions
 # gcrb - checkout git branch (including remote branches)
 gcrb() {
   local branches branch
-    git fetch origin
-    branches=$(git branch --all | grep -v HEAD) &&
+  git fetch origin
+  branches=$(git branch --all | grep -v HEAD) &&
     branch=$(echo "$branches" |
-        fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
 # gcb - checkout git branch/tag
 gcb() {
   local tags branches target
-    tags=$(
-        git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-    branches=$(
-        git branch --color | grep -v HEAD             |
-        sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-        sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-    target=$(
-        (echo "$tags"; echo "$branches") |
-        fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
-    git checkout $(echo "$target" | awk '{print $2}')
+  tags=$(
+  git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+  git branch --color | grep -v HEAD             |
+  sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+  sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+  (echo "$tags"; echo "$branches") |
+  fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
+  git checkout $(echo "$target" | awk '{print $2}')
 }
 
-gdb() {
+fdb() {
   local tags branches target
-    tags=$(
-        git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-    branches=$(
-        git branch --color | grep -v HEAD             |
-        sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-        sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-    target=$(
-        (echo "$tags"; echo "$branches") |
-        fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
-    git branch -D $(echo "$target" | awk '{print $2}')
+  tags=$(
+  git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+  git branch --color | grep -v HEAD             |
+  sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+  sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+  (echo "$tags"; echo "$branches") |
+  fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
+  git branch -D $(echo "$target" | awk '{print $2}')
 }
 
 # gdb() {
 #   local branches branch
 #   branches=$(git branch --merged) &&
-#   branch=$(echo "$branches" | fzf +m) &&
-#     git branch -d $(echo "$branch" | sed "s/.* //") && gdb
+  #   branch=$(echo "$branches" | fzf +m) &&
+  #     git branch -d $(echo "$branch" | sed "s/.* //") && gdb
 # }
 
 # show commit history, enter to select commit and  ctrl-d to see the diff
 gshow() {
   local out shas sha q k
   while out=$(
-      git log --graph --color=always \
-          --format="%C(auto)%h%d %s %C(green)%C(bold)%cr" "$@" |
-      fzf --ansi --multi --no-sort --reverse --query="$q" \
-          --print-query --expect=ctrl-d); do
+    git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(green)%C(bold)%cr" "$@" |
+    fzf --ansi --multi --no-sort --reverse --query="$q" \
+      --print-query --expect=ctrl-d); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)
     shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
@@ -161,20 +161,20 @@ gshow() {
 gstash() {
   local out k reflog
   out=(
-    $(git stash list --pretty='%C(yellow)%gd %>(14)%Cgreen%cr %C(blue)%gs' |
-      fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
-          --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
-          --preview-window=down:50% --reverse \
-          --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
-          --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
-          --expect=ctrl-o,ctrl-y,ctrl-x))
+  $(git stash list --pretty='%C(yellow)%gd %>(14)%Cgreen%cr %C(blue)%gs' |
+  fzf --ansi --no-sort --header='enter:show, ctrl-d:diff, ctrl-o:pop, ctrl-y:apply, ctrl-x:drop' \
+    --preview='git stash show --color=always -p $(cut -d" " -f1 <<< {}) | head -'$LINES \
+    --preview-window=down:50% --reverse \
+    --bind='enter:execute(git stash show --color=always -p $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+    --bind='ctrl-d:execute(git diff --color=always $(cut -d" " -f1 <<< {}) | less -r > /dev/tty)' \
+    --expect=ctrl-o,ctrl-y,ctrl-x))
   k=${out[0]}
   reflog=${out[1]}
   [ -n "$reflog" ] && case "$k" in
-    ctrl-o) git stash pop $reflog ;;
-    ctrl-y) git stash apply $reflog ;;
-    ctrl-x) git stash drop $reflog ;;
-  esac
+  ctrl-o) git stash pop $reflog ;;
+  ctrl-y) git stash apply $reflog ;;
+  ctrl-x) git stash drop $reflog ;;
+esac
 }
 
 #show git history and diff

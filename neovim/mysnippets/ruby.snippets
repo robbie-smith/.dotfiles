@@ -31,38 +31,46 @@ options     head
 # # ##########################
 # # #     Rspec snippets     #
 # # ##########################
-# # snippet bef
-# # 	before { ${0} }
-# # endsnippet
+snippet bef
+abbr before {}
+options head
+	before { ${0:TARGET} }
 
-# # snippet befd
-# # 	before do
-# # 		${0}
-# # 	end
-# # endsnippet
+snippet befd
+abbr before do..end
+options head
+	before do
+		${0:TARGET}
+	end
 
-# # snippet sav
-# # save_and_open_page
-# # endsnippet
+snippet sav
+abbr save_and_open_page
+options head
+  save_and_open_page
 
-# # snippet get
-# # 	get '${1:message}'
-# # endsnippet
+snippet get
+abbr get ''
+options head
+	get '${1:path}'
 
-# # snippet feat
-# # 	feature '${1:message}' do
-# # 		${0}
-# # 	end
-# # endsnippet
+snippet feat
+abbr feature
+options head
+	feature '${1:feature}' do
+		${0:TARGET}
+	end
 
-# # snippet scen
-# # 	scenario '${1:message}' do
-# # 		${0}
-# # 	end
-# # endsnippet
-# snippet bye
-# require 'byebug'; byebug
-# endsnippet
+snippet scen
+abbr scenario
+options head
+	scenario '${1:scenario}' do
+		${0:TARGET}
+	end
+
+snippet bye
+abbr byebug
+options head
+  require 'byebug'; byebug
 
 # snippet "(\S+)\.each" "<elements>.each do |<element>| <block> end" r
 # `!p snip.rv=match.group(1)`.each { |${1:e}| $0 }
