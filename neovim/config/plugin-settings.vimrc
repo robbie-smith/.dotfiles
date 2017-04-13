@@ -17,10 +17,6 @@ let g:ale_sign_column_always = 1
 let g:neomake_error_sign = {'text':  '>>', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = { 'text': '--', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_ruby_enabled_makers = ['mri']
-let g:syntastic_javascript_checkers = [" "]
-let g:syntastic_ruby_checkers = [" "]
-let g:syntastic_solidity_checkers = ["solium"]
-let g:syntastic_check_on_open = 1
 "**********************
 " Airline
 "**********************
@@ -122,7 +118,3 @@ let g:neosnippet#enable_snipmate_compatibility=1
 " VimTest
 "**********************
 let test#strategy = 'neovim'
-"**********************
-" VimMarkdown Composer
-"**********************
-let g:markdown_composer_autostart=0
