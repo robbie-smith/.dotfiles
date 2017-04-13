@@ -5,10 +5,7 @@ If you would like to use my dotfiles, git clone the repo into your home
 directory (~/). Then run the following script and follow the prompts, the script will symlink the
 dotfiles/dotfiles in this repo to the ones that are currently in your home directory.
 
-```ruby setup.rb```
-
-* Note if you already have dotfiles in your home directory that exist in this
-  repo you must delete the one in your home directory if you want to use these.
+`ruby setup.rb`
 
 #### Useful commands
 ``` vim
@@ -24,11 +21,8 @@ FZF-Vim
 :Commands [Query] Shows commands
 :Maps     [Query] Shows normal mode mappings
 
-Vim Markdown Composer
-
-:ComposerStart  Start the preview server.
-:ComposerUpdate Send the current buffer to the preview server
-:ComposerOpen   Opens a new browser window containing the markdown preview
+Mdown
+:Mpreview  Start the preview server.
 
 Git
 
