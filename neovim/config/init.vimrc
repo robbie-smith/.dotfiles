@@ -22,11 +22,11 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 set autoread
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 " Needed for vim markdown
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    !cargo build --release
-  endif
-endfunction
+" function! BuildComposer(info)
+"   if a:info.status != 'unchanged' || a:info.force
+"     !cargo build --release
+"   endif
+" endfunction
 
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
@@ -57,7 +57,8 @@ Plug 'airblade/vim-gitgutter'
 "**********
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') , 'for': 'markdown'}
+Plug 'neovim/node-host', { 'do': ['npm install', ':UpdateRemotePlugins'] , 'for': 'markdown'}
+Plug 'vimlab/mdown.vim', { 'do': ['npm install', ':UpdateRemotePlugins'] , 'for': 'markdown'}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 "**************
