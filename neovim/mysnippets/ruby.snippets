@@ -29,6 +29,23 @@ options     head
 # # endsnippet
 
 # # ##########################
+# # #     Minitest snippets     #
+# # ##########################
+snippet clast
+abbr class test < Minitest::Test
+options head
+	class ${1:`substitute(expand('%:t:r:r:r'), '\v%(^(.)|_(.))', '\u\1\u\2', 'g')`} < Minitest::Test
+		${0:TARGET}
+	end
+
+snippet     deft
+abbr        def test
+options     head
+  def test_${1:TEST_CASE}
+    ${0:TARGET}
+  end
+
+# # ##########################
 # # #     Rspec snippets     #
 # # ##########################
 snippet bef
