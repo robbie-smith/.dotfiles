@@ -32,6 +32,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-commentary'
+Plug 'jodosha/vim-godebug'
 "*******************
 " Formatting/Linting
 "*******************
