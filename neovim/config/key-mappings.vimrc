@@ -37,7 +37,7 @@ smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 noremap <silent>  <Leader>\ :NERDTreeToggle<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
-nnoremap <Leader>q :bp<CR>:bd #<CR>
+nnoremap <Leader>q :bp<CR>:bd! #<CR>
 "**********************
 " VimFugitive
 "**********************
