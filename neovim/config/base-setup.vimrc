@@ -76,4 +76,5 @@ hi GitGutterAdd gui=bold guifg=#8ec07c guibg=bg
 hi GitGutterDelete gui=bold guifg=#fb4934 guibg=bg
 hi GitGutterChange gui=bold guifg=#fabd2f guibg=bg
 hi GitGutterAddLine gui=bold guifg=#8ec07c guibg=bg
+hi GitGutterChangeDelete guibg=bg
 hi MatchParen gui=bold guifg=#66cccc
