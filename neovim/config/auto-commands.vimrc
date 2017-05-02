@@ -9,4 +9,5 @@ au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 au BufWritePre * :%s/\s\+$//e
 "Saves on buffer leave, if changes were made
 au InsertLeave * :update
-au BufEnter,BufLeave,BufWritePre * :nohlsearch
+" Clears out the search registery, no more highlights in a random places
+au VimEnter,VimLeavePre * :let @/=""

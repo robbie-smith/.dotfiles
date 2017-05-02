@@ -1,4 +1,3 @@
-au BufEnter,BufLeave * :nohlsearch
 "**********************
 " MAPPINGS
 "**********************

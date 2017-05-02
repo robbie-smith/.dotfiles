@@ -1,4 +1,3 @@
-au BufEnter,BufLeave * :nohlsearch
 "****************
 " Basic Setup
 "****************
