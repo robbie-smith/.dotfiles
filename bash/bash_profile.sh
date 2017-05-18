@@ -1,6 +1,7 @@
 [[ -s ~/.bashrc ]] && source ~/.bashrc
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
-export PATH=$PATH:/Users/rsmith/Desktop/Connect
+export PATH=$PATH:/Users/rsmith/Connect/bin
+export EDITOR=nvim
 function gpush() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
   git push -u origin "${BRANCH}"
