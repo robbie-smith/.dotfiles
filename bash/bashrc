@@ -1,5 +1,3 @@
-export GITAWAREPROMPT=~/.bash/git-aware-prompt
-source "${GITAWAREPROMPT}/main.sh"
 source ~/.dotfiles/bash/git_profile.sh
 source ~/.dotfiles/bash/colors.sh
 source ~/.dotfiles/bash/fzf_profile.sh
