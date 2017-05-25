@@ -49,8 +49,8 @@ Plug 'airblade/vim-gitgutter'
 "**********
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'neovim/node-host', { 'do': 'npm install', 'for': 'markdown'}
-Plug 'vimlab/mdown.vim', { 'do': 'npm install', 'for': 'markdown'}
+Plug 'neovim/node-host', { 'do': 'npm install', 'for': 'markdown', 'frozen': '1'}
+Plug 'vimlab/mdown.vim', { 'do': 'npm install', 'for': 'markdown', 'frozen': '1'}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 " Plug 'JamshedVesuna/vim-markdown-preview'
