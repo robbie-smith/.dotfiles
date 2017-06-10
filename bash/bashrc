@@ -10,6 +10,7 @@ fi
 
 alias bash='atom ~/.dotfiles/bash/bash_profile.sh'
 alias reload='source ~/.dotfiles/bash/bash_profile.sh'
+alias dev='cd /Volumes/c/users/rsmith'
 alias vim='nvim'
 alias vi='nvim'
 alias ls="ls -GFh"
