@@ -115,7 +115,7 @@ gcb() {
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
-fdb() {
+gdb() {
   local tags branches target
   tags=$(
   git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
@@ -189,7 +189,8 @@ gh() {
 
 bind '"\er": redraw-current-line'
 
-gf() {
+#shows diff modified files
+gd() {
   is_in_git_repo || return
   git -c color.status=always status --short |
   fzf-down -m --ansi --nth 2..,.. \
