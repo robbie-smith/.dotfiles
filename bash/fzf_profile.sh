@@ -143,7 +143,8 @@ gshow() {
     git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(green)%C(bold)%cr" "$@" |
     fzf --ansi --multi --no-sort --reverse --query="$q" \
-      --print-query --expect=ctrl-d); do
+      --print-query --expect=ctrl-d \
+      --header='enter:select commit, ctrl-d:diff'); do
     q=$(head -1 <<< "$out")
     k=$(head -2 <<< "$out" | tail -1)
     shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
