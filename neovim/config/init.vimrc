@@ -50,7 +50,6 @@ Plug 'airblade/vim-gitgutter'
 "**********
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 "**************
 " Miscellaneous
