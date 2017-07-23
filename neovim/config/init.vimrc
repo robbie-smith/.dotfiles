@@ -31,7 +31,7 @@ Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-commentary'
 Plug 'jodosha/vim-godebug', { 'for' : 'go' }
-Plug 'junegunn/vim-xmark', { 'do': 'make' }
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
 "*******************
 " Formatting/Linting
 "*******************
