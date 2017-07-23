@@ -8,7 +8,6 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:path/to/connectiq-sdk/bin
 eval "$(rbenv init -)"
-eval "$(pyenv init -)"
 export CLICOLOR=1
 export TERM=xterm-256color
 export LSCOLORS=GxFxCxDxBxegedabagaced
