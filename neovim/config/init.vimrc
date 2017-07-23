@@ -30,7 +30,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-commentary'
-Plug 'jodosha/vim-godebug'
+Plug 'jodosha/vim-godebug', { 'for' : 'go' }
 "*******************
 " Formatting/Linting
 "*******************
@@ -49,24 +49,20 @@ Plug 'airblade/vim-gitgutter'
 "**********
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'neovim/node-host', { 'do': 'npm install', 'for': 'markdown', 'frozen': '1'}
-" Plug 'vimlab/mdown.vim', { 'do': 'npm install', 'for': 'markdown', 'frozen': '1'}
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
-" Plug 'JamshedVesuna/vim-markdown-preview'
 "**************
 " Miscellaneous
 "**************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'metakirby5/codi.vim', {'on': 'Codi'}
 "*******************
 " Snippets
 "*******************
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'shougo/deoplete.nvim', { 'do': ':updateremoteplugins' }
 Plug 'honza/vim-snippets', { 'frozen': '1' }
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets', { 'frozen': '1'}
+Plug 'shougo/neosnippet'
+Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
 "**********
 " Visual
 "**********
