@@ -30,7 +30,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-commentary'
-Plug 'jodosha/vim-godebug', { 'for' : 'go' }
+Plug 'jodosha/vim-godebug', { 'for': 'go' , 'do': 'GoInstallBinaries'}
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
 "*******************
 " Formatting/Linting
@@ -63,6 +64,7 @@ Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'honza/vim-snippets', { 'frozen': '1' }
 Plug 'shougo/neosnippet'
 Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 "**********
 " Visual
 "**********
