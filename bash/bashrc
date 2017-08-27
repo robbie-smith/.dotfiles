@@ -41,5 +41,5 @@ alias gpom="git pull origin master"
 alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hidedotfiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias today="open http://today.turing.io"
-alias dotfiles="~/.dotfiles"
+alias dotfiles="cd ~/.dotfiles"
 alias runexpress="DEBUG=myapp:* npm start --scripts-prepend-node-path"
