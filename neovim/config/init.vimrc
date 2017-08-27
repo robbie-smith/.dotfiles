@@ -63,7 +63,7 @@ Plug 'tpope/vim-dispatch'
 " Snippets
 "*******************
 Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'honza/vim-snippets', { 'frozen': '1' }
+" Plug 'honza/vim-snippets', { 'frozen': '1' }
 Plug 'shougo/neosnippet'
 Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
