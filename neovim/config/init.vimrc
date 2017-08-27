@@ -44,6 +44,7 @@ Plug 'Chiel92/vim-autoformat'
 "**********
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'airblade/vim-gitgutter'
 "**********
@@ -57,6 +58,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 "**************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-dispatch'
 "*******************
 " Snippets
 "*******************
