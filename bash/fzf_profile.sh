@@ -100,6 +100,25 @@ gcrb() {
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+
+# Works without diff
+gitAddFunction() {
+  is_in_git_repo
+  files=$(git status --porcelain | grep -v HEAD) &&
+    file=$(echo "$files" |
+  fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m) &&
+    git add $(echo "$file" | sed "s/.* //")
+}
+
+gh() {
+  is_in_git_repo || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -200' |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
 # gcb - checkout git branch/tag
 gcb() {
   local tags branches target
