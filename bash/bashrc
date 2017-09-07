@@ -8,6 +8,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
 
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+  . ~/.config/exercism/exercism_completion.bash
+fi
 alias bash='nvim ~/.dotfiles/bash/bash_profile.sh'
 alias reload='source ~/.dotfiles/bash/bash_profile.sh'
 alias dev='cd /Volumes/c/users/rsmith'
