@@ -10,7 +10,7 @@ set undolevels=1000
 set undodir=~/.config/nvim/undodir
 set undofile
 " Set updatetime
-set updatetime=500
+set updatetime=100
 " Directories for swp files
 set nobackup
 set noswapfile

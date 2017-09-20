@@ -34,6 +34,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#neomake#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_section_y = '%{strftime("%H:%M")}'
@@ -88,6 +89,20 @@ command! -bang -nargs=* Rg
 let g:gitgutter_highlight_lines = 0
 set signcolumn=yes
 let g:gitgutter_max_signs = 1000
+"**********************
+" Vim-Go
+"**********************
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
+let g:go_snippet_engine = "neosnippet"
 "**********************
 " NerdTree
 "**********************
