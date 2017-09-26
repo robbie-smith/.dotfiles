@@ -9,9 +9,11 @@ class Setup
     goodbye
   end
 
-  def symlink_files
-    `ln -s ~/.dotfiles/bash/bashrc ~/.bashrc`
+  def symlink_bash_profile
     `ln -s ~/.dotfiles/bash/bash_profile.sh ~/.bash_profile`
+  end
+
+  def symlink_files
     parsed_files.each { |file| `ln -s ~/.dotfiles/dotfiles/#{file} ~/.#{file}` }
   end
 
