@@ -30,8 +30,6 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-commentary'
-Plug 'jodosha/vim-godebug', { 'for': 'go' , 'do': 'GoInstallBinaries'}
-Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
 "*******************
 " Formatting/Linting
@@ -50,9 +48,14 @@ Plug 'airblade/vim-gitgutter'
 "**********
 " Languages
 "**********
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'jodosha/vim-godebug', { 'for': 'go' , 'do': 'GoInstallBinaries'}
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
+Plug 'pangloss/vim-javascript', { 'for': 'javascript'}
+Plug 'mxw/vim-jsx', { 'for': 'javascript'}
+Plug 'leshill/vim-json'
 "**************
 " Miscellaneous
 "**************

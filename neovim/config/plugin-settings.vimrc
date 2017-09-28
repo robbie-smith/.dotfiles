@@ -132,6 +132,15 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
+" Vim-Javascript
+"**********************
+let g:javascript_plugin_flow = 1
+"**********************
+" Vim-jsx
+"**********************
+let g:jsx_ext_required = 0
+"**********************
+"**********************
 " VimTest
 "**********************
 let test#strategy = 'neovim'
