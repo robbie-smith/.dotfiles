@@ -36,8 +36,8 @@ Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go']}
-Plug 'neomake/neomake', { 'for': 'ruby'}
+Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby']}
+" Plug 'neomake/neomake', { 'for': 'ruby'}
 Plug 'Chiel92/vim-autoformat'
 "**********
 " Git
