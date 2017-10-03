@@ -84,10 +84,10 @@ nmap <Leader>r :so %<CR>
 
 " Find and Replace
 nmap <Leader>s :%s/\<<C-r><C-w>\>//gc<left><left><left>
-" nmap <Leader>s :%s//gc<left><left>
 
 " AutoFormat
-noremap <s-f> :Autoformat<CR>
+" nmap <s-f> :%s//gc<left><left>
+" noremap <s-f> :Autoformat<CR>
 
 " Buffer switching
 nmap <silent> <S-TAB> :bprev<CR>
