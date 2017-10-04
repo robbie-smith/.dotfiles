@@ -8,6 +8,10 @@ let g:ale_warn_about_trailing_whitespace = 1
 let g:ale_set_highlights = 0
 " let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop']}
+let g:ale_fixers = {
+      \ 'javascript': ['jshint'],
+      \ 'ruby': ['rubocop']
+      \}
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️ '
 let g:ale_sign_error = '>>'
