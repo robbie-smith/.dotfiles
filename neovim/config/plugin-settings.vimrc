@@ -137,6 +137,14 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
+" Vim-Easytags
+"**********************
+set tags="./tags"
+let g:easytags_dynamic_files = 1
+let g:easytags_updatetime_min = 4000
+let g:easytags_async = 1
+"**********************
+"**********************
 " Vim-Javascript
 "**********************
 let g:javascript_plugin_flow = 1
