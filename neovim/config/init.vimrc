@@ -34,6 +34,8 @@ Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install',  'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
 "*******************
 " Formatting/Linting
 "*******************
