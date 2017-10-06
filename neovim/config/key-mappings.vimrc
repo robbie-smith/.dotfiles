@@ -113,7 +113,7 @@ nnoremap <Leader>q :bp<CR>:bd! #<CR>
 "**********************
 " TagBar
 "**********************
-nnoremap <c-t> :Tagbar<CR>
+nnoremap <S-t> :Tagbar<CR>
 "**********************
 " VimFugitive
 "**********************
