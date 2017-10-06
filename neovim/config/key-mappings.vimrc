@@ -111,6 +111,10 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>q :bp<CR>:bd! #<CR>
 "**********************
+" TagBar
+"**********************
+nnoremap <c-t> :Tagbar<CR>
+"**********************
 " VimFugitive
 "**********************
 nnoremap <space>ga :Gwrite<CR><CR>

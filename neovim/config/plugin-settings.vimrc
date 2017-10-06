@@ -38,6 +38,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -147,6 +148,12 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Unknown"   : "?"
       \ }
 "**********************
+" TagBar
+"**********************
+let g:tagbar_autofocus = 1
+" let g:tagbar_autopreview = 1
+let g:tagbar_show_linenumbers = 0
+"**********************
 " UltiSnips
 "**********************
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
@@ -154,10 +161,10 @@ let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " Vim-Easytags
 "**********************
-set tags=tags;
-let g:easytags_dynamic_files = 1
-let g:easytags_updatetime_min = 4000
-let g:easytags_async = 1
+" set tags=tags;
+" let g:easytags_dynamic_files = 1
+" let g:easytags_updatetime_min = 4000
+" let g:easytags_async = 1
 "**********************
 "**********************
 " Vim-Javascript
