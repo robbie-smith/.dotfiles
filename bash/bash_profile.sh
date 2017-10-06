@@ -49,3 +49,4 @@ function codi() {
     hi NonText ctermfg=0 |\
     Codi $syntax" "$@"
 }
+export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
