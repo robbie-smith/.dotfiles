@@ -104,6 +104,11 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 "**********************
 " GitGutter
 "**********************
@@ -152,7 +157,6 @@ let g:NERDTreeIndicatorMapCustom = {
 "**********************
 let g:tagbar_autofocus = 1
 " let g:tagbar_autopreview = 1
-let g:tagbar_show_linenumbers = 0
 "**********************
 " UltiSnips
 "**********************
