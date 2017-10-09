@@ -60,7 +60,7 @@ endif
 "****************
 set background=dark
 " colorscheme base16-tomorrow-night
-colorscheme base16-onedark
+colorscheme base16-gruvbox-dark-hard
 "****************
 " Highlighting
 "****************
