@@ -1,0 +1,15 @@
+*~
+*.swp
+.DS_Store
+
+/.bundle
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+.byebug_history
+
+node_modules
+tags

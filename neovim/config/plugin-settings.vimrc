@@ -7,12 +7,17 @@
 let g:ale_warn_about_trailing_whitespace = 1
 let g:ale_set_highlights = 0
 " let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint']}
+let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop']}
+let g:ale_fixers = {
+      \ 'javascript': ['jshint'],
+      \ 'ruby': ['rubocop']
+      \}
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️ '
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_sign_column_always = 1
+let g:ale_completion_enabled = 1
 let g:neomake_error_sign = {'text':  '>>', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = { 'text': '--', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_ruby_enabled_makers = ['mri']
@@ -33,6 +38,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -83,6 +89,25 @@ command! -bang -nargs=* Rg
       \ call fzf#vim#grep(
       \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
       \   <bang>0)
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 "**********************
 " GitGutter
 "**********************
@@ -127,10 +152,32 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Unknown"   : "?"
       \ }
 "**********************
+" TagBar
+"**********************
+let g:tagbar_autofocus = 1
+" let g:tagbar_autopreview = 1
+"**********************
 " UltiSnips
 "**********************
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
+"**********************
+" Vim-Easytags
+"**********************
+" set tags=tags;
+" let g:easytags_dynamic_files = 1
+" let g:easytags_updatetime_min = 4000
+" let g:easytags_async = 1
+"**********************
+"**********************
+" Vim-Javascript
+"**********************
+let g:javascript_plugin_flow = 1
+"**********************
+" Vim-jsx
+"**********************
+let g:jsx_ext_required = 0
+"**********************
 "**********************
 " VimTest
 "**********************
