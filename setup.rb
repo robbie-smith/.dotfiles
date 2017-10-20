@@ -13,6 +13,10 @@ class Setup
     `ln -s ~/.dotfiles/bash/bash_profile.sh ~/.bash_profile`
   end
 
+  def symlink_pgclirc
+    `ln -s ~/.dotfiles/dotfiles/config ~/.config/pgcli/config`
+  end
+
   def symlink_files
     parsed_files.each { |file| `ln -s ~/.dotfiles/dotfiles/#{file} ~/.#{file}` }
   end

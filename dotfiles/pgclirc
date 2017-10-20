@@ -1,5 +1,0 @@
-[main]
-
-smart_completion = True
-multi_line = True
-vi = False
