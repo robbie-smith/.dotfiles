@@ -10,7 +10,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<c-p>" : "\<S-TAB>"
 "**********************
 " FZF
 "**********************
-nmap <Leader>o :FZF <CR>
+nmap <Leader>o :Files <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
@@ -18,7 +18,8 @@ let g:fzf_action = {
       \ 'ctrl-v': 'vsplit'
       \ }
 " Searches the project for the word under the cursor
-nnoremap <silent> <Leader>f :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>f :BLines <C-R><C-W><CR>
+nnoremap <silent> <C-b> :BLines <CR>
 " Jump to definition functionality
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 
