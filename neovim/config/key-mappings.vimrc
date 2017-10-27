@@ -177,6 +177,10 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
+tnoremap <C-w>h <C-\><C-n><C-w>h
+tnoremap <C-w>j <C-\><C-n><C-w>j
+tnoremap <C-w>k <C-\><C-n><C-w>k
+tnoremap <C-w>l <C-\><C-n><C-w>l
 " Map Ctrl + q to close a window
 nmap <silent> <c-q> :q <CR>
 
