@@ -39,6 +39,7 @@ alias gc="git checkout"
 alias gmaster="git checkout master"
 alias gac="git add . && git commit -m"
 alias gpom="git pull origin master"
+alias makepr="hub pull-request -o -F ~/.dotfiles/pr_template.md | pbcopy -m `git rev-parse --abbrev-ref HEAD` "
 alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hidedotfiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias today="open http://today.turing.io"
