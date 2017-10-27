@@ -219,9 +219,9 @@ options head
 		${0:TARGET}
 	end
 
-snippet     deft
-abbr        def test
-options     head
+snippet deft
+abbr def test
+options head
   def test_${1:TEST_CASE}
     ${0:TARGET}
   end
@@ -389,6 +389,12 @@ options head
 		${0:pending 'Not implemented'}
 	end
 
+snippet itd
+abbr it...do
+options head
+	it '${1:behavior}' do
+		${0:pending 'Not implemented'}
+	end
 snippet scen
 abbr scenario
 options head
