@@ -14,6 +14,10 @@ function lazygit() {
   git push -u origin "${BRANCH}"
 }
 
+function compare() {
+  hub compare `git rev-parse --abbrev-ref HEAD`
+}
+
 function lazyrails() {
   rails new "$1" -d postgresql --skip-turbolinks --skip-spring -T
   cd "$1"
