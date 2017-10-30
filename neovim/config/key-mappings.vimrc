@@ -19,6 +19,7 @@ let g:fzf_action = {
       \ }
 " Searches the project for the word under the cursor
 nnoremap <silent> <Leader>f :BLines <C-R><C-W><CR>
+nnoremap <silent> <Leader>fa :Lines <C-R><C-W><CR>
 nnoremap <silent> <C-b> :BLines <CR>
 " Jump to definition functionality
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
