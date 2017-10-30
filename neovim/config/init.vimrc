@@ -41,7 +41,6 @@ Plug 'majutsushi/tagbar'
 " Formatting/Linting
 "*******************
 Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby']}
-" Plug 'neomake/neomake', { 'for': 'ruby'}
 Plug 'Chiel92/vim-autoformat'
 "**********
 " Git
