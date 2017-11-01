@@ -18,9 +18,6 @@ let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_sign_column_always = 1
 let g:ale_completion_enabled = 1
-let g:neomake_error_sign = {'text':  '>>', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = { 'text': '--', 'texthl': 'NeomakeWarningSign'}
-let g:neomake_ruby_enabled_makers = ['mri']
 "**********************
 " Airline
 "**********************
@@ -36,27 +33,30 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branchi = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'onedark'
+" let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#neomake#enabled = 1
 let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#hunks#enabled = 1
 let g:airline_section_y = '%{strftime("%H:%M")}'
-call airline#parts#define_raw('linenr', '%l:%c')
-call airline#parts#define_accent('linenr', 'bold')
-let g:airline_section_z = airline#section#create([
-      \ g:airline_symbols.linenr .' ', 'linenr'])
-let g:airline#extensions#default#layout = [
-      \ [ 'a', 'b', 'c' ],
-      \ [ 'y', 'z']
-      \ ]
+" call airline#parts#define_raw('linenr', '%l:%c')
+" call airline#parts#define_accent('linenr', 'bold')
+" let g:airline_section_z = airline#section#create([
+      " \ g:airline_symbols.linenr .' ', 'linenr'])
+" let g:airline#extensions#default#layout = [
+"       \ [ 'a', 'b', 'c', 'error', 'warning' ],
+"       \ [ 'x', 'y', 'z']
+"       \ ]
 "**********************
 " Autoformat
 "**********************
 let g:autoformat_remove_trailing_spaces = 1
-autocmd FileType javascript,ruby let b:autoformat_remove_trailing_spaces=1
+let g:format_ruby_style = 'rubocop'
 autocmd FileType ruby let b:autoformat_autoindent=1
 "**********************
 " Codi
@@ -153,15 +153,14 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Unknown"   : "?"
       \ }
 "**********************
-" TagBar
-"**********************
-let g:tagbar_autofocus = 1
-" let g:tagbar_autopreview = 1
-"**********************
-" UltiSnips
+" NeoSnippet
 "**********************
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
+"**********************
+" TagBar
+"**********************
+let g:tagbar_autofocus = 1
 "**********************
 " Vim-Easytags
 "**********************
