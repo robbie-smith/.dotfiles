@@ -26,6 +26,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
+let g:airline_theme = 'onedark'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -152,6 +153,10 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Clean"     : "✔︎",
       \ "Unknown"   : "?"
       \ }
+"**********************
+" NeoTerm
+"**********************
+let g:neoterm_repl_ruby="pry"
 "**********************
 " NeoSnippet
 "**********************
