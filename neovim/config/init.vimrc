@@ -67,6 +67,7 @@ Plug 'leshill/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-dispatch'
+Plug 'kassio/neoterm'
 "*******************
 " Snippets
 "*******************
@@ -82,4 +83,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug '~/.dotfiles/neovim/colors'
+Plug 'rakr/vim-two-firewatch'
+Plug 'marcopaganini/termschool-vim-theme'
 call plug#end()
