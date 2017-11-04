@@ -182,12 +182,13 @@ tnoremap <C-w>h <C-\><C-n><C-w>h
 tnoremap <C-w>j <C-\><C-n><C-w>j
 tnoremap <C-w>k <C-\><C-n><C-w>k
 tnoremap <C-w>l <C-\><C-n><C-w>l
+tnoremap jk <C-\><C-n>
 
 " Relative numbering
 function! NumberToggle()
 if(&relativenumber == 1)
   set nornu
-  set number
+  " set number
 else
   set rnu
 endif

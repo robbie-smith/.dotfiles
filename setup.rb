@@ -6,11 +6,16 @@ class Setup
   def initialize
     prompt_for_neovim
     prompt_for_dotfiles
+    rbenv_rehash
     goodbye
   end
 
   def symlink_bash_profile
     `ln -s ~/.dotfiles/bash/bash_profile.sh ~/.bash_profile`
+  end
+
+  def rbenv_rehash
+    `rbenv rehash`
   end
 
   def symlink_pgclirc
@@ -19,6 +24,8 @@ class Setup
 
   def symlink_files
     parsed_files.each { |file| `ln -s ~/.dotfiles/dotfiles/#{file} ~/.#{file}` }
+    symlink_bash_profile
+    symlink_pgclirc
   end
 
   def symlink_colors_for_neovim
