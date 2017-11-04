@@ -1,4 +1,6 @@
 #! /bin/sh
+# Most of the code here came from thoughtbot. I adapted it to my needs.
+# https://github.com/thoughtbot/laptop
 fancy_echo() {
   local fmt="$1"; shift
 
