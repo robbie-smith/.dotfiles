@@ -60,7 +60,7 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug '~/.dotfiles/neovim/colors'
+Plug '~/.dotfiles/neovim/colors', { 'dir': '~/.dotfiles/neovim/colors/' }
 Plug 'rakr/vim-two-firewatch'
 Plug 'marcopaganini/termschool-vim-theme'
 call plug#end()
