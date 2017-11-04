@@ -34,6 +34,7 @@ class Setup
   end
 
   def symlink_init_for_neovim
+    `mkdir ~./config/nvim/`
     `ln -s ~/.dotfiles/neovim/init.vim ~/.config/nvim/init.vim`
   end
 
