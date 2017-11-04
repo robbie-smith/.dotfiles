@@ -4,6 +4,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Coding Assist
 "*******************
 Plug 'gregsexton/MatchTag'
+Plug 'valloric/MatchTagAlways', { 'for': ['html', 'xml'] }
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test'
@@ -60,7 +61,6 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug '~/.dotfiles/neovim/colors', { 'dir': '~/.dotfiles/neovim/colors/' }
-Plug 'rakr/vim-two-firewatch'
-Plug 'marcopaganini/termschool-vim-theme'
+" Plug '~/.dotfiles/neovim/colors', { 'dir': '~/.dotfiles/neovim/colors/' }
+Plug '~/.dotfiles/neovim/colors'
 call plug#end()

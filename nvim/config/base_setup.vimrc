@@ -10,6 +10,7 @@ endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 let g:python3_host_prog = "/usr/local/bin/python3"
+let g:python2_host_prog = "/usr/local/bin/python2"
 
 " Enable filetype detection
 filetype on
@@ -83,9 +84,10 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 " colorscheme base16-tomorrow-night
 " colorscheme base16-gruvbox-dark-hard
-" colorscheme two-firewatch
-" let g:seoul256_background=234
-colorscheme base16-onedark
+colorscheme two-firewatch
+" colorscheme oceanic-next
+" colorscheme base16-oceanicnext
+" colorscheme base16-onedark
 "****************
 " Highlighting
 "****************
@@ -102,6 +104,6 @@ hi GitGutterDelete gui=bold guifg=#fb4934 guibg=bg
 hi GitGutterChange gui=bold guifg=#fabd2f guibg=bg
 hi GitGutterAddLine gui=bold guifg=#8ec07c guibg=bg
 hi GitGutterChangeDelete guibg=bg
-hi MatchParen gui=bold guifg=#66cccc
 hi ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-highlight TermCursor ctermfg=red guifg=red
+hi TermCursor ctermfg=red guifg=red
+hi MatchParen gui=bold guibg=#56b6c2
