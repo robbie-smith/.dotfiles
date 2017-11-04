@@ -1,3 +1,25 @@
+" Be iMproved
+set nocompatible
+
+"Text Wrapping
+if !exists('*s:setupWrapping')
+  set wm=2
+  set textwidth=80
+endif
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+let g:python3_host_prog = "/usr/local/bin/python3"
+
+" Enable filetype detection
+filetype on
+
+" Path for plug
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
+" Reload files changed outside vim
+set autoread
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 "****************
 " Basic Setup
 "****************
