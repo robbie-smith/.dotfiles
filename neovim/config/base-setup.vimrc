@@ -45,7 +45,6 @@ set incsearch " Searches for strings incrementally
 " Visual Settings
 "****************
 " Highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 syntax on
 syntax enable
 set ruler
@@ -55,6 +54,7 @@ set number
 if (has("termguicolors"))
   set termguicolors
 endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 "****************
 " Color Scheme
 "****************
@@ -62,12 +62,13 @@ set background=dark
 " colorscheme base16-tomorrow-night
 " colorscheme base16-gruvbox-dark-hard
 " colorscheme two-firewatch
-let g:seoul256_background=234
-colorscheme seoul256
+" let g:seoul256_background=234
+colorscheme base16-onedark
 "****************
 " Highlighting
 "****************
 hi LineNr guifg=String guibg=bg
+hi CursorLineNr guifg=#e5c07b guibg=bg
 hi IncSearch guibg=#66cccc
 hi SignColumn guibg=bg
 hi ALEErrorSign gui=bold guifg=#fb4934 guibg=bg
@@ -80,3 +81,5 @@ hi GitGutterChange gui=bold guifg=#fabd2f guibg=bg
 hi GitGutterAddLine gui=bold guifg=#8ec07c guibg=bg
 hi GitGutterChangeDelete guibg=bg
 hi MatchParen gui=bold guifg=#66cccc
+hi ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+highlight TermCursor ctermfg=red guifg=red
