@@ -7,6 +7,8 @@ class Setup
     prompt_for_neovim
     prompt_for_dotfiles
     rbenv_rehash
+    install_pip_gems_for_neovim
+    install_powerline_fonts
     goodbye
   end
 
@@ -16,6 +18,15 @@ class Setup
 
   def rbenv_rehash
     `rbenv rehash`
+  end
+
+  def install_pip_gems_for_neovim
+    puts "Installing pip2 for neovim..."
+    `pip2 install neovim`
+    puts "Installing pip3 for neovim..."
+    `pip3 install neovim`
+    puts "Installing ruby gem for neovim..."
+    `sudo gem install neovim`
   end
 
   def symlink_pgclirc
@@ -34,7 +45,8 @@ class Setup
   end
 
   def symlink_init_for_neovim
-    `mkdir ~./config/nvim/`
+    `mkdir ~/.config/`
+    `mkdir ~/.config/nvim/`
     `ln -s ~/.dotfiles/neovim/init.vim ~/.config/nvim/init.vim`
   end
 
@@ -47,6 +59,13 @@ class Setup
     puts 'Would you like to install the neovim init file? (y/N)'
     print '>> '
     gets.chomp.downcase
+  end
+
+  def install_powerline_fonts
+    `git clone https://github.com/powerline/fonts.git --depth=1`
+    `cd fonts`
+    `./install.sh`
+    `cd .. && rm -rf fonts`
   end
 
   def goodbye
