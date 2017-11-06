@@ -101,7 +101,6 @@ gcrb() {
 }
 
 
-# Works without diff
 gitAddFunction() {
   is_in_git_repo
   files=$(git status --porcelain | grep -v HEAD) &&
@@ -119,7 +118,6 @@ gh() {
   grep -o "[a-f0-9]\{7,\}"
 }
 
-# gcb - checkout git branch/tag
 gcb() {
   local tags branches target
   tags=$(

@@ -1,3 +1,7 @@
-set editing-mode vi
-set keymap vi-command
+# set editing-mode vi
+# set keymap vi-command
 # set show-mode-in-prompt on
+# set vi-ins-mode-string "+"
+# set vi-cmd-mode-string ":"
+# "\e[1;5C": forward-word
+# "\e[1;5D": backward-word

@@ -68,7 +68,7 @@ let g:codi#width = 90
 "**********************
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
-let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/neovim/mysnippets']
+let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/nvim/mysnippets']
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#sources#go#use_cache = 1

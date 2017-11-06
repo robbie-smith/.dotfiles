@@ -1,7 +1,7 @@
 alias ..='cd ..'
 alias be='bundle exec'
 alias back='cd -'
-alias bash='nvim ~/.dotfiles/bash/bash_profile.sh'
+alias openbash='nvim ~/.dotfiles/bash/bash_profile.sh'
 alias browse="hub browse"
 alias c='clear'
 alias dev="cd ~/Dev/"

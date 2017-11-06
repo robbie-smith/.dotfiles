@@ -84,10 +84,11 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 " colorscheme base16-tomorrow-night
 " colorscheme base16-gruvbox-dark-hard
-colorscheme two-firewatch
+" colorscheme two-firewatch
 " colorscheme oceanic-next
 " colorscheme base16-oceanicnext
 " colorscheme base16-onedark
+colorscheme base16-darktooth
 "****************
 " Highlighting
 "****************
