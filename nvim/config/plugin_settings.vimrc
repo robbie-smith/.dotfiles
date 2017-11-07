@@ -160,7 +160,7 @@ let g:neoterm_repl_ruby="pry"
 "**********************
 " NeoSnippet
 "**********************
-let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/neovim/mysnippets', 'neosnippet']
+let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/nvim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " TagBar
