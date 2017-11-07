@@ -24,7 +24,8 @@ alias pr="hub pull-request -l \"Needs Code Review\", \"Needs Testing\", \"#squad
 alias makepr="hub pull-request -o -F ~/.dotfiles/PULL_REQUEST_TEMPLATE.md | pbcopy -l \"Needs Code Review\", \"Needs Testing\", \"#squad-insights\" "
 alias show='ls'
 alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias reload='source ~/.dotfiles/bash/bash_profile.sh'
+alias reload='source ~/.bash_profile'
 alias runexpress="DEBUG=myapp:* npm start --scripts-prepend-node-path"
+alias run_wrench="HOST=localhost PORT=8080 npm run dev"
 alias vim='nvim'
 alias vi='nvim'
