@@ -92,19 +92,19 @@ colorscheme base16-darktooth
 "****************
 " Highlighting
 "****************
-hi LineNr guifg=String guibg=bg
-hi CursorLineNr guifg=#e5c07b guibg=bg
-hi IncSearch guibg=#66cccc
-hi SignColumn guibg=bg
 hi ALEErrorSign gui=bold guifg=#fb4934 guibg=bg
 hi ALEWarningSign gui=bold guifg=#60ff60 guibg=bg
-hi NeomakeErrorSign gui=bold guifg=#fb4934 guibg=bg
-hi NeomakeWarningSign gui=bold guifg=#fb4934 guibg=bg
+hi CursorLineNr guifg=#e5c07b guibg=bg
+hi ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 hi GitGutterAdd gui=bold guifg=#8ec07c guibg=bg
 hi GitGutterDelete gui=bold guifg=#fb4934 guibg=bg
 hi GitGutterChange gui=bold guifg=#fabd2f guibg=bg
 hi GitGutterAddLine gui=bold guifg=#8ec07c guibg=bg
 hi GitGutterChangeDelete guibg=bg
-hi ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-hi TermCursor ctermfg=red guifg=red
+hi IncSearch guibg=#66cccc
+hi LineNr guifg=String guibg=bg
 hi MatchParen gui=bold guibg=#56b6c2
+hi NeomakeErrorSign gui=bold guifg=#fb4934 guibg=bg
+hi NeomakeWarningSign gui=bold guifg=#fb4934 guibg=bg
+hi SignColumn guibg=bg
+hi TermCursor ctermfg=red guifg=#e5c07b
