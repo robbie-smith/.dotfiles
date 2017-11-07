@@ -124,6 +124,8 @@ install_python_for_neovim() {
 
 install_python_for_neovim
 
+mkdir ~/.config
+
 update_bash(){
   echo "Adding the new bash to the list of allowed shells..."
   sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
