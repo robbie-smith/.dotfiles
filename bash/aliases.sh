@@ -26,6 +26,6 @@ alias show='ls'
 alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias reload='source ~/.bash_profile'
 alias runexpress="DEBUG=myapp:* npm start --scripts-prepend-node-path"
-alias run_wrench="HOST=localhost PORT=8080 npm run dev"
+alias run_wrench="cd ~/Dev/procore/wrench/ && HOST=localhost PORT=8080 npm run dev"
 alias vim='nvim'
 alias vi='nvim'
