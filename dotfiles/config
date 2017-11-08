@@ -1,6 +1,4 @@
 [main]
-
-vi=True
 # Enables context sensitive auto-completion. If this is disabled the all
 # possible completions will be listed.
 smart_completion = True
@@ -38,7 +36,7 @@ generate_aliases = False
 log_file = default
 
 # keyword casing preference. Possible values "lower", "upper", "auto"
-keyword_casing = auto
+keyword_casing = upper
 
 # casing_file location.
 # In Unix/Linux: ~/.config/pgcli/casing
@@ -90,13 +88,13 @@ table_format = psql
 # Syntax Style. Possible values: manni, igor, xcode, vim, autumn, vs, rrt,
 # native, perldoc, borland, tango, emacs, friendly, monokai, paraiso-dark,
 # colorful, murphy, bw, pastie, paraiso-light, trac, default, fruity
-syntax_style = default
+syntax_style = monokai
 
 # Keybindings:
 # When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.
 # When Vi mode is disabled emacs keybindings such as Ctrl-A for home and Ctrl-E
 # for end are available in the REPL.
-vi = False
+vi = True
 
 # Error handling
 # When one of multiple SQL statements causes an error, choose to either
