@@ -21,6 +21,7 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 " Reload files changed outside vim
 set autoread
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+set rtp+=~/.dotfiles/nvim/ftdetect/journal.vim
 "****************
 " Basic Setup
 "****************
