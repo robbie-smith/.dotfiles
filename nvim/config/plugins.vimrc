@@ -47,6 +47,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'kassio/neoterm'
+Plug 'junegunn/vim-journal'
 "*******************
 " Snippets
 "*******************
