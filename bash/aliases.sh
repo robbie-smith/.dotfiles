@@ -21,6 +21,7 @@ alias home="cd ~"
 alias hidedotfiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias ls="ls -GFh"
 alias pr="hub pull-request -l \"Needs Code Review\", \"Needs Testing\", \"#squad-insights\" -o "
+alias procore="cd ~/Dev/procore/"
 alias makepr="hub pull-request -o -F ~/.dotfiles/PULL_REQUEST_TEMPLATE.md | pbcopy -l \"Needs Code Review\", \"Needs Testing\", \"#squad-insights\" "
 alias show='ls'
 alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
