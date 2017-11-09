@@ -47,7 +47,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'kassio/neoterm'
-Plug 'junegunn/vim-journal'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
 "*******************
 " Snippets
 "*******************
@@ -62,6 +63,5 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug '~/.dotfiles/neovim/colors', { 'dir': '~/.dotfiles/neovim/colors/' }
 Plug '~/.dotfiles/neovim/colors'
 call plug#end()
