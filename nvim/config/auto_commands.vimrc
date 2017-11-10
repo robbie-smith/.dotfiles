@@ -11,5 +11,3 @@ au BufWritePre,InsertLeave * :%s/\s\+$//e
 au InsertLeave * :update
 " Clears out the search registery, no more highlights in a random places
 au VimEnter,VimLeavePre * :let @/=""
-
-au! BufNewFile,BufEnter,BufRead,InsertLeave *.txt setf=journal

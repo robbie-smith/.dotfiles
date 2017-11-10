@@ -27,6 +27,9 @@ alias show='ls'
 alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias reload='source ~/.bash_profile'
 alias runexpress="DEBUG=myapp:* npm start --scripts-prepend-node-path"
+alias run_hydra="cd ~/Dev/procore/hydra_clients/insights && yarn start"
+alias run_insights="cd ~/Dev/procore && DEV_MODE=insights bin/rails s"
+alias run_hydra_proc="DEV_MODE=insights foreman start -f Procfile.hydra"
 alias run_wrench="cd ~/Dev/procore/wrench/ && HOST=localhost PORT=8080 npm run dev"
 alias vim='nvim'
 alias vi='nvim'

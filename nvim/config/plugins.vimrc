@@ -14,8 +14,6 @@ Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-" Plug 'xolox/vim-easytags'
-" Plug 'xolox/vim-misc'
 "*******************
 " Formatting/Linting
 "*******************
