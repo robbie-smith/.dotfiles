@@ -11,3 +11,13 @@ au BufWritePre,InsertLeave * :%s/\s\+$//e
 au InsertLeave * :update
 " Clears out the search registery, no more highlights in a random places
 au VimEnter,VimLeavePre * :let @/=""
+
+function! s:journal()
+  " TODO
+  let dirs = get(g:, 'journal#dirs', ['notes', 'journal.d'])
+  if index(dirs, expand('%:p:h:t')) >= 0
+    set filetype=journal
+  endif
+endfunction
+
+au BufRead,BufNewFile *.txt call s:journal()
