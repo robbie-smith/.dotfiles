@@ -1,6 +1,7 @@
 "***********************
 " Plug-in Configurations
 "***********************
+let g:calendar_google_calendar = 1
 "**********************
 " Ale/Neomake/Syntastic
 "**********************
@@ -177,8 +178,8 @@ let g:jsx_ext_required = 0
 "**********************
 " Vim-Notes
 "**********************
-let g:notes_directories = ['~/Dev/work_notes']
-"
+" let g:notes_directories = ['~/Dev/work_notes']
+
 "**********************
 " VimTest
 "**********************
