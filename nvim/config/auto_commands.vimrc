@@ -14,10 +14,10 @@ au VimEnter,VimLeavePre * :let @/=""
 
 function! s:journal()
   " TODO
-  let dirs = get(g:, 'journal#dirs', ['notes', 'journal.d'])
+  let dirs = get(g:, 'journal#dirs', ['Dev','work_notes', 'notes', 'journal.d'])
   if index(dirs, expand('%:p:h:t')) >= 0
     set filetype=journal
   endif
 endfunction
 
-au BufRead,BufNewFile *.txt call s:journal()
+au BufEnter,BufRead,BufNewFile *.txt call s:journal()
