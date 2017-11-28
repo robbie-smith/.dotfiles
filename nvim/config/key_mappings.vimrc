@@ -20,6 +20,7 @@ let g:fzf_action = {
 " Searches the project for the word under the cursor
 nnoremap <silent> <Leader>f :BLines <C-R><C-W><CR>
 nnoremap <silent> <Leader>fa :Lines <C-R><C-W><CR>
+noremap <Leader>b :BTags<CR>
 nnoremap <silent> <C-b> :BLines <CR>
 " Jump to definition functionality
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
@@ -144,7 +145,7 @@ noremap <Right> <NOP>
 noremap <S-q> <NOP>
 
 " Open current file on GitHub
-noremap <Leader>b :! hub browse<CR>
+" noremap <Leader>b :! hub browse<CR>
 
 " Clears the paste mode
 noremap <Leader>p :set nopaste<CR>
@@ -178,7 +179,7 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-tnoremap <ESC> <C-\><C-n>
+tnoremap <C-D> <C-\><C-n>
 
 " Relative numbering
 function! NumberToggle()

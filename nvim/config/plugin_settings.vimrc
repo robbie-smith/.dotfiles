@@ -158,6 +158,9 @@ let g:NERDTreeIndicatorMapCustom = {
 " NeoTerm
 "**********************
 let g:neoterm_repl_ruby="pry"
+let g:neoterm_position = 'vertical'
+let g:neoterm_keep_term_open = 0
+let g:neoterm_autoinsert = 1
 "**********************
 " NeoSnippet
 "**********************
@@ -183,4 +186,5 @@ let g:jsx_ext_required = 0
 "**********************
 " VimTest
 "**********************
-let test#strategy = 'neovim'
+" let test#strategy = 'neovim'
+let test#strategy = 'neoterm'
