@@ -189,3 +189,4 @@ let g:jsx_ext_required = 0
 "**********************
 " let test#strategy = 'neovim'
 let test#strategy = 'neoterm'
+let test#ruby#use_binstubs = 0
