@@ -157,6 +157,7 @@ let g:NERDTreeIndicatorMapCustom = {
 "**********************
 " NeoTerm
 "**********************
+let g:neoterm_size = 90
 let g:neoterm_repl_ruby="pry"
 let g:neoterm_position = 'vertical'
 let g:neoterm_keep_term_open = 0
