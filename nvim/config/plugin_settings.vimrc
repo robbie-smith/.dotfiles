@@ -57,8 +57,9 @@ let g:airline_section_y = '%{strftime("%H:%M")}'
 "**********************
 " Autoformat
 "**********************
+let g:formatterpath = ['~/.rbenv/shims/rbeautify']
 let g:autoformat_remove_trailing_spaces = 1
-let g:format_ruby_style = 'rubocop'
+let g:format_ruby_style = 'rbeautify'
 autocmd FileType ruby let b:autoformat_autoindent=1
 "**********************
 " Codi
@@ -180,10 +181,11 @@ let g:javascript_plugin_flow = 1
 "**********************
 let g:jsx_ext_required = 0
 "**********************
-" Vim-Notes
+" Vim-Ruby
 "**********************
-" let g:notes_directories = ['~/Dev/work_notes']
-
+let ruby_fold = 1
+let ruby_spellcheck_strings = 1
+let ruby_foldable_groups = 'def'
 "**********************
 " VimTest
 "**********************

@@ -46,8 +46,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-journal'
 Plug 'tpope/vim-dispatch'
 Plug 'kassio/neoterm'
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-notes'
 Plug 'itchyny/calendar.vim'
 "*******************
 " Snippets
