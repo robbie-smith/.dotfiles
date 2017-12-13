@@ -163,6 +163,7 @@ let g:neoterm_repl_ruby="pry"
 let g:neoterm_position = 'vertical'
 let g:neoterm_keep_term_open = 0
 let g:neoterm_autoinsert = 1
+let g:neoterm_autoscroll = 1
 "**********************
 " NeoSnippet
 "**********************
@@ -190,5 +191,8 @@ let ruby_foldable_groups = 'def'
 " VimTest
 "**********************
 " let test#strategy = 'neovim'
-let test#strategy = 'neoterm'
+" let test#strategy = 'neoterm'
+" let test#strategy = 'terminal'
+let test#strategy = 'iterm'
+
 let test#ruby#use_binstubs = 0
