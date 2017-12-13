@@ -17,6 +17,12 @@ function lazygit() {
   git push -u origin "${BRANCH}"
 }
 
+function pr()
+{
+  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  hub pull-request -b "${BRANCH}" -l Needs Code Review,Needs Testing,\#squad-insights\ -o
+}
+
 function compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
 }
