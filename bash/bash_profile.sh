@@ -19,8 +19,7 @@ function lazygit() {
 
 function pr()
 {
-  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-  hub pull-request -b "${BRANCH}" -l Needs Code Review,Needs Testing,\#squad-insights\ -o
+  hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
 }
 
 function compare() {
