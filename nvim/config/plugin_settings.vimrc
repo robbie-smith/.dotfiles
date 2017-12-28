@@ -193,6 +193,8 @@ let ruby_foldable_groups = 'def'
 " let test#strategy = 'neovim'
 " let test#strategy = 'neoterm'
 " let test#strategy = 'terminal'
+let test#filename_modifier = ':~'
+" let g:test#preserve_screen = 1
 let test#strategy = 'iterm'
 
-let test#ruby#use_binstubs = 0
+" let test#ruby#use_binstubs = 0
