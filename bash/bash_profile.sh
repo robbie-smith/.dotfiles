@@ -62,3 +62,6 @@ function codi() {
     Codi $syntax" "$@"
 }
 export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
+
+# added by Anaconda3 5.0.1 installer
+export PATH="/Users/robbiesmith/anaconda3/bin:$PATH"
