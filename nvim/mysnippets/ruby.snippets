@@ -47,6 +47,15 @@ abbr alias_method :${1:new_name}, :${0:old_name}
 options head
 	alias_method :${1:new_name}, :${0:old_name}
 
+snippet ife
+abbr  if...else
+options head
+  if ${1:true_condition}
+    ${2}
+  else
+    ${3}
+  end
+
 snippet clap
 abbr  class < parent..initialize..end
 options head
