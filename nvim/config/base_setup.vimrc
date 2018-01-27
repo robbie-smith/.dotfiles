@@ -76,7 +76,7 @@ set number
 
 " Tell the term has 256 colors
 if (has("termguicolors"))
-  set termguicolors
+set termguicolors
 endif
 "****************
 " Color Scheme
@@ -88,7 +88,9 @@ set background=dark
 " colorscheme oceanic-next
 " colorscheme base16-oceanicnext
 " colorscheme base16-onedark
-colorscheme base16-darktooth
+" colorscheme base16-darktooth
+colorscheme deus
+" let g:deus_termcolors=256
 set signcolumn=yes
 "****************
 " Highlighting
