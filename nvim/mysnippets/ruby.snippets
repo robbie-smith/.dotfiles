@@ -159,26 +159,26 @@ options word
 snippet mapd
 abbr map do..end
 options word
-  map do |${1:#:variable}|
+  map do |${1:variable}|
     ${2}
   end
 
 snippet mapi
 abbr map.with_index do..end
 options word
-  map.with_index do |${1:#:variable}, ${2:index} |
+  map.with_index do |${1:variable}, ${2:index} |
     ${0}
   end
 
 snippet red
 abbr reduce { }
 options word
-  reduce(${1:memo}) { |${2:memo}, ${3:#:variable}|  ${4:TARGET} }
+  reduce(${1:memo}) { |${2:memo}, ${3:variable}|  ${4:TARGET} }
 
 snippet redd
 abbr reduce do..end
 options word
-  reduce(${1:memo}) do |${2:memo}, ${3:#:variable}|
+  reduce(${1:memo}) do |${2:memo}, ${3:variable}|
     ${4:TARGET}
   end
 
@@ -192,7 +192,7 @@ options word
 snippet sort_by
 abbr sort_by do..end
 options word
-  sort_by do |${1:#:variable}|
+  sort_by do |${1:variable}|
     ${2}
   end
 

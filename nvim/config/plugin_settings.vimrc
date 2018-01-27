@@ -19,6 +19,7 @@ let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_sign_column_always = 1
 let g:ale_completion_enabled = 1
+let g:ale_lint_on_text_changed = 1
 "**********************
 " Airline
 "**********************
@@ -116,8 +117,7 @@ command! -bang -nargs=? -complete=dir Files
 " GitGutter
 "**********************
 let g:gitgutter_highlight_lines = 0
-set signcolumn=yes
-let g:gitgutter_max_signs = 1000
+let g:gitgutter_max_signs = 500
 "**********************
 " Vim-Go
 "**********************
@@ -172,7 +172,7 @@ let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " TagBar
 "**********************
-let g:tagbar_autofocus = 1
+" let g:tagbar_autofocus = 1
 "**********************
 " Vim-Javascript
 "**********************
@@ -184,7 +184,7 @@ let g:jsx_ext_required = 0
 "**********************
 " Vim-Ruby
 "**********************
-let ruby_fold = 1
+" let ruby_fold = 1
 let ruby_spellcheck_strings = 1
 let ruby_foldable_groups = 'def'
 "**********************
