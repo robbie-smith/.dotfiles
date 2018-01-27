@@ -7,13 +7,13 @@ Plug 'gregsexton/MatchTag'
 Plug 'valloric/MatchTagAlways', { 'for': ['html', 'xml'] }
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
-Plug 'janko-m/vim-test'
+Plug 'janko-m/vim-test', { 'frozen': '1'}
 Plug 'tpope/vim-commentary'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install',  'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 "*******************
 " Formatting/Linting
 "*******************
@@ -43,7 +43,7 @@ Plug 'leshill/vim-json'
 "**************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-journal'
+Plug 'junegunn/vim-journal', { 'for': ['text', 'txt']}
 Plug 'tpope/vim-dispatch'
 Plug 'kassio/neoterm'
 Plug 'itchyny/calendar.vim'
@@ -51,7 +51,6 @@ Plug 'itchyny/calendar.vim'
 " Snippets
 "*******************
 Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'honza/vim-snippets', { 'frozen': '1' }
 Plug 'shougo/neosnippet'
 Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}

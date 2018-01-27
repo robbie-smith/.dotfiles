@@ -89,6 +89,7 @@ set background=dark
 " colorscheme base16-oceanicnext
 " colorscheme base16-onedark
 colorscheme base16-darktooth
+set signcolumn=yes
 "****************
 " Highlighting
 "****************
