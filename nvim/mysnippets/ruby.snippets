@@ -132,6 +132,12 @@ options word
     ${0}
   end
 
+
+snippet eachw
+abbr each_with_object()
+options word
+	each_with_object(${1:memo}) { |${3:variable}, ${2:memo}| ${4:TARGET} }
+
 snippet fin
 abbr find { }
 options word
@@ -383,6 +389,13 @@ snippet get
 abbr get ''
 options head
 	get '${1:path}'
+
+snippet cont
+abbr context
+options head
+	context '${1:context}' do
+		${0:TARGET}
+	end
 
 snippet feat
 abbr feature
