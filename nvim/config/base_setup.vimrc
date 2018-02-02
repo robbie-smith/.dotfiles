@@ -87,10 +87,9 @@ set background=dark
 " colorscheme two-firewatch
 " colorscheme oceanic-next
 " colorscheme base16-oceanicnext
-" colorscheme base16-onedark
+colorscheme base16-onedark
 " colorscheme base16-darktooth
-colorscheme deus
-" let g:deus_termcolors=256
+" colorscheme deus
 set signcolumn=yes
 "****************
 " Highlighting
