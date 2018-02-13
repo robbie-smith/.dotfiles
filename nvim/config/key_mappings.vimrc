@@ -195,7 +195,7 @@ endfunc
 nnoremap <S-Q> :call NumberToggle()<cr>
 
 " Highlight word under the cursor
-nmap <expr><c-f> pumvisible() ? "\<c-f>" : "\<#>"
+nnoremap <expr><c-f> pumvisible() ? "\<c-f>" : "\<#>"
 " move to beginning/end of line
 nnoremap B ^
 nnoremap E $
