@@ -87,9 +87,11 @@ set background=dark
 " colorscheme two-firewatch
 " colorscheme oceanic-next
 " colorscheme base16-oceanicnext
-colorscheme base16-onedark
+" colorscheme base16-onedark
 " colorscheme base16-darktooth
 " colorscheme deus
+" colorscheme neodark
+colorscheme base16-eighties
 set signcolumn=yes
 "****************
 " Highlighting
