@@ -15,6 +15,7 @@ let g:ale_fixers = {
       \}
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️ '
+let g:ale_set_signs = 1
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_sign_column_always = 1
@@ -36,17 +37,16 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branchi = ''
 let g:airline_symbols.readonly = ''
 let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'onedark'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#ale#enabled = 1
-let airline#extensions#ale#error_symbol = 'E:'
-let airline#extensions#ale#warning_symbol = 'W:'
+" let g:airline#extensions#ale#error_symbol = 'E:'
+" let g:airline#extensions#ale#warning_symbol = 'W:'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
+" let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#hunks#enabled = 1
-let g:airline_section_y = '%{strftime("%H:%M")}'
+" let g:airline_section_y = '%{strftime("%H:%M")}'
 " call airline#parts#define_raw('linenr', '%l:%c')
 " call airline#parts#define_accent('linenr', 'bold')
 " let g:airline_section_z = airline#section#create([
@@ -55,13 +55,19 @@ let g:airline_section_y = '%{strftime("%H:%M")}'
 "       \ [ 'a', 'b', 'c', 'error', 'warning' ],
 "       \ [ 'x', 'y', 'z']
 "       \ ]
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_left(['ALE'])
+" let g:airline_section_error = '%{exists("ALEGetStatusLine") ? ALEGetStatusLine() : ""}'
 "**********************
 " Autoformat
 "**********************
-let g:formatterpath = ['~/.rbenv/shims/rbeautify']
-let g:autoformat_remove_trailing_spaces = 1
-let g:format_ruby_style = 'rbeautify'
+" let g:formatterpath = ['~/.rbenv/shims/rbeautify']
+" let g:format_ruby_style = 'rbeautify'
+let g:formatterpath = ['~/.rbenv/shims/rubocop']
+let g:format_ruby_style = 'rubocop'
 autocmd FileType ruby let b:autoformat_autoindent=1
+let g:autoformat_remove_trailing_spaces = 1
 "**********************
 " Codi
 "**********************
