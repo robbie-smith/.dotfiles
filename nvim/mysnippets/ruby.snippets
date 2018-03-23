@@ -132,9 +132,15 @@ options word
     ${0}
   end
 
+snippet eachwd
+abbr each_with_object do..end
+options word
+	each_with_object(${1:memo}) do |${3:variable}, ${2:memo}|
+  ${4:TARGET}
+  end
 
 snippet eachw
-abbr each_with_object()
+abbr each_with_object{}
 options word
 	each_with_object(${1:memo}) { |${3:variable}, ${2:memo}| ${4:TARGET} }
 
