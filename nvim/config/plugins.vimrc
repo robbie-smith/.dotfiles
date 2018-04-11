@@ -9,16 +9,18 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test', { 'frozen': '1'}
 Plug 'tpope/vim-commentary'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install',  'for': ['javascript', 'javascript.jsx'] }
+" Plug 'ternjs/tern_for_vim', { 'do': 'npm install',  'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
+" Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'majutsushi/tagbar'
+Plug 'rizzatti/dash.vim'
+Plug 'ecomba/vim-ruby-refactoring'
 "*******************
 " Formatting/Linting
 "*******************
 Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby']}
 Plug 'Chiel92/vim-autoformat'
+Plug 'lifepillar/pgsql.vim', { 'for': 'sql' }
 "**********
 " Git
 "**********
@@ -45,7 +47,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-journal', { 'for': ['text', 'txt']}
 Plug 'tpope/vim-dispatch'
-Plug 'kassio/neoterm'
+" Plug 'kassio/neoterm'
 Plug 'itchyny/calendar.vim'
 "*******************
 " Snippets
