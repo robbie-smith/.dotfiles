@@ -114,9 +114,10 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>q :bp<CR>:bd! #<CR>
 "**********************
-" TagBar
-"**********************
-nnoremap <S-t> :Tagbar<CR>
+" W0rp-Ale
+  "**********************
+nmap <space>ap <Plug>(ale_previous_wrap)
+nmap <space>an <Plug>(ale_next_wrap)
 "**********************
 " VimFugitive
 "**********************
