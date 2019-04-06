@@ -83,7 +83,6 @@ brew "qt@5.5" if MacOS::Xcode.installed?
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
 brew "coreutils"
-brew "yarn"
 cask "gpg-suite"
 
 EOF

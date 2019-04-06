@@ -32,6 +32,7 @@ class Setup
 
   def symlink_init_for_neovim
     `rm -rf /usr/local/Cellar/neovim/0.2.0_1/share/nvim/runtime/colors`
+    `mkdir ~/.config/`
     `ln -s ~/.dotfiles/nvim ~/.config/`
   end
 
