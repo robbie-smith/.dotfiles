@@ -1,0 +1,63 @@
+on run argv
+	tell application "iTerm"
+		set testProfile to false
+		if (count of windows) is 1 then
+			tell current window
+				repeat with aTab in tabs
+					set profileName to profile name of current session of aTab
+					if profileName is "Test" then
+						set testProfile to true
+						select aTab
+						tell current session of aTab
+							write text (item 1 of argv)
+						end tell
+						exit repeat
+					end if
+				end repeat
+				if not testProfile then
+					create tab with profile "Test"
+					activate
+					tell current session
+						write text (item 1 of argv)
+					end tell
+				end if
+			end tell
+		else
+			repeat with aWindow in windows
+				select aWindow
+				set profileName to profile name of current session of aWindow
+				if profileName is "Test" then
+					set testProfile to true
+					select aWindow
+					tell current session of current window
+						write text (item 1 of argv)
+					end tell
+					exit repeat
+				end if
+				tell current window
+					repeat with aTab in tabs
+						set profileName to profile name of current session of aTab
+						if profileName is "Test" then
+							set testProfile to true
+							select aTab
+							tell current session of aTab
+								write text (item 1 of argv)
+							end tell
+							exit repeat
+						end if
+					end repeat
+				end tell
+			end repeat
+			tell second window
+				if not testProfile then
+					create tab with profile "Test"
+					activate
+					tell current session
+						write text (item 1 of argv)
+					end tell
+				end if
+			end tell
+		end if
+	end tell
+	delay 0.02
+end run
