@@ -19,7 +19,8 @@ function lazygit() {
 
 function pr()
 {
-  hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
+  # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
+  hub pull-request -o
 }
 
 function compare() {
