@@ -201,6 +201,12 @@ let ruby_foldable_groups = 'def'
 " let test#strategy = 'terminal'
 " let test#filename_modifier = ':~'
 " let g:test#preserve_screen = 1
-let test#strategy = 'iterm'
 
+let test#strategy = 'iterm'
+let test#ruby#rspec#options = '--format documentation'
+let test#ruby#rspec#options = {
+  \ 'nearest': '--backtrace',
+  \ 'file':    '--format documentation',
+  \ 'suite':   '--tag ~slow',
+\}
 " let test#ruby#use_binstubs = 0
