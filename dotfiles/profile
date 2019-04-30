@@ -6,8 +6,6 @@ export GOPATH=$HOME/Go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
-export PATH=$PATH:path/to/connectiq-sdk/bin
-eval "$(rbenv init -)"
 export CLICOLOR=1
 export TERM=xterm-256color
 export LSCOLORS=GxFxCxDxBxegedabagaced
@@ -18,3 +16,5 @@ set show-all-if-ambiguous on
 set completion-ignore-case on
 bind 'TAB:menu-complete'
 export HISTCONTROL=ignoreboth
+eval "$(rbenv init -)"
+eval "$(pyenv init -)"
