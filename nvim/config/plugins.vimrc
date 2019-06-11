@@ -56,6 +56,7 @@ Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'shougo/neosnippet'
 Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'deoplete-plugins/deoplete-jedi'
 "**********
 " Visual
 "**********

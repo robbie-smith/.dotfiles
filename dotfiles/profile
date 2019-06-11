@@ -18,3 +18,5 @@ bind 'TAB:menu-complete'
 export HISTCONTROL=ignoreboth
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
