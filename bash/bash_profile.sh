@@ -1,8 +1,6 @@
 [[ -s ~/.dotfiles/bash/bashrc ]] && source ~/.dotfiles/bash/bashrc
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
-export PATH=$PATH:/Users/rsmith/Connect/bin
-
 export EDITOR=nvim
 
 function gpush() {
