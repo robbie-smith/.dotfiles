@@ -1,3 +1,22 @@
+export PATH=$HOME/.local/bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/usr/local/Cellar:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH=$PATH.~/.rbenv/shims
+export GOPATH=$HOME/Go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+export CLICOLOR=1
+export TERM=xterm-256color
+export LSCOLORS=GxFxCxDxBxegedabagaced
+export CLICOLOR=1
+export TERM=xterm-256color
+export LSCOLORS=GxFxCxDxBxegedabagaced
+set show-all-if-ambiguous on
+set completion-ignore-case on
+bind 'TAB:menu-complete'
+export HISTCONTROL=ignoreboth
 source ~/.dotfiles/bash/fzf_profile.sh
 source ~/.dotfiles/bash/git_profile.sh
 source ~/.dotfiles/bash/colors.sh
@@ -12,3 +31,6 @@ fi
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
   . ~/.config/exercism/exercism_completion.bash
 fi
+eval "$(rbenv init -)"
+eval "$(pyenv init -)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
