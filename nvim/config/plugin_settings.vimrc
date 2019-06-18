@@ -64,8 +64,9 @@ let g:airline_section_error = airline#section#create_left(['ALE'])
 "**********************
 " let g:formatterpath = ['~/.rbenv/shims/rbeautify']
 " let g:format_ruby_style = 'rbeautify'
-let g:formatterpath = ['~/.rbenv/shims/rubocop']
+let g:formatterpath = ['~/.rbenv/shims/rubocop', '/usr/local/bin/flake8']
 let g:format_ruby_style = 'rubocop'
+" let g:formatters_python = ['flake8', 'pep8']
 autocmd FileType ruby let b:autoformat_autoindent=1
 let g:autoformat_remove_trailing_spaces = 1
 "**********************
