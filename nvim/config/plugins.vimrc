@@ -46,7 +46,7 @@ Plug 'leshill/vim-json'
 "**************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-journal', { 'for': ['text', 'txt']}
+Plug 'junegunn/vim-journal', { 'for': ['text', 'txt'], 'frozen': '1'}
 Plug 'tpope/vim-dispatch'
 " Plug 'kassio/neoterm'
 Plug 'itchyny/calendar.vim'
