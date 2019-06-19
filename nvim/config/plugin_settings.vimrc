@@ -8,10 +8,11 @@ let g:calendar_google_calendar = 1
 let g:ale_warn_about_trailing_whitespace = 1
 let g:ale_set_highlights = 0
 " let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop']}
+let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['flake8', 'pylint']}
 let g:ale_fixers = {
       \ 'javascript': ['jshint'],
-      \ 'ruby': ['rubocop']
+      \ 'ruby': ['rubocop'],
+      \ 'python' : ['flake8', 'pylint']
       \}
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️ '
@@ -78,6 +79,9 @@ let g:codi#width = 90
 "**********************
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
+call deoplete#custom#option('sources', {
+\ '_': ['ale'],
+\})
 let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/nvim/mysnippets']
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
