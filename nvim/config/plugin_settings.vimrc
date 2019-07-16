@@ -208,6 +208,7 @@ let ruby_foldable_groups = 'def'
 " let g:test#preserve_screen = 1
 
 let test#strategy = 'iterm'
+let test#python#pytest#options = '-s'
 let test#ruby#rspec#options = '--format documentation'
 let test#ruby#rspec#options = {
   \ 'nearest': '--backtrace',
