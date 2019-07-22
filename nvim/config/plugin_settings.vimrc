@@ -8,12 +8,8 @@ let g:calendar_google_calendar = 1
 let g:ale_warn_about_trailing_whitespace = 1
 let g:ale_set_highlights = 0
 " let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['autopep8', 'pylint']}
-let g:ale_fixers = {
-      \ 'javascript': ['jshint'],
-      \ 'ruby': ['rubocop'],
-      \ 'python' : ['autopep8']
-      \}
+let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['flake8', 'pylint']}
+let g:ale_fixers = {'javascript': ['jshint'], 'ruby': ['rubocop'], 'python' : ['autopep8']}
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️ '
 let g:ale_set_signs = 1
