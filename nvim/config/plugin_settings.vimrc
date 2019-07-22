@@ -8,11 +8,11 @@ let g:calendar_google_calendar = 1
 let g:ale_warn_about_trailing_whitespace = 1
 let g:ale_set_highlights = 0
 " let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['flake8', 'pylint']}
+let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['autopep8', 'pylint']}
 let g:ale_fixers = {
       \ 'javascript': ['jshint'],
       \ 'ruby': ['rubocop'],
-      \ 'python' : ['flake8', 'pylint']
+      \ 'python' : ['autopep8']
       \}
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️ '
@@ -67,7 +67,7 @@ let g:airline_section_error = airline#section#create_left(['ALE'])
 " let g:format_ruby_style = 'rbeautify'
 let g:formatterpath = ['~/.rbenv/shims/rubocop', '/usr/local/bin/flake8']
 let g:format_ruby_style = 'rubocop'
-" let g:formatters_python = ['flake8', 'pep8']
+let g:formatters_python = ['autopep8', 'pep8']
 autocmd FileType ruby let b:autoformat_autoindent=1
 let g:autoformat_remove_trailing_spaces = 1
 "**********************
