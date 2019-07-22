@@ -14,7 +14,6 @@ let g:python2_host_prog = "/usr/local/bin/python2"
 
 " Enable filetype detection
 filetype on
-
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
@@ -77,6 +76,7 @@ set incsearch " Searches for strings incrementally
 "****************
 " Visual Settings
 "****************
+let python_highlight_all=1
 " Highlight all tabs and trailing whitespace characters.
 syntax on
 syntax enable
@@ -88,8 +88,6 @@ if (has("termguicolors"))
 set termguicolors
 endif
 
-let python_highlight_all=1
-syntax on
 "****************
 " Color Scheme
 "****************
