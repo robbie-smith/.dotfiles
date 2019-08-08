@@ -95,13 +95,12 @@ set background=dark
 " colorscheme base16-tomorrow-night
 " colorscheme base16-gruvbox-dark-hard
 " colorscheme two-firewatch
-" colorscheme oceanic-next
-" colorscheme base16-oceanicnext
+colorscheme base16-oceanicnext
 " colorscheme base16-onedark
 " colorscheme base16-darktooth
 " colorscheme deus
 " colorscheme neodark
-colorscheme base16-eighties
+" colorscheme base16-eighties
 set signcolumn=yes
 "****************
 " Highlighting
