@@ -3,6 +3,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*******************
 " Coding Assist
 "*******************
+Plug 'hashivim/vim-terraform'
 Plug 'gregsexton/MatchTag'
 Plug 'valloric/MatchTagAlways', { 'for': ['html', 'xml'] }
 Plug 'Raimondi/delimitMate'

@@ -189,6 +189,11 @@ let g:javascript_plugin_flow = 1
 "**********************
 let g:jsx_ext_required = 0
 "**********************
+" Vim-Terraform
+"**********************
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+"**********************
 " Vim-Ruby
 "**********************
 " let ruby_fold = 1
