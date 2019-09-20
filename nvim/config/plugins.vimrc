@@ -42,6 +42,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 Plug 'pangloss/vim-javascript', { 'for': 'javascript'}
 Plug 'mxw/vim-jsx', { 'for': 'javascript'}
 Plug 'leshill/vim-json'
+Plug 'jparise/vim-graphql'
 "**************
 " Miscellaneous
 "**************
