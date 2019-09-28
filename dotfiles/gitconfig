@@ -5,3 +5,6 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.global_ignore
+
+[includeIf "gitdir:~/nutrien_dev/"]
+    path = ~/nutrien_dev/.gitconfig
