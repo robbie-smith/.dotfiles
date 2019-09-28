@@ -63,7 +63,7 @@ let g:airline_section_error = airline#section#create_left(['ALE'])
 " let g:format_ruby_style = 'rbeautify'
 let g:formatterpath = ['~/.rbenv/shims/rubocop', '/usr/local/bin/flake8']
 let g:format_ruby_style = 'rubocop'
-let g:formatters_python = ['autopep8', 'pep8']
+let g:formatters_python = ['autopep8', 'pep8', 'black']
 autocmd FileType ruby let b:autoformat_autoindent=1
 let g:autoformat_remove_trailing_spaces = 1
 "**********************
@@ -209,7 +209,13 @@ let ruby_foldable_groups = 'def'
 " let g:test#preserve_screen = 1
 
 let test#strategy = 'iterm'
-let test#python#pytest#options = '-s'
+let test#python#pytest#options = {
+  \ 'all': '-v',
+  \ 'nearest': '-s',
+  \ 'file':    '-v',
+  \ 'suite':   '-v',
+\}
+
 let test#ruby#rspec#options = '--format documentation'
 let test#ruby#rspec#options = {
   \ 'nearest': '--backtrace',
