@@ -10,9 +10,10 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test', { 'frozen': '1'}
 Plug 'tpope/vim-commentary'
-" Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'rizzatti/dash.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 "*******************
 " Formatting/Linting
 "*******************
@@ -47,7 +48,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-journal', { 'for': ['text', 'txt'], 'frozen': '1'}
 Plug 'tpope/vim-dispatch'
-" Plug 'kassio/neoterm'
 "*******************
 " Snippets
 "*******************
@@ -56,7 +56,7 @@ Plug 'shougo/neosnippet'
 Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'deoplete-plugins/deoplete-jedi'
-" Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 "**********
 " Visual
 "**********
