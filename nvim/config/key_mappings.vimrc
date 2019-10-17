@@ -1,6 +1,8 @@
 "**********************
 " MAPPINGS
 "**********************
+" Jedi
+let g:jedi#smart_auto_mappings = 1
 "**********************
 " Deoplete
 "**********************
@@ -163,8 +165,6 @@ nmap <Leader>c :nohlsearch<CR>
 " Reload Source
 nmap <Leader>r :so %<CR>
 
-" Find and Replace
-nmap <Leader>s :%s/\<<C-r><C-w>\>//gc<left><left><left>
 
 " AutoFormat
 " nmap <s-f> :%s//gc<left><left>
@@ -203,3 +203,7 @@ nnoremap E $
 " $/^ doesn't do anything
 nnoremap $ <nop>
 nnoremap ^ <nop>
+"
+" Find and Replace
+nmap <Leader>s :%s/\<<C-r><C-w>\>//gc<left><left><left>
+nmap <c-s> :%s/\<<C-r><C-w>\>//gc<left><left><left>

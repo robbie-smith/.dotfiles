@@ -1,7 +1,6 @@
 "***********************
 " Plug-in Configurations
 "***********************
-let g:calendar_google_calendar = 1
 "**********************
 " Ale/Neomake/Syntastic
 "**********************
