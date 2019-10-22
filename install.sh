@@ -136,6 +136,45 @@ update_bash(){
 
 update_bash
 
+install_python() {
+  pyenv install --list
+  echo "Which python version would you like to install: \c "
+  read word
+  fancy_echo "Installing python version $word"
+  pyenv install $word
+  pyenv rehash
+  echo "Setting your pyenv version to $word. Using the pyenv global command."
+  pyenv global $word
+}
+install_python
+
+packages=(
+"apache-airflow"
+"awscli"
+"aws-shell"
+"boto3"
+"botocore"
+"flake8"
+"Flask"
+"ipdb"
+"ipython"
+"pandas"
+"pyspark"
+"pytest"
+"numpy"
+"virtualenv"
+)
+
+for package in "${packages[@]}"
+do
+  echo Installing $package...
+  echo ===============================
+  pip install "$package"
+  echo Finished installing $package...
+  echo ===============================
+done
+
+
 number_of_cores=$(sysctl -n hw.ncpu)
 bundle config --global jobs $((number_of_cores - 1))
 
