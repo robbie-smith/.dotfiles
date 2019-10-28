@@ -209,8 +209,8 @@ let ruby_foldable_groups = 'def'
 
 let test#strategy = 'iterm'
 let test#python#pytest#options = {
-  \ 'all': '-v',
-  \ 'nearest': '-s',
+  \ 'all': '-s',
+  \ 'nearest': '-v',
   \ 'file':    '-v',
   \ 'suite':   '-v',
 \}

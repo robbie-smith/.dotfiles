@@ -10,7 +10,7 @@
 !/tmp/.keep
 
 .byebug_history
-
+nvim/.netrwhist
 node_modules
 tags
 tags.lock
