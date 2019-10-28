@@ -19,6 +19,10 @@ class Setup
     `ln -s ~/.dotfiles/bash/bash_profile.sh ~/.bash_profile`
   end
 
+  def symlink_zshrc
+    `ln -s ~/.dotfiles/zsh/zshrc ~/.zshrc`
+  end
+
   def symlink_pgclirc
     `mkdir ./config/pgcli/`
     `ln -s ~/.dotfiles/dotfiles/config ~/.config/pgcli/config`
@@ -27,6 +31,7 @@ class Setup
   def symlink_files
     parsed_files.each { |file| `ln -s ~/.dotfiles/dotfiles/#{file} ~/.#{file}` }
     symlink_bash_profile
+    symlink_zshrc
     symlink_pgclirc
   end
 
