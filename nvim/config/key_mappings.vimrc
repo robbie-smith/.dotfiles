@@ -102,12 +102,6 @@ command! BTags call s:btags()
 "**********************
 imap <C-j>     <Plug>(neosnippet_expand_or_jump)
 smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-" imap <expr><TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ neosnippet#expandable_or_jumpable() ?
-"       \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"       \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 "**********************
 " NerdTree
 "**********************
