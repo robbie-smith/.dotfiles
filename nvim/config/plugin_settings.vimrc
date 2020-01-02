@@ -58,17 +58,11 @@ let g:airline_section_error = airline#section#create_left(['ALE'])
 "**********************
 " Autoformat
 "**********************
-" let g:formatterpath = ['~/.rbenv/shims/rbeautify']
-" let g:format_ruby_style = 'rbeautify'
 let g:formatterpath = ['~/.rbenv/shims/rubocop', '/usr/local/bin/flake8']
 let g:format_ruby_style = 'rubocop'
 let g:formatters_python = ['autopep8', 'pep8', 'black']
 autocmd FileType ruby let b:autoformat_autoindent=1
 let g:autoformat_remove_trailing_spaces = 1
-"**********************
-" Codi
-"**********************
-let g:codi#width = 90
 "**********************
 " Deoplete
 "**********************
@@ -162,23 +156,10 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Unknown"   : "?"
       \ }
 "**********************
-" NeoTerm
-"**********************
-let g:neoterm_size = 90
-let g:neoterm_repl_ruby="pry"
-let g:neoterm_position = 'vertical'
-let g:neoterm_keep_term_open = 0
-let g:neoterm_autoinsert = 1
-let g:neoterm_autoscroll = 1
-"**********************
 " NeoSnippet
 "**********************
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/nvim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
-"**********************
-" TagBar
-"**********************
-" let g:tagbar_autofocus = 1
 "**********************
 " Vim-Javascript
 "**********************
@@ -187,11 +168,6 @@ let g:javascript_plugin_flow = 1
 " Vim-jsx
 "**********************
 let g:jsx_ext_required = 0
-"**********************
-" Vim-Terraform
-"**********************
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
 "**********************
 " Vim-Ruby
 "**********************

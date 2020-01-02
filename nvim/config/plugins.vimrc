@@ -3,7 +3,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*******************
 " Coding Assist
 "*******************
-Plug 'hashivim/vim-terraform'
 Plug 'gregsexton/MatchTag'
 Plug 'valloric/MatchTagAlways', { 'for': ['html', 'xml'] }
 Plug 'Raimondi/delimitMate'
@@ -19,8 +18,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 "*******************
 Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
 Plug 'Chiel92/vim-autoformat'
-Plug 'lifepillar/pgsql.vim', { 'for': 'sql' }
-Plug 'nvie/vim-flake8'
 "**********
 " Git
 "**********
