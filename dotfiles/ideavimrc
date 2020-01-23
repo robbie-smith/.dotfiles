@@ -14,18 +14,19 @@ nmap <Leader>f :action FindUsages<CR>
 nmap <Leader>r :action RenameElement<CR>
 nmap <Leader>s :action Replace<CR>
 nmap <Leader>o :action SearchEverywhere<CR>
+nmap <Leader>t :action RerunFailedTests<CR>
 nmap <c-h> <c-w>h
 nmap <c-l> <c-w>l
 nmap <c-k> <c-w>k
 nmap <c-j> <c-w>j
-nmap <c-v> :action SplitVertically<CR>
-" nmap <s-TAB>:action PreviousTab<CR>
+nmap <,>v :action SplitVertically<CR>
+nmap <,>TAB :action PreviousTab<CR>
 nmap <TAB> :action NextTab<CR>
-nmap <S-tab> :action PreviousTab<CR>
+nmap <S-TAB> :action PreviousTab<CR>
 nmap <Leader>w :action CloseActiveTab<CR>
 
 " TabList
 " TabActions
 " Git.Add
 " Github.Open.In.Browser
-" Github.Create.Pull.Request
+" Github.Create.Pull.Requestrr
