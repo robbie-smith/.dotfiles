@@ -9,7 +9,7 @@ endif
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-let g:python3_host_prog = '/Users/rdsmith2/.pyenv/shims/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Enable filetype detection
 filetype on
