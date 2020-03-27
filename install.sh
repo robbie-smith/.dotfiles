@@ -147,6 +147,11 @@ install_python_for_neovim() {
   pyenv local 3.7.0
   echo "Installing pip3 for neovim...\c"
   pip3 install neovim
+
+  if [[ -f /usr/local/bin/pip3 ]]; then
+    /usr/local/bin/pip3 install neovim
+  fi
+
 }
 
 install_python_for_neovim
