@@ -50,13 +50,13 @@ brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=- <<EOF
 tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
-tap "caskroom/cask"
 
 # Unix
 brew "universal-ctags", args: ["HEAD"]
 brew "git"
 brew "openssl"
 brew "rbenv"
+brew "pyenv"
 brew "fzf"
 brew "tmux"
 brew "parquet-tools"
@@ -64,15 +64,9 @@ brew "jq"
 brew "neovim"
 brew "ripgrep"
 brew "pgcli"
-brew "python2"
-brew "python3"
 brew "node"
 brew "go"
 brew "bash"
-
-# Heroku
-brew "heroku"
-
 # GitHub
 brew "hub"
 
@@ -85,28 +79,58 @@ brew "qt@5.5" if MacOS::Xcode.installed?
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
 brew "coreutils"
-cask "gpg-suite"
 
 EOF
 
-fancy_echo "Update heroku binary..."
-brew unlink heroku
-brew link --force heroku
-
 # shellcheck disable=SC1090
+PYTHON2_VERSION="2.7.17"
+PYTHON3_VERSION="3.7.0"
+RUBY_VERSION="2.6.0"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 install_ruby() {
+  fancy_echo "Installing ruby version $RUBY_VERSION"
   rbenv install -l
-  echo "Which ruby version would you like to install: \c "
-  read word
-  fancy_echo "Installing ruby version $word"
-  rbenv install $word
+  rbenv install $RUBY_VERSION
   rbenv rehash
-  echo "Setting your ruby version to $word. Using the rbenv global command."
-  rbenv global $word
+  echo "Setting your ruby version to $RUBY_VERSION. Using the rbenv global command."
+  rbenv global $RUBY_VERSION
+}
+install_python_2() {
+  pyenv install -l
+  pyenv install $PYTHON2_VERSION
+  pyenv rehash
+}
+install_python_3() {
+  pyenv install -l
+  pyenv install $PYTHON3_VERSION
+  pyenv rehash
+  echo "Setting your python version to $PYTHON3_VERSION. Using the pyenv global command."
+  pyenv global $PYTHON3_VERSION
 }
 
-install_ruby
+if `rbenv global $RUBY_VERSION`; then
+  echo "Ruby version $RUBY_VERSION is installed."
+else
+  install_ruby
+  eval "$(rbenv init -)"
+fi
+
+if `pyenv global $PYTHON2_VERSION`; then
+  echo "Python 2 version $PYTHON2_VERSION is installed."
+else
+  install_python_2
+  eval "$(pyenv init -)"
+fi
+
+if `pyenv global $PYTHON3_VERSION`; then
+  echo "Python 3 version $PYTHON3_VERSION is installed."
+else
+  install_python_3
+  eval "$(pyenv init -)"
+fi
 
 gem update
 echo "Installing bundler..."
@@ -117,15 +141,16 @@ echo "Installing pry..."
 gem_install_or_update "pry"
 
 install_python_for_neovim() {
+  pyenv local 2.7.17
   echo "Installing pip2 for neovim...\c"
   pip2 install neovim
+  pyenv local 3.7.0
   echo "Installing pip3 for neovim...\c"
   pip3 install neovim
 }
 
 install_python_for_neovim
 
-mkdir ~/.config
 
 update_bash(){
   echo "Adding the new bash to the list of allowed shells..."
@@ -135,18 +160,6 @@ update_bash(){
 }
 
 update_bash
-
-install_python() {
-  pyenv install --list
-  echo "Which python version would you like to install: \c "
-  read word
-  fancy_echo "Installing python version $word"
-  pyenv install $word
-  pyenv rehash
-  echo "Setting your pyenv version to $word. Using the pyenv global command."
-  pyenv global $word
-}
-install_python
 
 packages=(
 "apache-airflow"
@@ -169,12 +182,7 @@ for package in "${packages[@]}"
 do
   echo Installing $package...
   echo ===============================
-  pip install "$package"
+  pip3 install "$package"
   echo Finished installing $package...
   echo ===============================
 done
-
-
-number_of_cores=$(sysctl -n hw.ncpu)
-bundle config --global jobs $((number_of_cores - 1))
-
