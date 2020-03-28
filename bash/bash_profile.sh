@@ -1,4 +1,4 @@
-[[ -s ~/.dotfiles/bash/bashrc ]] && source ~/.dotfiles/bash/bashrc
+[[ -s "$HOME/bashrc" ]] && source "$HOME/bashrc"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export EDITOR=nvim
@@ -25,17 +25,6 @@ function compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
 }
 
-
 function md () { mkdir -p "$@" && cd "$@";}
 
-export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
-
-# added by Anaconda3 5.0.1 installer
-export PATH="/Users/robbiesmith/anaconda3/bin:$PATH"
-
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-
-# added by Snowflake SnowSQL installer v1.0
-export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
