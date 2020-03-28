@@ -3,7 +3,6 @@
 # https://github.com/thoughtbot/laptop
 fancy_echo() {
   local fmt="$1"; shift
-
   # shellcheck disable=SC2059
   printf "\n$fmt\n" "$@"
 }
@@ -17,6 +16,7 @@ set -e
 HOMEBREW_PREFIX="/usr/local"
 
 if [ -d "$HOMEBREW_PREFIX" ]; then
+  # -r flag checks if it is readable by the user
   if ! [ -r "$HOMEBREW_PREFIX" ]; then
     sudo chown -R "$LOGNAME:admin" /usr/local
   fi
@@ -52,9 +52,9 @@ brew update --force
 brew bundle install
 
 # shellcheck disable=SC1090
-PYTHON2_VERSION="2.7.17"
-PYTHON3_VERSION="3.7.0"
-RUBY_VERSION="2.6.0"
+PYTHON2_VERSION=2.7.17
+PYTHON3_VERSION=3.7.0
+RUBY_VERSION=2.6.0
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -107,10 +107,10 @@ gem_install_or_update "neovim"
 gem_install_or_update "pry"
 
 install_python_for_neovim() {
-  pyenv local 2.7.17
+  pyenv local $PYTHON2_VERSION
   echo "Installing pip2 for neovim...\c"
   pip2 install neovim
-  pyenv local 3.7.0
+  pyenv local $PYTHON3_VERSION
   echo "Installing pip3 for neovim...\c"
   pip3 install neovim
 
@@ -128,7 +128,7 @@ update_bash(){
 }
 
 install_python_for_neovim
-update_bash
+# update_bash
 
 packages=(
 "apache-airflow"
