@@ -1,5 +1,5 @@
-# -s flag checks that the file is > 0 bytes
-[[ -s ~./dotfiles/bash/bashrc ]] && source ~./dotfiles/bash/bashrc
+# -s flag checks that the file is > 0 bytesj
+[[ -s ~/.dotfiles/bash/bashrc ]] && source ~/.dotfiles/bash/bashrc
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export EDITOR=nvim
