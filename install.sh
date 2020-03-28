@@ -79,7 +79,9 @@ brew "qt@5.5" if MacOS::Xcode.installed?
 # Programming language prerequisites and package managers
 brew "libyaml" # should come after openssl
 brew "coreutils"
-
+tap 'homebrew/cask'
+tap "adoptopenjdk/openjdk"
+cask "adoptopenjdk8"
 EOF
 
 # shellcheck disable=SC1090
