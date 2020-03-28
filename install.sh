@@ -28,8 +28,10 @@ fi
 
 gem_install_or_update() {
   if gem list "$1" --installed > /dev/null; then
+    echo "Updating $@"
     gem update "$@"
   else
+    echo "Installing $@"
     gem install "$@"
   fi
 }
@@ -46,43 +48,8 @@ if brew list | grep -Fq brew-cask; then
 fi
 
 fancy_echo "Updating Homebrew formulae ..."
-brew update --force # https://github.com/Homebrew/brew/issues/1151
-brew bundle --file=- <<EOF
-tap "homebrew/services"
-tap "universal-ctags/universal-ctags"
-
-# Unix
-brew "universal-ctags", args: ["HEAD"]
-brew "git"
-brew "openssl"
-brew "rbenv"
-brew "pyenv"
-brew "fzf"
-brew "tmux"
-brew "parquet-tools"
-brew "jq"
-brew "neovim"
-brew "ripgrep"
-brew "pgcli"
-brew "node"
-brew "go"
-brew "bash"
-# GitHub
-brew "hub"
-
-# Image manipulation
-brew "imagemagick"
-
-# Testing
-brew "qt@5.5" if MacOS::Xcode.installed?
-
-# Programming language prerequisites and package managers
-brew "libyaml" # should come after openssl
-brew "coreutils"
-tap 'homebrew/cask'
-tap "adoptopenjdk/openjdk"
-cask "adoptopenjdk8"
-EOF
+brew update --force
+brew bundle install
 
 # shellcheck disable=SC1090
 PYTHON2_VERSION="2.7.17"
@@ -135,11 +102,8 @@ else
 fi
 
 gem update
-echo "Installing bundler..."
 gem_install_or_update "bundler"
-echo "Installing ruby gem for neovim..."
 gem_install_or_update "neovim"
-echo "Installing pry..."
 gem_install_or_update "pry"
 
 install_python_for_neovim() {
@@ -156,9 +120,6 @@ install_python_for_neovim() {
 
 }
 
-install_python_for_neovim
-
-
 update_bash(){
   echo "Adding the new bash to the list of allowed shells..."
   sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
@@ -166,6 +127,7 @@ update_bash(){
   chsh -s /usr/local/bin/bash
 }
 
+install_python_for_neovim
 update_bash
 
 packages=(
