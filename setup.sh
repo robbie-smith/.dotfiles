@@ -35,7 +35,9 @@ symlink_bash_profile(){
 }
 
 remove_neovim_default_colors(){
-  local neovim_colors=/usr/local/Cellar/neovim/0.2.0_1/share/nvim/runtime/colors
+  local neovim_version=0.3.7
+  local neovim_colors="/usr/local/Cellar/neovim/$neovim_version/share/nvim/runtime/colors"
+  echo $neovim_colors
   if [[ -d $neovim_colors  ]]; then
     echo "Removing default neovim colors."
     rm -rf $neovim_colors
@@ -61,12 +63,12 @@ install_powerline_fonts() {
   cd .. && rm -rf fonts
 }
 
-create_config_directory
-install_vim_plug
-symlink_dotfiles_dir
-symlink_bash_profile
+# create_config_directory
+# install_vim_plug
+# symlink_dotfiles_dir
+# symlink_bash_profile
 remove_neovim_default_colors
-symlink_neovim_to_config_directory
-install_powerline_fonts
+# symlink_neovim_to_config_directory
+# install_powerline_fonts
 
 echo "Don't half ass two things, whole ass one thing. - R. Swanson"
