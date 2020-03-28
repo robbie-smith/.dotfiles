@@ -1,4 +1,4 @@
-[[ -s "$HOME/bashrc" ]] && source "$HOME/bashrc"
+[[ -s ~./dotfiles/bash/bashrc ]] && source ~./dotfiles/bash/bashrc
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export EDITOR=nvim
