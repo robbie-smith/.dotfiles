@@ -35,14 +35,14 @@ symlink_bash_profile(){
 }
 
 remove_neovim_default_colors(){
-  local neovim_version=0.3.7
-  local neovim_colors="/usr/local/Cellar/neovim/$neovim_version/share/nvim/runtime/colors"
+  local neovim_version=$(nvim -v)
+  local parsed_version=${neovim_version:6:6}
+  local neovim_colors="/usr/local/Cellar/neovim/$parsed_version/share/nvim/runtime/colors"
   if [[ -d $neovim_colors  ]]; then
     echo "Removing default neovim colors."
     rm -rf $neovim_colors
   fi
 }
-
 
 symlink_neovim_to_config_directory(){
   local nvim_directory=$HOME/.dotfiles/nvim
@@ -51,7 +51,6 @@ symlink_neovim_to_config_directory(){
     ln -s $nvim_directory ~/.config/
   fi
 }
-
 
 install_powerline_fonts() {
   git clone https://github.com/powerline/fonts.git --depth=1
