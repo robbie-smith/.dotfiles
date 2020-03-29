@@ -49,7 +49,7 @@ fi
 
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force
-brew bundle install
+brew bundle install -v --no-lock
 
 # shellcheck disable=SC1090
 PYTHON2_VERSION=2.7.17
