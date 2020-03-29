@@ -8,10 +8,11 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
+.python-version
 .byebug_history
 nvim/.netrwhist
 node_modules
 tags
 tags.lock
 tags.temp
+practice.sh
