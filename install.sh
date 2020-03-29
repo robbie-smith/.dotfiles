@@ -106,7 +106,7 @@ gem_install_or_update "bundler"
 gem_install_or_update "neovim"
 gem_install_or_update "pry"
 
-install_python_for_neovim() {
+install_neovim_for_python() {
   pyenv local $PYTHON2_VERSION
   echo "Installing pip2 for neovim...\c"
   pip2 install neovim
@@ -127,7 +127,7 @@ update_bash(){
   chsh -s /usr/local/bin/bash
 }
 
-install_python_for_neovim
+install_neovim_for_python
 # update_bash
 
 packages=(
@@ -149,9 +149,13 @@ packages=(
 
 for package in "${packages[@]}"
 do
-  echo Installing $package...
-  echo ===============================
-  pip3 install "$package"
-  echo Finished installing $package...
-  echo ===============================
+  if ! pip3 show $package -V > /dev/null; then
+    echo Installing $package...
+    echo ===============================
+    pip3 install $package
+    echo Finished installing $package...
+    echo ===============================
+  else
+    echo "$package is already installed"
+  fi
 done
