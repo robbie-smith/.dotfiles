@@ -2,6 +2,6 @@
 ### Dotfiles
 My bash profile and neovim setup
 
-run `./install.sh` to install the dependencies
+run `sh ./install.sh` to install the dependencies
 
-run `./setup.sh` to install the symlinks for my bash/neovim setup
+run `sh ./setup.sh` to install the symlinks for my bash/neovim setup
