@@ -67,17 +67,11 @@ install_ruby() {
   echo "Setting your ruby version to $RUBY_VERSION. Using the rbenv global command."
   rbenv global $RUBY_VERSION
 }
-install_python_2() {
+
+install_python() {
   pyenv install -l
-  pyenv install $PYTHON2_VERSION
+  pyenv install $1
   pyenv rehash
-}
-install_python_3() {
-  pyenv install -l
-  pyenv install $PYTHON3_VERSION
-  pyenv rehash
-  echo "Setting your python version to $PYTHON3_VERSION. Using the pyenv global command."
-  pyenv global $PYTHON3_VERSION
 }
 
 if `rbenv global $RUBY_VERSION`; then
@@ -87,19 +81,16 @@ else
   eval "$(rbenv init -)"
 fi
 
-if `pyenv global $PYTHON2_VERSION`; then
-  echo "Python 2 version $PYTHON2_VERSION is installed."
-else
-  install_python_2
-  eval "$(pyenv init -)"
-fi
-
-if `pyenv global $PYTHON3_VERSION`; then
-  echo "Python 3 version $PYTHON3_VERSION is installed."
-else
-  install_python_3
-  eval "$(pyenv init -)"
-fi
+installed_python_versions=($(pyenv versions --bare))
+for version in "${installed_python_versions[@]}";
+do
+  if [[ $version != $PYTHON2_VERSION ]] || [[ $version != $PYTHON3_VERSION ]]; then
+    echo "Installing python version $version"
+    install_python $version
+    eval "$(pyenv init -)"
+  fi
+done
+pyenv global $PYTHON3_VERSION
 
 gem update
 gem_install_or_update "bundler"
@@ -114,7 +105,7 @@ install_neovim_for_python() {
   echo "Installing pip3 for neovim...\c"
   pip3 install neovim
 
-  if [[ -f /usr/local/bin/pip3 ]]; then
+  if [[ -e /usr/local/bin/pip3 ]]; then
     /usr/local/bin/pip3 install neovim
   fi
 
