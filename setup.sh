@@ -14,24 +14,17 @@ install_vim_plug(){
   fi
 }
 
-symlink_dotfiles_dir() {
+symlink_dotfiles() {
   echo "Symlinking dotfiles."
   for f in $HOME/.dotfiles/dotfiles/*
   do
     local parent_file=$f
     local dotfile=$HOME/.$(basename $f)
-    if [[ -e $parent_file ]]; then
+    if [[ -e $parent_file ]] && [[ ! -e $dotfile ]]; then
+      echo "Symlinking $parent_file to $dotfile."
       ln -s $parent_file $dotfile
     fi
   done
-}
-
-symlink_bash_profile(){
-  local bash_profile=$HOME/.dotfiles/bash/bash_profile.sh
-  if [[ -e $bash_profile ]]; then
-    echo "Symlinking bash_profile."
-    ln -s $bash_profile $HOME/.bash_profile
-  fi
 }
 
 remove_neovim_default_colors(){
@@ -63,8 +56,7 @@ install_powerline_fonts() {
 
 create_config_directory
 install_vim_plug
-symlink_dotfiles_dir
-symlink_bash_profile
+symlink_dotfiles
 remove_neovim_default_colors
 symlink_neovim_to_config_directory
 install_powerline_fonts
