@@ -1,11 +1,4 @@
-[user]
-	name = Robbie Smith
-	email = robbie.smith@slalom.com
-	username = Robbie-Smith
-[core]
-	editor = nvim
-	excludesfile = ~/.global_ignore
-[hub]
-	protocol = ssh
-[color]
-	ui = true
+[includeIf "gitdir:~/Dev/"]
+  path = ~/.gitconfig-uscis
+[includeIf "gitdir:~/"]
+  path = ~/.gitconfig-personal

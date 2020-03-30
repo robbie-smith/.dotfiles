@@ -1,0 +1,10 @@
+[user]
+	name = Robbie Smith
+	email = robbie.smith@slalom.com
+[core]
+	editor = nvim
+	excludesfile = ~/.global_ignore
+[hub]
+	protocol = ssh
+[color]
+	ui = true
