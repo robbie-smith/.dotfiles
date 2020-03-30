@@ -7,3 +7,5 @@
 	excludesfile = ~/.global_ignore
 [hub]
 	protocol = ssh
+[color]
+	ui = true
