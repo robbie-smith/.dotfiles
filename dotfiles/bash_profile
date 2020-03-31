@@ -17,4 +17,13 @@ function compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
 }
 
+function load_ssh_keys(){
+  eval "$(ssh-agent -s)"
+  if ! ssh-add -L; then
+    ssh-add -K $HOME/.ssh/personal_rsa
+    ssh-add -K $HOME/.ssh/uscis_rsa
+  fi
+}
+load_ssh_keys
+
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
