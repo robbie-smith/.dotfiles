@@ -18,8 +18,8 @@ function compare() {
 }
 
 function load_ssh_keys(){
-  eval "$(ssh-agent -s)"
-  if ! ssh-add -L; then
+  if ! ssh-add -L > /dev/null; then
+    eval "$(ssh-agent -s)"
     ssh-add -K $HOME/.ssh/personal_rsa
     ssh-add -K $HOME/.ssh/uscis_rsa
   fi
