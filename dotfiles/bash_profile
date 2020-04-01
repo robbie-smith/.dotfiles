@@ -18,13 +18,14 @@ function compare() {
 }
 
 function load_ssh_keys(){
+  eval "$(ssh-agent -s)" > /dev/null
   if ! ssh-add -L > /dev/null; then
-    eval "$(ssh-agent -s)" > /dev/null
-    ssh-add -K $HOME/.ssh/personal_rsa > /dev/null
-    ssh-add -K $HOME/.ssh/uscis_rsa > /dev/null
-    echo "Loaded keys and started agent."
+    ssh-add -K $HOME/.ssh/personal_rsa > /dev/null 2>&1
+    ssh-add -K $HOME/.ssh/uscis_rsa > /dev/null 2>&1
+    echo "SSH agent started and keys loaded"
   fi
 }
+
 load_ssh_keys
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
