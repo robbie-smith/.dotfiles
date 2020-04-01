@@ -19,9 +19,10 @@ function compare() {
 
 function load_ssh_keys(){
   if ! ssh-add -L > /dev/null; then
-    eval "$(ssh-agent -s)"
-    ssh-add -K $HOME/.ssh/personal_rsa
-    ssh-add -K $HOME/.ssh/uscis_rsa
+    eval "$(ssh-agent -s)" > /dev/null
+    ssh-add -K $HOME/.ssh/personal_rsa > /dev/null
+    ssh-add -K $HOME/.ssh/uscis_rsa > /dev/null
+    echo "Loaded keys and started agent."
   fi
 }
 load_ssh_keys
