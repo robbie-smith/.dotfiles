@@ -20,8 +20,8 @@ function compare() {
 function load_ssh_keys(){
   eval "$(ssh-agent -s)" > /dev/null
   if ! ssh-add -L > /dev/null; then
-    ssh-add -K $HOME/.ssh/personal_rsa > /dev/null 2>&1
-    ssh-add -K $HOME/.ssh/uscis_rsa > /dev/null 2>&1
+    ssh-add -K $HOME/.ssh/personal_rsa &> /dev/null
+    ssh-add -K $HOME/.ssh/uscis_rsa &> /dev/null
     echo "SSH agent started and keys loaded"
   fi
 }
