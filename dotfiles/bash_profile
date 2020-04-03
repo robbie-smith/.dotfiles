@@ -39,6 +39,12 @@ man() {
     man "$@"
 }
 
+activate(){
+  if [ -d $(pwd)/VENV ]; then
+    source VENV/bin/activate
+  fi
+}
+
 load_ssh_keys
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
