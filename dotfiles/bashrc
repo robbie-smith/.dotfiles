@@ -24,7 +24,7 @@ bind 'TAB:menu-complete'
 export HISTCONTROL=ignoreboth
 source ~/.dotfiles/bash_base_config/fzf_profile.sh
 source ~/.dotfiles/bash_base_config/git_profile.sh
-source ~/.dotfiles/bash_base_config/colors.sh
+source ~/.dotfiles/bash_base_config/prompt.sh
 source ~/.dotfiles/bash_base_config/aliases.sh
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
