@@ -22,7 +22,6 @@ function load_ssh_keys(){
   if ! ssh-add -L > /dev/null; then
     ssh-add -K $HOME/.ssh/personal_rsa &> /dev/null
     ssh-add -K $HOME/.ssh/uscis_rsa &> /dev/null
-    echo "SSH agent started and keys loaded"
   fi
 }
 
