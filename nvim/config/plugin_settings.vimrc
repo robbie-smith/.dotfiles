@@ -4,19 +4,22 @@
 "**********************
 " Ale/Neomake/Syntastic
 "**********************
-let g:ale_warn_about_trailing_whitespace = 1
-let g:ale_set_highlights = 0
-" let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['flake8', 'pylint', 'black']}
-let g:ale_fixers = {'javascript': ['jshint'], 'ruby': ['rubocop'], 'python' : ['black']}
-" let g:ale_sign_error = '❌'
-" let g:ale_sign_warning = '⚠️ '
-let g:ale_set_signs = 1
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-let g:ale_sign_column_always = 1
-let g:ale_completion_enabled = 1
-let g:ale_lint_on_text_changed = 1
+" let g:jedi#auto_vim_configuration = 0
+" let g:ale_warn_about_trailing_whitespace = 1
+" let g:ale_set_highlights = 0
+" " let g:ale_emit_conflict_warnings = 0
+" let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['flake8', 'pylint', 'black']}
+" let g:ale_fixers = {'javascript': ['jshint'], 'ruby': ['rubocop'], 'python' : ['black']}
+" " let g:ale_sign_error = '❌'
+" " let g:ale_sign_warning = '⚠️ '
+" let g:ale_set_signs = 1
+" let g:ale_sign_error = '>>'
+" let g:ale_sign_warning = '--'
+" let g:ale_sign_column_always = 1
+" let g:ale_completion_enabled = 1
+" let g:ale_lint_on_text_changed = 1
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+let g:formatdef_pep8 = 'autopep8'
 "**********************
 " Airline
 "**********************
@@ -66,15 +69,15 @@ let g:autoformat_remove_trailing_spaces = 1
 "**********************
 " Deoplete
 "**********************
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources={}
-call deoplete#custom#option('sources', {
-\ '_': ['ale'],
-\})
-let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/nvim/mysnippets']
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#use_cache = 1
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#sources={}
+" call deoplete#custom#option('sources', {
+" \ '_': ['ale'],
+" \})
+" let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/nvim/mysnippets']
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#sources#go#use_cache = 1
 "**********************
 " FZF
 "**********************
