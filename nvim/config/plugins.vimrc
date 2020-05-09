@@ -16,7 +16,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
+" Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
 Plug 'Chiel92/vim-autoformat'
 "**********
 " Git
@@ -30,14 +30,13 @@ Plug 'airblade/vim-gitgutter'
 " Languages
 "**********
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'jodosha/vim-godebug', { 'for': 'go' , 'do': 'GoInstallBinaries'}
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
 Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby'}
 Plug 'pangloss/vim-javascript', { 'for': 'javascript'}
 Plug 'mxw/vim-jsx', { 'for': 'javascript'}
 Plug 'leshill/vim-json'
-Plug 'jparise/vim-graphql'
+" Plug 'jparise/vim-graphql'
 "**************
 " Miscellaneous
 "**************
@@ -48,12 +47,13 @@ Plug 'tpope/vim-dispatch'
 "*******************
 " Snippets
 "*******************
-Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'shougo/neosnippet'
-Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
+" Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'shougo/neosnippet'
+" Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
+" Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'davidhalter/jedi-vim'
 "**********
 " Visual
 "**********
