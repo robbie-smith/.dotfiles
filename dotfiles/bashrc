@@ -24,7 +24,7 @@ bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
 export HISTCONTROL=ignoreboth
 export http_proxy=http://preproxy.uscis.dhs.gov:80
-export https_proxy=http://preproxy.uscis.dhs.gov:80
+export https_proxy=https://preproxy.uscis.dhs.gov:80
 source ~/.dotfiles/bash_base_config/fzf_profile.sh
 source ~/.dotfiles/bash_base_config/git_profile.sh
 source ~/.dotfiles/bash_base_config/prompt.sh
