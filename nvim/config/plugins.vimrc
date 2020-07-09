@@ -18,6 +18,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 "*******************
 Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
 Plug 'Chiel92/vim-autoformat'
+Plug 'martinda/Jenkinsfile-vim-syntax'
 "**********
 " Git
 "**********
