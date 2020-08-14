@@ -232,7 +232,8 @@ endfunc
 " Toggle between normal and relative numbering.
 nnoremap <S-Q> :call NumberToggle()<cr>
 " Map jk to escape
-inoremap jk <Esc>
+" inoremap jk <Esc>
+inoremap jj <Esc>
 " Highlight word under the cursor
 nnoremap <expr><c-f> pumvisible() ? "\<c-f>" : "\<#>"
 " move to beginning/end of line
