@@ -12,6 +12,7 @@ export GOPATH=$HOME/Go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
+export PYTEST_ADDOPTS='-s'
 export CLICOLOR=1
 export TERM=xterm-256color
 export LSCOLORS=GxFxCxDxBxegedabagaced
