@@ -56,7 +56,8 @@ install_powerline_fonts() {
 
 set_shell_to_bash() {
   chsh -s /bin/bash
-  exec bash
+  source $HOME/.bash_profile
+
 }
 
 create_config_directory
