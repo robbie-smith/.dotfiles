@@ -46,9 +46,3 @@ fi
 function docker_clean {
   docker rmi $(docker images -f "dangling=true" -q -f)
 }
-function ssh-piv {
-  ssh-agent -k
-  export -n SSH_AUTH_SOCK
-  eval $(ssh-agent -P /usr/local/share/centrifydc/lib/pkcs11/tokendPKCS11.so)
-  ssh-add -s /usr/local/share/centrifydc/lib/pkcs11/tokendPKCS11.so
-}
