@@ -54,11 +54,16 @@ install_powerline_fonts() {
   cd .. && rm -rf fonts
 }
 
+set_shell_to_bash() {
+  chsh -s /bin/bash
+}
+
 create_config_directory
 install_vim_plug
 symlink_dotfiles
 remove_neovim_default_colors
 symlink_neovim_to_config_directory
 install_powerline_fonts
+set_shell_to_bash
 
 echo "Don't half ass two things, whole ass one thing. - R. Swanson"

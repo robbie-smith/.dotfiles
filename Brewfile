@@ -22,6 +22,7 @@ brew "pgcli"
 brew "pyenv"
 brew "rbenv"
 brew "ripgrep"
+brew "rust"
 brew "tmux"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 cask "adoptopenjdk/openjdk/adoptopenjdk8"
