@@ -17,14 +17,6 @@ function compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
 }
 
-function load_ssh_keys(){
-  eval "$(ssh-agent -s)" > /dev/null
-  if ! ssh-add -L > /dev/null; then
-    ssh-add -K $HOME/.ssh/personal_rsa &> /dev/null
-    ssh-add -K $HOME/.ssh/uscis_rsa &> /dev/null
-  fi
-}
-
 # Colorized man command
 man() {
   env \
@@ -43,8 +35,6 @@ activate(){
     source VENV/bin/activate
   fi
 }
-
-load_ssh_keys
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 export PYENV_ROOT="$HOME/.pyenv"
