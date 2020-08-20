@@ -1,9 +1,3 @@
-# git aware prompt
-function nonzero_return() {
-  RETVAL=$?
-  [ $RETVAL -ne 0 ] && echo "$RETVAL"
-}
-
 # get current branch in git repo
 function parse_git_branch() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
@@ -19,7 +13,7 @@ function parse_git_branch() {
 # get current status of git repo
 function parse_git_dirty {
   status=`git status 2>&1 | tee`
-  dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
+  modified=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
   untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
   ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
   newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
@@ -41,8 +35,8 @@ function parse_git_dirty {
   if [ "${deleted}" == "0" ]; then
     bits="✖${bits}"
   fi
-  if [ "${dirty}" == "0" ]; then
-    bits="✗${bits}"
+  if [ "${modified}" == "0" ]; then
+    bits="!${bits}"
   fi
   if [ ! "${bits}" == "" ]; then
     echo -e "\033[31m${bits}\033[m"
