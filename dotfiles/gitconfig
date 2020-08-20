@@ -1,4 +1,4 @@
 [includeIf "gitdir:~/Dev/"]
-  path = ~/.gitconfig-uscis
+  path = ~/.gitconfig-work
 [includeIf "gitdir:~/"]
   path = ~/.gitconfig-personal
