@@ -1,6 +1,6 @@
 [user]
-	name = Robbie Smith
-	email = robbie.smith@slalom.com
+  name = Robbie Smith
+	email = robert.smith160@gmail.com
 [core]
 	editor = nvim
 	excludesfile = ~/.global_ignore
