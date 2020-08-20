@@ -36,10 +36,10 @@ gem_install_or_update() {
   fi
 }
 
-if ! command -v brew >/dev/null; then
+if ! brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
-  curl -fsS \
-    'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
+  curl -fsSL \
+    'https://raw.githubusercontent.com/Homebrew/install/master/install.sh' | bash
 fi
 
 if brew list | grep -Fq brew-cask; then
