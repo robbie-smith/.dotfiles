@@ -37,9 +37,15 @@ activate(){
 }
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
+rotate() {
+  pyenv local 3.6.9
+  env=${1}
+  aws-jumpcloud rotate guild-${env}
+  echo "[default]" > ~/.aws/credentials
+  aws-jumpcloud export guild-${env} | sed -n -e '1 p' -e '2 p' -e '4 p' >> ~/.aws/credentials
+  sed -i '' -e 's/export //g' -e 's/"//g' -e 's/AWS_ACCESS_KEY_ID=/aws_access_key_id = /g' -e 's/AWS_SESSION_TOKEN=/aws_session_token = /g' -e 's/AWS_SECRET_ACCESS_KEY=/aws_secret_access_key = /g' ~/.aws/credentials
+  }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/robertsmith/.sdkman"
 [[ -s "/Users/robertsmith/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/robertsmith/.sdkman/bin/sdkman-init.sh"
+
