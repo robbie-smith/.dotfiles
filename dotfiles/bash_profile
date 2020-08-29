@@ -38,7 +38,7 @@ activate(){
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 rotate() {
-  pyenv local 3.6.9
+  pyenv shell 3.6.9
   env=${1}
   aws-jumpcloud rotate guild-${env}
   echo "[default]" > ~/.aws/credentials
