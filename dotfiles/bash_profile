@@ -7,6 +7,11 @@ function gpush() {
   git push -u origin "${BRANCH}"
 }
 
+function pull() {
+   BRANCH=${1}
+   git pull origin "${BRANCH}"
+}
+
 function pr()
 {
   # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
