@@ -23,7 +23,9 @@ nmap <,>v :action SplitVertically<CR>
 nmap <,>TAB :action PreviousTab<CR>
 nmap <TAB> :action NextTab<CR>
 nmap <S-TAB> :action PreviousTab<CR>
-nmap <Leader>w :action CloseActiveTab<CR>
+nmap <Leader>q :action CloseEditor<CR>
+nnoremap <CR> G
+nnoremap ; :
 
 " TabList
 " TabActions
