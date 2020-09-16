@@ -24,8 +24,10 @@ nmap <,>TAB :action PreviousTab<CR>
 nmap <TAB> :action NextTab<CR>
 nmap <S-TAB> :action PreviousTab<CR>
 nmap <Leader>q :action CloseEditor<CR>
-nnoremap <CR> G
+nmap <Leader>] :action MoveEditorToOppositeTabGroup<CR>
+noremap <CR> G
 nnoremap ; :
+au InsertLeave * :w
 
 " TabList
 " TabActions
