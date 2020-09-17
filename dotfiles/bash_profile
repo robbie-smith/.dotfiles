@@ -59,3 +59,5 @@ fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/robertsmith/.sdkman"
 [[ -s "/Users/robertsmith/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/robertsmith/.sdkman/bin/sdkman-init.sh"
+
+[ -s "/Users/robertsmith/.jabba/jabba.sh" ] && source "/Users/robertsmith/.jabba/jabba.sh"
