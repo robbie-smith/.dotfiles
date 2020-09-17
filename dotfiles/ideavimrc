@@ -10,11 +10,12 @@ set showmode
 let mapleader=" "
 nmap \r :action ReformatCode<CR>
 nmap <Leader>d :action GotoDeclaration<CR>
-nmap <Leader>f :action FindUsages<CR>
+nmap fu :action FindUsages<CR>
 nmap <Leader>r :action RenameElement<CR>
 nmap <Leader>s :action Replace<CR>
 nmap <Leader>o :action SearchEverywhere<CR>
 nmap <Leader>t :action RerunFailedTests<CR>
+nmap <Leader>b :action ToggleLineBreakpoint<CR>
 nmap <c-h> <c-w>h
 nmap <c-l> <c-w>l
 nmap <c-k> <c-w>k
@@ -25,7 +26,7 @@ nmap <TAB> :action NextTab<CR>
 nmap <S-TAB> :action PreviousTab<CR>
 nmap <Leader>q :action CloseEditor<CR>
 nmap <Leader>] :action MoveEditorToOppositeTabGroup<CR>
-noremap <CR> G
+noremap <CR> gg
 nnoremap ; :
 au InsertLeave * :w
 
