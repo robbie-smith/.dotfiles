@@ -36,8 +36,8 @@ man() {
 }
 
 activate(){
-  if [ -d $(pwd)/VENV ]; then
-    source VENV/bin/activate
+  if [ -d $(pwd)/$1 ]; then
+    source $1/bin/activate
   fi
 }
 
