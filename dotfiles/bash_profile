@@ -37,7 +37,7 @@ man() {
 
 activate(){
   if [ -d $(pwd)/$1 ]; then
-    source $1/bin/activate
+    source $(pwd)/$1/bin/activate
   fi
 }
 
