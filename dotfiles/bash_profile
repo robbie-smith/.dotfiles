@@ -1,4 +1,4 @@
-# -s flag checks that the file is > 0 bytesj
+# -s flag checks that the file is > 0 bytes
 [[ -s "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
@@ -49,13 +49,12 @@ rotate() {
   echo "[default]" > ~/.aws/credentials
   aws-jumpcloud export guild-${env} | sed -n -e '1 p' -e '2 p' -e '4 p' >> ~/.aws/credentials
   sed -i '' -e 's/export //g' -e 's/"//g' -e 's/AWS_ACCESS_KEY_ID=/aws_access_key_id = /g' -e 's/AWS_SESSION_TOKEN=/aws_session_token = /g' -e 's/AWS_SECRET_ACCESS_KEY=/aws_secret_access_key = /g' ~/.aws/credentials
+  pyenv local --unset
   pyenv local 3.7.0
   }
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
+eval "$(rbenv init -)"
+eval "$(pyenv init -)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/robertsmith/.sdkman"
 [[ -s "/Users/robertsmith/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/robertsmith/.sdkman/bin/sdkman-init.sh"
