@@ -4,4 +4,5 @@ dotfiles/other
 tags
 nvim/plugged/*
 nvim/undodir/*
+nvim/pack/*
 Brewfile.lock.json
