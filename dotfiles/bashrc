@@ -49,3 +49,4 @@ function aws_shell() {
   pyenv local 3.6.9
   aws-jumpcloud exec $1 -- aws-shell
 }
+eval "$(starship init bash)"
