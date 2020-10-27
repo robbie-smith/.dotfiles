@@ -16,7 +16,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 "*******************
 " Formatting/Linting
 "*******************
-" Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
+Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
 Plug 'Chiel92/vim-autoformat'
 "**********
 " Git
