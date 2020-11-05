@@ -6,3 +6,4 @@ nvim/plugged/*
 nvim/undodir/*
 nvim/pack/*
 Brewfile.lock.json
+aws_creds.sh
