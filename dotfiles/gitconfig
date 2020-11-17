@@ -1,6 +1,17 @@
-[includeIf "gitdir:~/Dev/"]
-  path = ~/.gitconfig-work
 [includeIf "gitdir:~/"]
   path = ~/.gitconfig-personal
+[includeIf "gitdir:~/Dev/"]
+  path = ~/.gitconfig-work
 [pull]
 	rebase = false
+[core]
+  pager = delta
+
+[delta]
+  plus-color = "#012800"
+  minus-color = "#340001"
+  features = side-by-side line-numbers decorations
+  syntax-theme = Monokai Extended Bright
+
+[interactive]
+  diffFilter = delta --color-only
