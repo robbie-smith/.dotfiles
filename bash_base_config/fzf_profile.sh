@@ -109,7 +109,7 @@ gitAddFunction() {
     git add $(echo "$file" | sed "s/.* //")
 }
 
-gh() {
+ghist() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
@@ -193,7 +193,7 @@ esac
 }
 
 #show git history and diff
-gh() {
+ghist() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
