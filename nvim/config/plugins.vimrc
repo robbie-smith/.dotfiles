@@ -3,8 +3,6 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*******************
 " Coding Assist
 "*******************
-Plug 'gregsexton/MatchTag'
-Plug 'valloric/MatchTagAlways', { 'for': ['html', 'xml'] }
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test', { 'frozen': '1'}
@@ -16,8 +14,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'w0rp/ale', { 'for': ['javascript', 'html', 'go', 'ruby', 'python']}
-Plug 'Chiel92/vim-autoformat'
+Plug 'dense-analysis/ale', { 'for': ['javascript', 'html', 'ruby', 'python']}
 "**********
 " Git
 "**********
@@ -29,14 +26,7 @@ Plug 'airblade/vim-gitgutter'
 "**********
 " Languages
 "**********
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir'}
-Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
-Plug 'tpope/vim-bundler', { 'for': 'ruby'}
-Plug 'pangloss/vim-javascript', { 'for': 'javascript'}
-Plug 'mxw/vim-jsx', { 'for': 'javascript'}
 Plug 'leshill/vim-json'
-" Plug 'jparise/vim-graphql'
 "**************
 " Miscellaneous
 "**************
@@ -47,13 +37,7 @@ Plug 'tpope/vim-dispatch'
 "*******************
 " Snippets
 "*******************
-" Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'shougo/neosnippet'
-" Plug 'shougo/neosnippet-snippets', { 'frozen': '1'}
-" Plug 'zchee/deoplete-go', { 'do': 'make'}
-" Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'davidhalter/jedi-vim'
 "**********
 " Visual
 "**********
