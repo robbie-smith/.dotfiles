@@ -11,10 +11,8 @@ alias g="git"
 alias ga="gitAddFunction"
 alias gs="git status"
 alias gc="git commit -v"
-alias gpo="git push origin"
 alias gb="git checkout -b"
 alias gac="git add . && git commit -m"
-alias gpom="git pull origin master"
 alias home="cd ~"
 alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
 alias ls="ls -GFh"
@@ -27,3 +25,13 @@ alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles YES; killa
 alias vim="nvim"
 alias vi="nvim"
 alias aws2="/usr/local/bin/aws"
+
+pull() {
+  if [ $# -eq 0 ]
+    then
+      BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+    else
+      BRANCH=${1}
+  fi
+  git pull origin "${BRANCH}"
+}
