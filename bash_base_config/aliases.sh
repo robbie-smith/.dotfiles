@@ -35,3 +35,7 @@ pull() {
   fi
   git pull origin "${BRANCH}"
 }
+
+update_aws() {
+  vim $HOME/.aws/credentials
+}
