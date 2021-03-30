@@ -30,3 +30,4 @@ bin/*
 .classpath
 .vim
 /bin/*
+.metals/
