@@ -17,7 +17,7 @@ let g:python3_host_prog = '/usr/local/bin/python3.9'
 filetype on
 " Path for plug
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-
+let g:vimspector_base_dir='~/.config/nvim/plugged/vimspector'
 " Reload files changed outside vim
 set autoread
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim

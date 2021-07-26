@@ -2,5 +2,6 @@
   "python.linting.pylintEnabled": true,
   "python.jediPath": "~/.pyenv/versions/3.7.3/lib/python3.7/site-packages",
   "python.formatting.provider": "black",
-  "python.pythonPath": "~/.pyenv/versions/3.7.0/bin/python3"
+  "python.pythonPath": "~/.pyenv/versions/3.7.0/bin/python3",
+  "metals.enable": true
 }

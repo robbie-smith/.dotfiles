@@ -14,6 +14,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 "*******************
 " Formatting/Linting
 "*******************
+Plug 'puremourning/vimspector'
 Plug 'dense-analysis/ale', { 'for': ['javascript', 'html', 'ruby', 'python']}
 "**********
 " Git

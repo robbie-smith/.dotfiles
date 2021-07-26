@@ -122,20 +122,6 @@ command! -bang -nargs=? -complete=dir Files
 let g:gitgutter_highlight_lines = 0
 let g:gitgutter_max_signs = 500
 "**********************
-" Vim-Go
-"**********************
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_auto_sameids = 0
-let g:go_auto_type_info = 1
-let g:go_snippet_engine = "neosnippet"
-"**********************
 " NerdTree
 "**********************
 " Auto close nerdtree when a file is opened
@@ -164,20 +150,6 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:neosnippet#snippets_directory=[$HOME.'/.dotfiles/nvim/mysnippets', 'neosnippet']
 let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
-" Vim-Javascript
-"**********************
-let g:javascript_plugin_flow = 1
-"**********************
-" Vim-jsx
-"**********************
-let g:jsx_ext_required = 0
-"**********************
-" Vim-Ruby
-"**********************
-" let ruby_fold = 1
-let ruby_spellcheck_strings = 1
-let ruby_foldable_groups = 'def'
-"**********************
 " VimTest
 "**********************
 " let test#strategy = 'neovim'
@@ -200,4 +172,6 @@ let test#ruby#rspec#options = {
   \ 'file':    '--format documentation',
   \ 'suite':   '--tag ~slow',
 \}
+
+let test#scala#runner = 'gradletest'
 " let test#ruby#use_binstubs = 0

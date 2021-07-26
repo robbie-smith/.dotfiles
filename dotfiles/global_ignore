@@ -31,3 +31,5 @@ bin/*
 .vim
 /bin/*
 .metals/
+.scalafmt.conf
+migrate.sh
