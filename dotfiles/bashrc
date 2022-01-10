@@ -50,3 +50,5 @@ function aws_shell() {
   aws-jumpcloud exec $1 -- aws-shell
 }
 eval "$(starship init bash)"
+eval "$(pyenv init --path)"
+. "$HOME/.cargo/env"
