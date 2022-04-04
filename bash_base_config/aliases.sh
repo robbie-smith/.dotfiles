@@ -40,3 +40,8 @@ pull() {
 update_aws() {
   vim $HOME/.aws/credentials
 }
+
+
+login_ecr() {
+  aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 947618278001.dkr.ecr.us-west-2.amazonaws.com
+}

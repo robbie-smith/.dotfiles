@@ -122,7 +122,7 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsPacka
 "**********************
 " FZF
 "**********************
-" nmap <Leader>o :Files <CR>
+nmap <Leader>o :Files <CR>
 imap <C-f> <plug>(fzf-complete-file-ag)
 imap <C-l> <plug>(fzf-complete-line)
 let g:fzf_action = {
