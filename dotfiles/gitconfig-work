@@ -1,0 +1,19 @@
+[user]
+  name = Robbie Smith
+	email = robert.smith@guildeducation.com
+[core]
+	editor = nvim
+	excludesfile = ~/.global_ignore
+  pager = delta
+[hub]
+	protocol = git
+[color]
+	ui = true
+[delta]
+  plus-color = "#012800"
+  minus-color = "#340001"
+  features = side-by-side line-numbers decorations
+  syntax-theme = Monokai Extended Bright
+
+[interactive]
+  diffFilter = delta --color-only
