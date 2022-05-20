@@ -31,6 +31,10 @@ source ~/.dotfiles/bash_base_config/fzf_profile.sh
 source ~/.dotfiles/bash_base_config/git_prompt.sh
 source ~/.dotfiles/bash_base_config/prompt.sh
 source ~/.dotfiles/bash_base_config/aliases.sh
+export LDFLAGS="-L/usr/local/opt/libpq/lib"
+export CPPFLAGS="-I/usr/local/opt/libpq/include"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
