@@ -4,5 +4,5 @@
   "python.formatting.provider": "black",
   "python.pythonPath": "~/.pyenv/versions/3.7.0/bin/python3",
   "metals.enable": true,
-  "workspace.ignoredFolders": ["~/Dev/ais/package/"]
+  hworkspace.ignoredFolders": ["~/Dev/ais/package/"]
 }
