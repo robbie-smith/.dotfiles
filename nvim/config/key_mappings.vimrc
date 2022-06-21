@@ -110,7 +110,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Toggle panel with Tree Views
-nnoremap <silent> <space>t :<C-u>CocCommand metals.tvp<CR>
+" nnoremap <silent> <space>t :<C-u>CocCommand metals.tvp<CR>
 " Toggle Tree View 'metalsPackages'
 nnoremap <silent> <space>tp :<C-u>CocCommand metals.tvp metalsPackages<CR>
 " Toggle Tree View 'metalsCompile'
@@ -227,8 +227,8 @@ nnoremap <space>gp :Git push<CR>
 "**********************
 " VimTest
 "**********************
-" nmap <silent> <Leader>t :TestFile <CR>
-" nmap <silent> <Leader>l :TestNearest<CR>
+nmap <silent> <Leader>t :TestFile <CR>
+nmap <silent> <Leader>l :TestNearest<CR>
 " nmap <silent> <Leader>a :TestSuite<CR>
 " nmap <silent> <Leader>g :TestVisit<CR>
 " Turns off the arrow keys
