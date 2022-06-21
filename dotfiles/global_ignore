@@ -33,3 +33,4 @@ bin/*
 .metals/
 .scalafmt.conf
 migrate.sh
+.tokens

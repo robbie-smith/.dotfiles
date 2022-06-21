@@ -1,4 +1,5 @@
 # -s flag checks that the file is > 0 bytes
+[[ -s "$HOME/.tokens" ]] && source "$HOME/.tokens"
 [[ -s "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
