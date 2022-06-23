@@ -1,8 +1,8 @@
 {
   "python.linting.pylintEnabled": true,
-  "python.jediPath": "~/.pyenv/versions/3.7.3/lib/python3.7/site-packages",
+  "python.jediPath": "~/neovim3/lib/python3.9/site-packages",
   "python.formatting.provider": "black",
-  "python.pythonPath": "~/.pyenv/versions/3.7.0/bin/python3",
-  "metals.enable": true,
+  "python.pythonPath": "~/neovim3/bin/python3",
+  "metals.enable": false,
   "workspace.ignoredFolders": ["~/Dev/ais/package/"]
 }
