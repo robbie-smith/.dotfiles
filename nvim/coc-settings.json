@@ -1,8 +1,17 @@
 {
   "python.linting.pylintEnabled": true,
-  "python.jediPath": "~/neovim3/lib/python3.9/site-packages",
   "python.formatting.provider": "black",
   "python.pythonPath": "~/neovim3/bin/python3",
-  "metals.enable": false,
-  "workspace.ignoredFolders": ["~/Dev/ais/package/"]
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.extraPaths": ["~/Dev/ais/src/*"],
+  "python.formatting.blackArgs":["~/neovim3/lib/python3.9/site-packages/black/"],
+  "workspace.ignoredFolders": ["~/Dev/ais/package/"],
+  "jedi.workspace.symbols.ignoreFolders": [
+    ".nox",
+    ".tox",
+    ".venv",
+    "__pycache__",
+    "venv",
+    "~/Dev/ais/package/"
+  ]
 }
