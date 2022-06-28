@@ -34,3 +34,4 @@ bin/*
 .scalafmt.conf
 migrate.sh
 .tokens
+tags
