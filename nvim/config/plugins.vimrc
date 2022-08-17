@@ -11,8 +11,8 @@ Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'
 "*******************
 " Formatting/Linting
 "*******************
-Plug 'puremourning/vimspector'
-Plug 'dense-analysis/ale', { 'for': ['javascript', 'html', 'ruby', 'python']}
+" Plug 'puremourning/vimspector'
+" Plug 'dense-analysis/ale', { 'for': ['javascript', 'html', 'ruby', 'python']}
 "**********
 " Git
 "**********

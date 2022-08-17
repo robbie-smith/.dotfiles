@@ -4,7 +4,8 @@
   "python.pythonPath": "~/neovim3/bin/python3",
   "python.analysis.typeCheckingMode": "off",
   "python.analysis.extraPaths": ["~/Dev/ais/src/*"],
-  "python.formatting.blackArgs":["~/neovim3/lib/python3.9/site-packages/black/"],
+  "python.venvPath": "~/.pyenv/versions",
+  "python.reportMissingImports": "none",
   "workspace.ignoredFolders": ["~/Dev/ais/package/"],
   "jedi.workspace.symbols.ignoreFolders": [
     ".nox",

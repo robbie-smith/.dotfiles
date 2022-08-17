@@ -6,7 +6,8 @@ set number
 set hlsearch
 set ignorecase smartcase
 set showmode
-
+set NERDTree
+Plug 'preservim/nerdtree'
 let mapleader=" "
 nmap \r :action ReformatCode<CR>
 nmap <Leader>d :action GotoDeclaration<CR>
@@ -24,10 +25,12 @@ nmap <,>v :action SplitVertically<CR>
 nmap <TAB> :action NextTab<CR>
 nmap <S-TAB> :action PreviousTab<CR>
 nmap <Leader>q :action CloseEditor<CR>
+nmap <Leader>, :NERDTreeToggle<CR>
 nmap <Leader>] :action MoveEditorToOppositeTabGroup<CR>
 noremap <CR> gg
 nnoremap ; :
 au InsertLeave * :w
+nnoremap <c-s> :action IdeaVim.ReloadVimRc.reload<CR>
 
 " TabList
 " TabActions

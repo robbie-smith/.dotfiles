@@ -4,12 +4,9 @@
 "**********************
 " Ale/Neomake/Syntastic
 "**********************
-" let g:jedi#auto_vim_configuration = 0
-" let g:ale_warn_about_trailing_whitespace = 1
-" let g:ale_set_highlights = 0
-" " let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {'javascript': ['jshint'], 'html': ['tidy'], 'go': ['golint'], 'ruby': ['rubocop'], 'python' : ['flake8', 'pylint', 'black']}
 let g:ale_fixers = {'javascript': ['jshint'], 'ruby': ['rubocop'], 'python' : ['black']}
+let g:coc_global_extensions = [ 'coc-pyright' ]
 " " let g:ale_sign_error = '❌'
 " " let g:ale_sign_warning = '⚠️ '
 " let g:ale_set_signs = 1
@@ -58,26 +55,6 @@ call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
 let g:airline_section_error = airline#section#create_left(['ALE'])
 " let g:airline_section_error = '%{exists("ALEGetStatusLine") ? ALEGetStatusLine() : ""}'
-"**********************
-" Autoformat
-"**********************
-let g:formatterpath = ['~/.rbenv/shims/rubocop', '/usr/local/bin/flake8']
-let g:format_ruby_style = 'rubocop'
-let g:formatters_python = ['autopep8', 'pep8', 'black']
-autocmd FileType ruby let b:autoformat_autoindent=1
-let g:autoformat_remove_trailing_spaces = 1
-"**********************
-" Deoplete
-"**********************
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#sources={}
-" call deoplete#custom#option('sources', {
-" \ '_': ['ale'],
-" \})
-" let g:deoplete#sources._=['buffer', 'file', 'neosnippet', $HOME.'/.dotfiles/nvim/mysnippets']
-" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-" let g:deoplete#sources#go#use_cache = 1
 "**********************
 " FZF
 "**********************
@@ -152,12 +129,6 @@ let g:neosnippet#enable_snipmate_compatibility=1
 "**********************
 " VimTest
 "**********************
-" let test#strategy = 'neovim'
-" let test#strategy = 'neoterm'
-" let test#strategy = 'terminal'
-" let test#filename_modifier = ':~'
-" let g:test#preserve_screen = 1
-
 let test#strategy = 'iterm'
 let test#python#pytest#options = {
   \ 'all': '-s',
@@ -174,4 +145,3 @@ let test#ruby#rspec#options = {
 \}
 
 let test#scala#runner = 'gradletest'
-" let test#ruby#use_binstubs = 0
