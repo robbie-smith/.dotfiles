@@ -21,4 +21,4 @@ function prompt {
     export PS2=" | → $RESETCOLOR"
 }
 
-prompt
+# prompt
