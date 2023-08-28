@@ -37,9 +37,6 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
 
 function docker_clean {
   docker rmi $(docker images -f "dangling=true" -q -f)
@@ -49,12 +46,11 @@ function aws_shell() {
   pyenv local 3.6.9
   aws-jumpcloud exec $1 -- aws-shell
 }
-eval "$(starship init bash)"
-eval "$(pyenv init --path)"
-eval "$(rbenv init -)"
+
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
 . "$HOME/.cargo/env"
 
 function gpush() {

@@ -13,18 +13,18 @@ set -e
 
 # shellcheck disable=SC2016
 
-HOMEBREW_PREFIX="/usr/local"
+HOMEBREW_PREFIX="/opt/homebrew"
 
-if [ -d "$HOMEBREW_PREFIX" ]; then
-  # -r flag checks if it is readable by the user
-  if ! [ -r "$HOMEBREW_PREFIX" ]; then
-    sudo chown -R "$LOGNAME:admin" /usr/local
-  fi
-else
-  sudo mkdir "$HOMEBREW_PREFIX"
-  sudo chflags norestricted "$HOMEBREW_PREFIX"
-  sudo chown -R "$LOGNAME:admin" "$HOMEBREW_PREFIX"
-fi
+# if [ -d "$HOMEBREW_PREFIX" ]; then
+#   # -r flag checks if it is readable by the user
+#   if ! [ -r "$HOMEBREW_PREFIX" ]; then
+#     sudo chown -R "$LOGNAME:admin" /usr/local
+#   fi
+# else
+#   sudo mkdir "$HOMEBREW_PREFIX"
+#   sudo chflags norestricted "$HOMEBREW_PREFIX"
+#   sudo chown -R "$LOGNAME:admin" "$HOMEBREW_PREFIX"
+# fi
 
 gem_install_or_update() {
   if gem list "$1" --installed > /dev/null; then
@@ -36,11 +36,11 @@ gem_install_or_update() {
   fi
 }
 
-if ! brew >/dev/null; then
-  fancy_echo "Installing Homebrew ..."
-  curl -fsSL \
-    'https://raw.githubusercontent.com/Homebrew/install/master/install.sh' | bash
-fi
+# if ! brew >/dev/null; then
+#   fancy_echo "Installing Homebrew ..."
+#   curl -fsSL \
+#     'https://raw.githubusercontent.com/Homebrew/install/master/install.sh' | bash
+# fi
 
 if brew list | grep -Fq brew-cask; then
   fancy_echo "Uninstalling old Homebrew-Cask ..."

@@ -2,3 +2,12 @@
 [[ -s "$HOME/.tokens" ]] && source "$HOME/.tokens"
 [[ -s "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+
+eval "$(starship init bash)"
+eval "$(pyenv init --path)"
+eval "$(rbenv init -)"
