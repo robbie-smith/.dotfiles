@@ -37,3 +37,4 @@ nnoremap <c-s> :action IdeaVim.ReloadVimRc.reload<CR>
 " Git.Add
 " Github.Open.In.Browser
 " Github.Create.Pull.Requestrr
+set ideajoin

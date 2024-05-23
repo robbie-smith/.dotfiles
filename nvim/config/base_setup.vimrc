@@ -10,7 +10,7 @@ endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 let g:python2_host_prog = '~/neovim2/bin/python'
-let g:python3_host_prog = '~/neovim3/bin/python'
+let g:python3_host_prog = '/Users/robertsmith/.pyenv/shims/python3.10'
 " Enable filetype detection
 filetype on
 " Path for plug
