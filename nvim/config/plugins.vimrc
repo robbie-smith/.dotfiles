@@ -8,6 +8,9 @@ Plug 'tpope/vim-surround'
 Plug 'janko-m/vim-test', { 'frozen': '1'}
 Plug 'tpope/vim-commentary'
 Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+Plug 'pmizio/typescript-tools.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
 "*******************
 " Formatting/Linting
 "*******************
