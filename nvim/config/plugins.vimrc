@@ -11,6 +11,7 @@ Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'
 Plug 'pmizio/typescript-tools.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'github/copilot.vim'
 "*******************
 " Formatting/Linting
 "*******************
