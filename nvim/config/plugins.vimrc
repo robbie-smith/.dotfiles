@@ -12,6 +12,7 @@ Plug 'pmizio/typescript-tools.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'github/copilot.vim'
+
 "*******************
 " Formatting/Linting
 "*******************
@@ -40,6 +41,13 @@ Plug 'tpope/vim-dispatch'
 " Snippets
 "*******************
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"*******************
+" Testing
+"*******************
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'mxsdev/nvim-dap-vscode-js'
 "**********
 " Visual
 "**********
