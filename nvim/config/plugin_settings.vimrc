@@ -145,3 +145,21 @@ let test#ruby#rspec#options = {
 \}
 
 let test#scala#runner = 'gradletest'
+let test#typescript#runner = 'mocha'
+let g:test#runner_commands = ['gradletest', 'mocha', 'pytest', 'rspec']
+let test#javascript#mocha#options = '--reporter spec'
+let test#javascript#mocha#file_pattern = '\v^spec[\\/].*spec\.(js|ts)$'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
