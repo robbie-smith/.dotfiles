@@ -11,3 +11,5 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 eval "$(starship init bash)"
 eval "$(pyenv init --path)"
 eval "$(rbenv init -)"
+
+eval "$(/usr/local/bin/brew shellenv)"
