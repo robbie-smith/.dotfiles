@@ -1,6 +1,6 @@
 " Be iMproved
 set nocompatible
-
+set termguicolors
 "Text Wrapping
 if !exists('*s:setupWrapping')
   set wm=2
