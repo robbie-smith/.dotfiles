@@ -47,6 +47,11 @@ function docker_clean {
   docker rmi $(docker images -f "dangling=true" -q -f)
 }
 
+function aws_shell() {
+  pyenv local 3.6.9
+  aws-jumpcloud exec $1 -- aws-shell
+}
+
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
@@ -101,8 +106,4 @@ if [ -f /sw/etc/bash_completion ]; then
 fi
 
 . "$HOME/.cargo/env"
-eval "$(starship init bash)" 2> /dev/null
-# eval "$(pyenv init --path)"
-# eval "$(rbenv init -)"
-# eval "$(mise activate bash)"
 eval "$(/opt/homebrew/bin/brew shellenv)"

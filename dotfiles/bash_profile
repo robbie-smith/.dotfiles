@@ -1,11 +1,16 @@
 # -s flag checks that the file is > 0 bytes
 [[ -s "$HOME/.tokens" ]] && source "$HOME/.tokens"
+
+if [ -f $HOME/.bashrc ]; then
+    source $HOME/.bashrc
+fi
+
 [[ -s "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
-[[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-# echo "Hello from bash_profile"
-
-# eval "$(homebrew/bin/brew shellenv)"
+eval "$(starship init bash)"
+eval "$(pyenv init --path)"
+eval "$(rbenv init -)"
+eval "$(mise activate bash)"
