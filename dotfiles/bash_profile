@@ -6,10 +6,6 @@
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+# echo "Hello from bash_profile"
 
-
-eval "$(starship init bash)"
-eval "$(pyenv init --path)"
-eval "$(rbenv init -)"
-
-eval "$(/usr/local/bin/brew shellenv)"
+# eval "$(homebrew/bin/brew shellenv)"

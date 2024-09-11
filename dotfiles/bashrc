@@ -37,19 +37,14 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 export HOMEBREW_CELLAR="/usr/local/Cellar"
 export SPARK_HOME=$HOMEBREW_CELLAR/apache-spark/3.5.1/libexec
-
 export PATH="$JAVA_HOME:$SPARK_HOME:$PATH"
 export DOCKER_CLI_HINTS=false
+export PATH=$PATH:$HOME/.toolbox/bin
+export PATH="/usr/local/sbin:$PATH"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 
 function docker_clean {
   docker rmi $(docker images -f "dangling=true" -q -f)
-}
-
-function aws_shell() {
-  pyenv local 3.6.9
-  aws-jumpcloud exec $1 -- aws-shell
 }
 
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -68,6 +63,8 @@ function pr()
   # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
   hub pull-request -o
 }
+
+
 
 function compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
@@ -103,10 +100,9 @@ if [ -f /sw/etc/bash_completion ]; then
    . /sw/etc/bash_completion
 fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/robertsmith/.sdkman"
-[[ -s "/Users/robertsmith/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/robertsmith/.sdkman/bin/sdkman-init.sh"
-
-[ -s "/Users/robertsmith/.jabba/jabba.sh" ] && source "/Users/robertsmith/.jabba/jabba.sh"
-export PATH="/usr/local/sbin:$PATH"
 . "$HOME/.cargo/env"
+eval "$(starship init bash)" 2> /dev/null
+# eval "$(pyenv init --path)"
+# eval "$(rbenv init -)"
+# eval "$(mise activate bash)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
