@@ -119,7 +119,7 @@ update_bash(){
 }
 
 install_neovim_for_python
-# update_bash
+update_bash
 
 packages=(
 "apache-airflow"

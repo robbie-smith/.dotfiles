@@ -19,6 +19,7 @@ alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles NO; killal
 alias ls="ls -GFh"
 alias master="git checkout master"
 alias notes="cd ~/dev_notes/"
+alias dev_desktop="unison Workplace"
 alias production="git checkout production"
 alias main="git checkout main"
 alias reload="source ~/.bash_profile"
