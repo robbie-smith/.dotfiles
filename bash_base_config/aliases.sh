@@ -27,6 +27,7 @@ alias runexpress="DEBUG=myapp:* npm start --scripts-prepend-node-path"
 alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
 alias vim="nvim"
 alias vi="nvim"
+alias wp="cd ~/workplace"
 alias aws2="/usr/local/bin/aws"
 
 pull() {

@@ -41,6 +41,7 @@ export PATH="$JAVA_HOME:$SPARK_HOME:$PATH"
 export DOCKER_CLI_HINTS=false
 export PATH=$PATH:$HOME/.toolbox/bin
 export PATH="/usr/local/sbin:$PATH"
+export PERSONAL_BINDLE_ID="amzn1.bindle.resource.35vyr5y3vo4tuftbazogsdjsq"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 function docker_clean {

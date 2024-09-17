@@ -12,6 +12,7 @@ fi
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 eval "$(starship init bash)"
 eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init -)"
 eval "$(mise activate bash)"
 
