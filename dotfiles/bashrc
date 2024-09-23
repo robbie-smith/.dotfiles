@@ -91,9 +91,10 @@ man() {
 }
 
 activate(){
-  if [ -d $(pwd)/$1 ]; then
-    source $(pwd)/$1/bin/activate
-  fi
+  pyenv virtualenv $1
+  # if [ -d $(pwd)/$1 ]; then
+  #   source $(pwd)/$1/bin/activate
+  # fi
 }
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
