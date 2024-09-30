@@ -9,13 +9,16 @@ set showmode
 set NERDTree
 Plug 'preservim/nerdtree'
 let mapleader=" "
-nmap \r :action ReformatCode<CR>
+" nmap \r :action ReformatCode<CR>
+nmap <Leader>f :action ReformatCode<CR>
+vmap <leader>f :action ReformatCode<CR>
 nmap <Leader>d :action GotoDeclaration<CR>
 nmap fu :action FindUsages<CR>
 nmap <Leader>r :action RenameElement
 nmap <Leader>s :action Replace<CR>
 nmap <Leader>o :action SearchEverywhere<CR>
-nmap <Leader>t :action RerunFailedTests<CR>
+nmap <Leader>t :action RunClass<CR>
+nmap <Leader>ft :action RerunFailedTests<CR>
 nmap <Leader>b :action ToggleLineBreakpoint<CR>
 nmap <c-h> <c-w>h
 nmap <c-l> <c-w>l
@@ -27,7 +30,12 @@ nmap <S-TAB> :action PreviousTab<CR>
 nmap <Leader>q :action CloseEditor<CR>
 nmap <Leader>, :NERDTreeToggle<CR>
 nmap <Leader>] :action MoveEditorToOppositeTabGroup<CR>
+nmap <Leader>w :action SaveAll<CR>
+
+RunClass
+CloseContent
 noremap <CR> gg
+
 nnoremap ; :
 au InsertLeave * :w
 nnoremap <c-s> :action IdeaVim.ReloadVimRc.reload<CR>

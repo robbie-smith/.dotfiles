@@ -1,4 +1,5 @@
 alias ..="cd .."
+alias b="brazil"
 alias bb="brazil-build"
 alias openbash="nvim ~/.dotfiles/bash/bash_profile.sh"
 alias browse="hub browse"

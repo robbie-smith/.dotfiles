@@ -8,7 +8,7 @@ export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
 export PATH=$PATH.~/.rbenv/shims
 export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/12/bin:$PATH
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+# export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 export GOPATH=$HOME/Go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
@@ -90,11 +90,21 @@ man() {
     man "$@"
 }
 
-activate(){
-  pyenv virtualenv $1
-  # if [ -d $(pwd)/$1 ]; then
-  #   source $(pwd)/$1/bin/activate
-  # fi
+activate() {
+    # The name of the virtual environment
+    local venv_name="$1"
+
+    # Check if the virtual environment already exists
+    if pyenv virtualenvs --bare | grep -q "^${venv_name}\$"; then
+        # If the virtual environment exists, activate it
+        echo "Activating virtual environment '${venv_name}'..."
+        pyenv activate "${venv_name}"
+    else
+        # If the virtual environment does not exist, create it and activate it
+        echo "Virtual environment '${venv_name}' does not exist. Creating it..."
+        pyenv virtualenv "${venv_name}"
+        pyenv activate "${venv_name}"
+    fi
 }
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
