@@ -60,6 +60,20 @@ function brazil_setup_mac() {
   brazil setup platform-support
 }
 
+update_credentials() {
+    # Check if the account number is passed as an argument
+    if [ -z "$1" ]; then
+        echo "Usage: update_credentials <account_number>"
+        return 1
+    fi
+
+    local account_number=$1
+    local role="IibsAdminAccess-DO-NOT-DELETE"
+
+    # Run the ADA credentials update command with the provided account number
+    ada credentials update --provider conduit --account "$account_number" --role "$role" --once
+}
+
 function gpush() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
   git push -u origin "${BRANCH}"
