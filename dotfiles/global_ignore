@@ -35,3 +35,8 @@ bin/*
 migrate.sh
 .tokens
 tags
+.DS_Store
+*.iml
+*.ipr
+.idea/
+build

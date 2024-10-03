@@ -1,6 +1,6 @@
 [includeIf "gitdir:~/"]
   path = ~/.gitconfig-personal
-[includeIf "gitdir:~/Dev/"]
+[includeIf "gitdir:~/workplace/"]
   path = ~/.gitconfig-work
 [pull]
 	rebase = false
