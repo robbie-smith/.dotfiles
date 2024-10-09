@@ -12,7 +12,7 @@ let mapleader=" "
 " nmap \r :action ReformatCode<CR>
 nmap <Leader>f :action ReformatCode<CR>
 vmap <leader>f :action ReformatCode<CR>
-nmap <Leader>d :action GotoDeclaration<CR>
+nmap <Leader>d :action Debug<CR>
 nmap fu :action FindUsages<CR>
 nmap <Leader>r :action RenameElement
 nmap <Leader>s :action Replace<CR>
