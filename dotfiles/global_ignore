@@ -40,3 +40,4 @@ tags
 *.ipr
 .idea/
 build
+package-lock.json
