@@ -1,6 +1,7 @@
 alias ..="cd .."
 alias b="brazil"
 alias bb="brazil-build"
+alias bbr="brazil-recursive-cmd --allPackages brazil-build"
 alias openbash="nvim ~/.dotfiles/bash/bash_profile.sh"
 alias browse="hub browse"
 alias c="clear"
