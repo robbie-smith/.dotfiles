@@ -11,7 +11,6 @@ alias g="git"
 alias ga="gitAddFunction"
 alias gs="git status"
 alias gc="git commit -v"
-alias gb="git checkout -b"
 alias gac="git add . && git commit -m"
 alias gclean="git branch --merged | egrep -v '(^\*|production|main)' | xargs git branch -d"
 alias home="cd ~"
@@ -30,27 +29,46 @@ alias vi="nvim"
 alias wp="cd ~/workplace"
 alias aws2="/usr/local/bin/aws"
 
+gb() {
+  if [ -z "$1" ]; then
+    echo "Error: Please provide a branch name."
+    return 1
+  fi
 
-function brazil_setup_mac() {
+  git checkout -b "$1"
+  if [ $? -ne 0 ]; then
+    echo "Error: Failed to create or switch to branch '$1'."
+    return 1
+  fi
+
+  git branch --set-upstream-to=origin/mainline "$1" 2>/dev/null
+  if [ $? -ne 0 ]; then
+    echo "Error: Failed to set upstream to 'origin/mainline'."
+    return 1
+  fi
+
+  echo "Branch '$1' created and set to track 'origin/mainline'."
+}
+
+
+brazil_setup_mac() {
   brazil ws clean
   brazil ws sync --md
   brazil setup platform-support
 }
 
 
-function compare() {
+compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
 }
 
-function pr()
-{
+pr() {
   # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
   # hub pull-request -o
   cr --new-review --parent mainline -o
 }
 
-function update_pr()
-{
+update_pr() {
   # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
   # hub pull-request -o
   cr --new-review --parent mainline -o
@@ -73,14 +91,12 @@ activate() {
     fi
 }
 
-docker_clean() {
-  docker rmi $(docker images -f "dangling=true" -q -f)
-}
+# docker_clean() {
+#   docker rmi $(docker images -f "dangling=true" -q -f)
+# }
 
 
-gb() {
-  git checkout -b && git branch -u origin/mainline
-}
+# Correct function syntax with proper curly braces
 
 function gpush() {
   # Get the current branch name
