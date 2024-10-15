@@ -1,7 +1,8 @@
 alias ..="cd .."
 alias b="brazil"
 alias bb="brazil-build"
-alias bbr="brazil-recursive-cmd --allPackages brazil-build"
+alias bbr_clean="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
+alias build_clean="brazil-build clean && brazil-build"
 alias openbash="nvim ~/.dotfiles/bash/bash_profile.sh"
 alias browse="hub browse"
 alias c="clear"
@@ -50,6 +51,14 @@ gb() {
   echo "Branch '$1' created and set to track 'origin/mainline'."
 }
 
+
+bbr() {
+  if [ -z "$1" ]; then
+    echo "Error: Please provide a brazil command. brazil-build tasks for more options"
+    return 1
+  fi
+  brazil-recursive-cmd --allPackages --continue brazil-build $1
+}
 
 brazil_setup_mac() {
   brazil ws clean
@@ -192,6 +201,23 @@ update_credentials() {
         return 1
     fi
 }
+
+
+bb_clean() {
+  brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean
+  # for dir in */ ; do
+  #   if [ -d "$dir" ]; then
+  #     echo "Entering $dir..."
+  #     cd "$dir" || continue  # Change into the directory or skip if it fails
+
+  #     echo "================================================="
+  #     echo "Running Command"
+  #     # Example command: clean up any .tmp files
+  #     brazil-build clean
+  #     cd ..  # Return to the parent directory
+  #   fi
+  # done
+}
 #
 # Colorized man command
 man() {
@@ -205,3 +231,4 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
     man "$@"
 }
+
