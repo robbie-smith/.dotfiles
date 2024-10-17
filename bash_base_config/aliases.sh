@@ -2,7 +2,7 @@ alias ..="cd .."
 alias b="brazil"
 alias bb="brazil-build"
 alias bbr_clean="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
-alias build_clean="brazil-build clean && brazil-build"
+alias clean_build="brazil-build clean && brazil-build"
 alias openbash="nvim ~/.dotfiles/bash/bash_profile.sh"
 alias browse="hub browse"
 alias c="clear"
@@ -53,11 +53,7 @@ gb() {
 
 
 bbr() {
-  if [ -z "$1" ]; then
-    echo "Error: Please provide a brazil command. brazil-build tasks for more options"
-    return 1
-  fi
-  brazil-recursive-cmd --allPackages --continue brazil-build $1
+  brazil-recursive-cmd --allPackages --continue brazil-build
 }
 
 brazil_setup_mac() {
@@ -78,9 +74,11 @@ pr() {
 }
 
 update_pr() {
-  # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
-  # hub pull-request -o
-  cr --new-review --parent mainline -o
+  if [ -z "$1" ]; then
+    echo "Error: Please provide a CR-####."
+    return 1
+  fi
+  cr --update-review $1
 }
 
 activate() {
@@ -204,19 +202,19 @@ update_credentials() {
 
 
 bb_clean() {
-  brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean
-  # for dir in */ ; do
-  #   if [ -d "$dir" ]; then
-  #     echo "Entering $dir..."
-  #     cd "$dir" || continue  # Change into the directory or skip if it fails
+  # brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean
+  for dir in */ ; do
+    if [ -d "$dir" ]; then
+      echo "Entering $dir..."
+      cd "$dir" || continue  # Change into the directory or skip if it fails
 
-  #     echo "================================================="
-  #     echo "Running Command"
-  #     # Example command: clean up any .tmp files
-  #     brazil-build clean
-  #     cd ..  # Return to the parent directory
-  #   fi
-  # done
+      echo "================================================="
+      echo "Running Command"
+      # Example command: clean up any .tmp files
+      brazil-build clean
+      cd ..  # Return to the parent directory
+    fi
+  done
 }
 #
 # Colorized man command
