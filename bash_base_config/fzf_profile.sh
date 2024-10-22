@@ -141,12 +141,13 @@ ga() {
           --preview 'git diff --color=always -- {1} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}' \
           --preview-window=down:50% --reverse \
           --height 80% \
-          --header "Press 'r' to reset (unstage), 'u' to restore (undo changes), 'a' to add (stage), or 'esc' to exit" \
+          --header "Press 'a': stage, 'b': blame, 'r': reset, 'u': unstage or 'esc' to exit" \
           --bind "r:execute(echo reset {1})+reload(echo \"$files\")" \
           --bind "u:execute(echo restore {1})+reload(echo \"$files\")" \
           --bind "a:execute(echo add {1})+reload(echo \"$files\")" \
+          --bind "b:execute(echo blame {1})+reload(echo \"$files\")" \
           --bind "esc:abort" \
-          --expect=r,u,a,esc)
+          --expect=r,u,a,b,esc)
 
     action=$(echo "$selected" | head -n1)
     file=$(echo "$selected" | tail -n1)
@@ -155,18 +156,23 @@ ga() {
       separator=$(generate_separator)
       case "$action" in
         r)
-          git restore --staged -- "$file"
-          echo "Unstaged: $file"
+          git restore -- "$file"
+          echo "Reset: $file"
           echo "$separator"
           ;;
         u)
-          git restore -- "$file"
-          echo "Restored: $file"
+          git restore --staged -- "$file"
+          echo "Unstaged: $file"
           echo "$separator"
           ;;
         a)
           git add -- "$file"
           echo "Staged: $file"
+          echo "$separator"
+          ;;
+        b)
+          git blame -- "$file"
+          echo "Blaming: $file"
           echo "$separator"
           ;;
         esc)
