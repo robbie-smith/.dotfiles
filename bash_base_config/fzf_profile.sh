@@ -139,7 +139,7 @@ ga() {
     selected=$(echo "$files" | \
       fzf --ansi \
           --preview 'git diff --color=always -- {1} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}' \
-          --preview-window=down:50% --reverse \
+          --preview-window=down:70% --reverse \
           --height 80% \
           --header "Press 'a': stage, 'b': blame, 'r': reset, 'u': unstage or 'esc' to exit" \
           --bind "r:execute(echo reset {1})+reload(echo \"$files\")" \

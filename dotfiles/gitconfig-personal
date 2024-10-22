@@ -1,6 +1,13 @@
 [user]
   name = Robbie Smith
 	email = robert.smith160@gmail.com
+[include]
+    path = /Users/robsmid/.dotfiles/dotfiles/themes.gitconfig
+[delta]
+    features = mellow-barbet
+    navigate = true
+    line-numbers = true
+    hyperlinks = true
 [core]
 	editor = nvim
 	excludesfile = ~/.global_ignore
