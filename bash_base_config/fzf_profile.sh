@@ -101,12 +101,13 @@ gcrb() {
 }
 
 
-gitAddFunction() {
-  is_in_git_repo
+ga() {
+  is_in_git_repo || return
+
   files=$(git status --porcelain | grep -v HEAD) &&
-    file=$(echo "$files" |
-  fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m) &&
-    git add $(echo "$file" | sed "s/.* //")
+  file=$(echo "$files" |
+    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi --preview 'git diff --color=always -- {-1}') &&
+  git add $(echo "$file" | sed "s/.* //")
 }
 
 ghist() {
