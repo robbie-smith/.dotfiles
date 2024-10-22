@@ -135,7 +135,16 @@ ga() {
     printf '%*s\n' "${term_width}" '' | tr ' ' '='
   }
 
+  # Function to show git status
+  show_git_status() {
+    echo "Current git status:"
+    git status
+    generate_separator
+  }
+
   while true; do
+    show_git_status
+
     selected=$(echo "$files" | \
       fzf --ansi \
           --preview 'git diff --color=always -- {1} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}' \
@@ -154,39 +163,39 @@ ga() {
 
     if [ -n "$file" ]; then
       separator=$(generate_separator)
+      before_status=$(git status --short "$file")
       case "$action" in
         r)
           git restore -- "$file"
           echo "Reset: $file"
-          echo "$separator"
           ;;
         u)
           git restore --staged -- "$file"
           echo "Unstaged: $file"
-          echo "$separator"
           ;;
         a)
           git add -- "$file"
-          echo "Staged: $file"
-          echo "$separator"
+          echo "Added: $file"
           ;;
         b)
-          git blame -- "$file"
-          echo "Blaming: $file"
-          echo "$separator"
+          git blame "$file" | less
+          continue
           ;;
         esc)
-          git status
           break
           ;;
       esac
-      files=$(git status --porcelain | sed s/^...// | sort -u)
-    else
-      echo "No file selected. Please try again or press 'esc' to quit."
-      echo "$(generate_separator)"
+      after_status=$(git status  --porcelain -s "$file")
+#      echo "Before: $before_status"
+      echo "After:  $after_status"
+      echo "$separator"
     fi
+
+    files=$(git status --porcelain | sed s/^...// | sort -u)
+    [ -z "$files" ] && { echo "No more modified files."; break; }
   done
 }
+
 
 
 
