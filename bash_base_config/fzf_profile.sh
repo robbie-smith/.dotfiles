@@ -104,21 +104,89 @@ gcrb() {
 ga() {
   is_in_git_repo || return
 
+  # Fetch the list of files (both staged and unstaged) from git status
   files=$(git status --porcelain | grep -v HEAD) &&
-  file=$(echo "$files" |
-    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi --preview 'git diff --color=always -- {-1}') &&
+
+  # Use fzf-tmux to select a file, show a delta diff preview, and add the selected file
+  file=$(echo "$files" | \
+    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi \
+      --preview='git diff --color=always -- {-1} | delta' \
+      --preview-window=right:50%) &&
+
+  # Add the selected file to staging
   git add $(echo "$file" | sed "s/.* //")
 }
 
-ghist() {
-  is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-    --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -200' |
-  grep -o "[a-f0-9]\{7,\}"
+greset() {
+  is_in_git_repo || { echo "Not in a git repository"; return; }
+
+  local files selected action file
+
+  echo "Fetching modified files..."
+  files=$(git status --porcelain | sed s/^...// | sort -u)
+
+  if [ -z "$files" ]; then
+    echo "No modified files found."
+    return
+  fi
+
+  echo "Files found:"
+  echo "$files"
+
+  echo "Launching fzf..."
+  selected=$(echo "$files" | \
+    fzf --ansi \
+        --preview 'git diff --color=always -- {1}' \
+        --preview-window right:60% \
+        --height 80% \
+        --header "Press 'r' to reset (unstage) or 'u' to restore (undo changes)" \
+        --bind "r:execute(echo reset {1})+accept" \
+        --bind "u:execute(echo restore {1})+accept" \
+        --expect=r,u)
+
+  action=$(echo "$selected" | head -n1)
+  file=$(echo "$selected" | tail -n1)
+
+  echo "=================================="
+  echo "Action: $action"
+  echo "=================================="
+  echo "File: $file"
+  echo "=================================="
+
+  if [ -n "$file" ]; then
+    case "$action" in
+      r)
+        echo "Unstaging $file..."
+        git reset HEAD -- "$file"
+        echo "Unstaged: $file"
+        ;;
+      u)
+        echo "Restoring $file..."
+        git restore -- "$file"
+        echo "Restored: $file"
+        ;;
+      *)
+        echo "Invalid action. Exiting."
+        ;;
+    esac
+  else
+    echo "No file selected. Exiting."
+  fi
 }
 
+
+gr() {
+  files=$(git diff --name-only)
+
+  file=$(echo "$files" | \
+    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi \
+      --preview='git diff --color=always -- {-1} | delta' \
+      --preview-window=right:50%) &&
+
+  # Add the selected file to staging
+  git restore --staged $(echo "$file" | sed "s/.* //") || git restore $(echo "$file" | sed "s/.* //")
+  # esac
+}
 
 gcb() {
   local tags branches target
@@ -143,14 +211,6 @@ fdb() {
   fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 2 -1 -q "$*") || return
   git branch -D $(echo "$target" | awk '{print $2}')
 }
-
-# gdb() {
-#   local branches branch
-#   branches=$(git branch --merged) &&
-  #   branch=$(echo "$branches" | fzf +m) &&
-  #     git branch -d $(echo "$branch" | sed "s/.* //") && gdb
-# }
-
 # show commit history, enter to select commit and  ctrl-d to see the diff
 gshow() {
   local out shas sha q k
