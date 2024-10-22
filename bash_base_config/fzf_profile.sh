@@ -101,26 +101,26 @@ gcrb() {
 }
 
 
+#ga() {
+#  is_in_git_repo || return
+#
+#  # Fetch the list of files (both staged and unstaged) from git status
+#  files=$(git status --porcelain | grep -v HEAD) &&
+#
+#  # Use fzf-tmux to select a file, show a delta diff preview, and add the selected file
+#  file=$(echo "$files" | \
+#    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi \
+#      --preview='git diff --color=always -- {-1} | delta' \
+#      --preview-window=right:50%) &&
+#
+#  # Add the selected file to staging
+#  git add $(echo "$file" | sed "s/.* //")
+#}
+
 ga() {
-  is_in_git_repo || return
-
-  # Fetch the list of files (both staged and unstaged) from git status
-  files=$(git status --porcelain | grep -v HEAD) &&
-
-  # Use fzf-tmux to select a file, show a delta diff preview, and add the selected file
-  file=$(echo "$files" | \
-    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi \
-      --preview='git diff --color=always -- {-1} | delta' \
-      --preview-window=right:50%) &&
-
-  # Add the selected file to staging
-  git add $(echo "$file" | sed "s/.* //")
-}
-
-greset() {
   is_in_git_repo || { echo "Not in a git repository"; return; }
 
-  local files selected action file
+  local files selected action file separator
 
   files=$(git status --porcelain | sed s/^...// | sort -u)
 
@@ -129,11 +129,17 @@ greset() {
     return
   fi
 
+  # Function to generate a separator
+  generate_separator() {
+    local term_width=$(tput cols)
+    printf '%*s\n' "${term_width}" '' | tr ' ' '='
+  }
+
   while true; do
     selected=$(echo "$files" | \
       fzf --ansi \
-          --preview 'git diff --color=always -- {1} | delta' \
-          --preview-window right:50% \
+          --preview 'git diff --color=always -- {1} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}' \
+          --preview-window=down:50% --reverse \
           --height 80% \
           --header "Press 'r' to reset (unstage), 'u' to restore (undo changes), 'a' to add (stage), or 'esc' to exit" \
           --bind "r:execute(echo reset {1})+reload(echo \"$files\")" \
@@ -146,22 +152,22 @@ greset() {
     file=$(echo "$selected" | tail -n1)
 
     if [ -n "$file" ]; then
+      separator=$(generate_separator)
       case "$action" in
         r)
           git restore --staged -- "$file"
           echo "Unstaged: $file"
-          echo "=========================="
+          echo "$separator"
           ;;
         u)
           git restore -- "$file"
           echo "Restored: $file"
-          echo "=========================="
+          echo "$separator"
           ;;
         a)
           git add -- "$file"
           echo "Staged: $file"
-          echo "Staged: $file"
-          echo "=========================="
+          echo "$separator"
           ;;
         esc)
           git status
@@ -171,9 +177,12 @@ greset() {
       files=$(git status --porcelain | sed s/^...// | sort -u)
     else
       echo "No file selected. Please try again or press 'esc' to quit."
+      echo "$(generate_separator)"
     fi
   done
 }
+
+
 
 
 
