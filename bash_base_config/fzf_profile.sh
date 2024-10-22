@@ -122,7 +122,6 @@ greset() {
 
   local files selected action file
 
-  echo "Fetching modified files..."
   files=$(git status --porcelain | sed s/^...// | sort -u)
 
   if [ -z "$files" ]; then
@@ -130,49 +129,53 @@ greset() {
     return
   fi
 
-  echo "Files found:"
-  echo "$files"
+  while true; do
+    selected=$(echo "$files" | \
+      fzf --ansi \
+          --preview 'git diff --color=always -- {1} | delta' \
+          --preview-window right:50% \
+          --height 80% \
+          --header "Press 'r' to reset (unstage), 'u' to restore (undo changes), 'a' to add (stage), or 'esc' to exit" \
+          --bind "r:execute(echo reset {1})+reload(echo \"$files\")" \
+          --bind "u:execute(echo restore {1})+reload(echo \"$files\")" \
+          --bind "a:execute(echo add {1})+reload(echo \"$files\")" \
+          --bind "esc:abort" \
+          --expect=r,u,a,esc)
 
-  echo "Launching fzf..."
-  selected=$(echo "$files" | \
-    fzf --ansi \
-        --preview 'git diff --color=always -- {1}' \
-        --preview-window right:60% \
-        --height 80% \
-        --header "Press 'r' to reset (unstage) or 'u' to restore (undo changes)" \
-        --bind "r:execute(echo reset {1})+accept" \
-        --bind "u:execute(echo restore {1})+accept" \
-        --expect=r,u)
+    action=$(echo "$selected" | head -n1)
+    file=$(echo "$selected" | tail -n1)
 
-  action=$(echo "$selected" | head -n1)
-  file=$(echo "$selected" | tail -n1)
-
-  echo "=================================="
-  echo "Action: $action"
-  echo "=================================="
-  echo "File: $file"
-  echo "=================================="
-
-  if [ -n "$file" ]; then
-    case "$action" in
-      r)
-        echo "Unstaging $file..."
-        git reset HEAD -- "$file"
-        echo "Unstaged: $file"
-        ;;
-      u)
-        echo "Restoring $file..."
-        git restore -- "$file"
-        echo "Restored: $file"
-        ;;
-      *)
-        echo "Invalid action. Exiting."
-        ;;
-    esac
-  else
-    echo "No file selected. Exiting."
-  fi
+    if [ -n "$file" ]; then
+      case "$action" in
+        r)
+          git restore --staged -- "$file"
+          echo "Unstaged: $file"
+          echo "=========================="
+          ;;
+        u)
+          git restore -- "$file"
+          echo "Restored: $file"
+          echo "=========================="
+          ;;
+        a)
+          git add -- "$file"
+          echo "Staged: $file"
+          echo "Staged: $file"
+          echo "=========================="
+          ;;
+        esc)
+          git status
+          break
+          ;;
+      esac
+      files=$(git status --porcelain | sed s/^...// | sort -u)
+    else
+      echo "No file selected. Please try again or press 'esc' to quit."
+    fi
+  done
 }
+
+
 
 
 gr() {
