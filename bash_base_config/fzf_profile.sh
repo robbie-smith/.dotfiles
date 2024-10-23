@@ -101,22 +101,6 @@ gcrb() {
 }
 
 
-#ga() {
-#  is_in_git_repo || return
-#
-#  # Fetch the list of files (both staged and unstaged) from git status
-#  files=$(git status --porcelain | grep -v HEAD) &&
-#
-#  # Use fzf-tmux to select a file, show a delta diff preview, and add the selected file
-#  file=$(echo "$files" | \
-#    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi \
-#      --preview='git diff --color=always -- {-1} | delta' \
-#      --preview-window=right:50%) &&
-#
-#  # Add the selected file to staging
-#  git add $(echo "$file" | sed "s/.* //")
-#}
-
 ga() {
   is_in_git_repo || { echo "Not in a git repository"; return; }
 
@@ -194,25 +178,6 @@ ga() {
     files=$(git status --porcelain | sed s/^...// | sort -u)
     [ -z "$files" ] && { echo "No more modified files."; break; }
   done
-}
-
-
-
-
-
-
-
-gr() {
-  files=$(git diff --name-only)
-
-  file=$(echo "$files" | \
-    fzf-tmux -d $(( 2 + $(wc -l <<< "$files") )) +m --ansi \
-      --preview='git diff --color=always -- {-1} | delta' \
-      --preview-window=right:50%) &&
-
-  # Add the selected file to staging
-  git restore --staged $(echo "$file" | sed "s/.* //") || git restore $(echo "$file" | sed "s/.* //")
-  # esac
 }
 
 gcb() {
