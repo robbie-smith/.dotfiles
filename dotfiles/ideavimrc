@@ -13,9 +13,10 @@ let mapleader=" "
 " TESTING
 nmap <leader>d :action ContextDebug<CR>
 nmap <leader>t :action ContextRun<CR>
-nmap <leader>rn :action Rerun<CR>
+nmap rr :action Rerun<CR>
 nmap <leader>l :action RerunFailedTests<CR>
 nmap <Leader>b :action ToggleLineBreakpoint<CR>
+nmap ss :action Stop<CR>
 """"""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""
 " FORMATTING
