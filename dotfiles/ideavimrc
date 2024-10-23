@@ -9,31 +9,48 @@ set showmode
 set NERDTree
 Plug 'preservim/nerdtree'
 let mapleader=" "
-" nmap \r :action ReformatCode<CR>
-nmap <Leader>f :action ReformatCode<CR>
-vmap <leader>f :action ReformatCode<CR>
-nmap <Leader>d :action Debug<CR>
-nmap fu :action FindUsages<CR>
-nmap <Leader>r :action RenameElement
-nmap <Leader>s :action Replace<CR>
-nmap <Leader>o :action SearchEverywhere<CR>
-nmap <Leader>t :action RunClass<CR>
-nmap <Leader>ft :action RerunFailedTests<CR>
+""""""""""""""""""""""""""""""
+" TESTING
+nmap <leader>d :action ContextDebug<CR>
+nmap <leader>t :action RunTest<CR>
+nmap <leader>rn :action Rerun<CR>
+nmap <leader>l :action RerunFailedTests<CR>
 nmap <Leader>b :action ToggleLineBreakpoint<CR>
+""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
+" FORMATTING
+" visual  mode
+vmap <leader>f :action ReformatCode<CR> "
+" normal mode
+nmap <Leader>f :action ReformatCode<CR>
+""""""""""""""""""""""""""""""
+" Searching/Replace
+nmap fu :action FindUsages<CR>
+nmap <Leader>s :action Replace<CR>
+nmap <Leader>o :action GotoClass<CR>
+nmap <Leader>r :action RenameElement
+""""""""""""""""""""""""""""""
+" Navigation
 nmap <c-h> <c-w>h
 nmap <c-l> <c-w>l
 nmap <c-k> <c-w>k
 nmap <c-j> <c-w>j
-nmap <,>v :action SplitVertically<CR>
 nmap <TAB> :action NextTab<CR>
 nmap <S-TAB> :action PreviousTab<CR>
-nmap <Leader>q :action CloseEditor<CR>
-nmap <Leader>, :NERDTreeToggle<CR>
+nmap <Leader>\ :NERDTreeToggle<CR>
+""""""""""""""""""""""""""""""
+" Window Management
+nmap <,>v :action SplitVertically<CR>
 nmap <Leader>] :action MoveEditorToOppositeTabGroup<CR>
+nmap <Leader>q :action CloseEditor<CR>
+""""""""""""""""""""""""""""""
+" Git
+" nmap <leader>ga :action Git.Add<CR>
+" nmap <leader>gc :action Git.Commit<CR>
+""""""""""""""""""""""""""""""
+
 nmap <Leader>w :action SaveAll<CR>
 
-RunClass
-CloseContent
 noremap <CR> gg
 
 nnoremap ; :
