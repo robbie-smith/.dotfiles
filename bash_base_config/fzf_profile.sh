@@ -101,7 +101,7 @@ gcrb() {
 }
 
 
-ga() {
+console() {
   is_in_git_repo || { echo "Not in a git repository"; return; }
 
   local files selected action file separator
@@ -134,13 +134,14 @@ ga() {
           --preview 'git diff --color=always -- {1} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}' \
           --preview-window=down:70% --reverse \
           --height 80% \
-          --header "Press 'a': stage, 'b': blame, 'r': reset, 'u': unstage or 'esc' to exit" \
+          --header "Press 'a': stage, 'b': blame, 'c': commit, 'd': diff, 'r': reset, 'u': unstage or 'esc' to exit" \
           --bind "r:execute(echo reset {1})+reload(echo \"$files\")" \
           --bind "u:execute(echo restore {1})+reload(echo \"$files\")" \
           --bind "a:execute(echo add {1})+reload(echo \"$files\")" \
+          --bind "a:execute(echo commit {1})+reload(echo \"$files\")" \
           --bind "b:execute(echo blame {1})+reload(echo \"$files\")" \
           --bind "esc:abort" \
-          --expect=r,u,a,b,esc)
+          --expect=r,u,a,b,c,d,esc)
 
     action=$(echo "$selected" | head -n1)
     file=$(echo "$selected" | tail -n1)
@@ -164,6 +165,13 @@ ga() {
         b)
           git blame "$file" | less
           continue
+          ;;
+        c)
+          git commit -v -- "$file"
+          echo "Committing: $file"
+          ;;
+        d)
+          git diff --color=always -- "$file"| delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS} | less -R -X -S
           ;;
         esc)
           break
