@@ -99,9 +99,147 @@ gcrb() {
   fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+gkconsole() {
+  local options=(
+    "gk-analyze-all"
+    "gk-analyze-guidance"
+    "gk-analyze-inconsistencies"
+    "gk-analyze-package"
+    "gk-analyze-version-set"
+    "gk-explain"
+    "gk-fix-mv-conflicts"
+    "gk-graph"
+  )
 
+  local docs=(
+    "Analyze all dependencies and automatically fix issues in the workspace."
+    "Provide vendor guidance and apply automatic upgrades for dependencies."
+    "Detect inconsistent versions across packages and apply fixes."
+    "Analyze a single package."
+    "Analyze a given version set and produce a report of problems detected."
+    "Explain why a given dependency is needed."
+    "Interactive tool to fix major version conflicts quickly and easily."
+    "Tool to explore and visualize dependency graphs."
+  )
 
-console() {
+  local selected action
+
+  selected=$(printf "%s\n" "${options[@]}" | \
+    fzf --ansi \
+        --preview "echo 'Command: {}'; echo ''; echo 'Documentation: '; case {} in \
+                    '${options[0]}') echo '${docs[0]}' ;; \
+                    '${options[1]}') echo '${docs[1]}' ;; \
+                    '${options[2]}') echo '${docs[2]}' ;; \
+                    '${options[3]}') echo '${docs[3]}' ;; \
+                    '${options[4]}') echo '${docs[4]}' ;; \
+                    '${options[5]}') echo '${docs[5]}' ;; \
+                    '${options[6]}') echo '${docs[6]}' ;; \
+                    '${options[7]}') echo '${docs[7]}' ;; \
+                  esac" \
+        --preview-window=right:50% --reverse \
+        --height 30% \
+        --header "Choose a command: 'a': analyze all, 'g': guidance, 'i': inconsistencies, 'p': analyze package, 'v': version set, 'e': explain, 'f': fix conflicts, 'gr': graph, or 'esc' to exit" \
+        --bind "a:execute(echo 'Analyzing all dependencies' && eval ${options[0]})+abort" \
+        --bind "g:execute(echo 'Providing guidance' && eval ${options[1]})+abort" \
+        --bind "i:execute(echo 'Analyzing inconsistencies' && eval ${options[2]})+abort" \
+        --bind "p:execute(echo 'Analyzing package' && eval ${options[3]})+abort" \
+        --bind "v:execute(echo 'Analyzing version set' && eval ${options[4]})+abort" \
+        --bind "e:execute(echo 'Explaining dependencies' && eval ${options[5]})+abort" \
+        --bind "f:execute(echo 'Fixing conflicts' && eval ${options[6]})+abort" \
+        --bind "gr:execute(echo 'Exploring dependency graph' && eval ${options[7]})+abort" \
+        --bind "esc:abort" \
+        --expect=a,g,i,p,v,e,f,gr,esc)
+
+  action=$(echo "$selected" | head -n1)
+
+  case "$action" in
+    a)
+      echo "Running: ${options[0]}"
+      eval "${options[0]}"
+      ;;
+    g)
+      echo "Running: ${options[1]}"
+      eval "${options[1]}"
+      ;;
+    i)
+      echo "Running: ${options[2]}"
+      eval "${options[2]}"
+      ;;
+    p)
+      echo "Running: ${options[3]}"
+      eval "${options[3]}"
+      ;;
+    v)
+      echo "Running: ${options[4]}"
+      eval "${options[4]}"
+      ;;
+    e)
+      echo "Running: ${options[5]}"
+      eval "${options[5]}"
+      ;;
+    f)
+      echo "Running: ${options[6]}"
+      eval "${options[6]}"
+      ;;
+    esc)
+      echo "Exited."
+      ;;
+  esac
+}
+
+bbconsole() {
+  local options=(
+    "brazil-build clean && brazil-build"
+    "brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
+    "brazil-recursive-cmd --allPackages --continue brazil-build"
+  )
+
+  local docs=(
+    "Cleans the build environment, then runs the build again."
+    "Runs a clean on all packages in reverse order."
+    "Recursively builds all packages, continuing through failures."
+  )
+
+  local selected action
+
+  selected=$(printf "%s\n" "${options[@]}" | \
+    fzf --ansi \
+        --preview "echo 'Command: {}'; echo ''; echo 'Documentation: '; case {} in \
+                    '${options[0]}') echo '${docs[0]}' ;; \
+                    '${options[1]}') echo '${docs[1]}' ;; \
+                    '${options[2]}') echo '${docs[2]}' ;; \
+                  esac" \
+        --preview-window=right:50% --reverse \
+        --height 30% \
+        --header "Choose a command: 'b': build, 'c': clean, 'r': recursive build, or 'esc' to exit" \
+        --bind "b:execute(echo 'Running build' && eval ${options[0]})+abort" \
+        --bind "c:execute(echo 'Running clean' && eval ${options[1]})+abort" \
+        --bind "r:execute(echo 'Running recursive build' && eval ${options[2]})+abort" \
+        --bind "esc:abort" \
+        --expect=b,c,r,esc)
+
+  action=$(echo "$selected" | head -n1)
+
+  case "$action" in
+    b)
+      echo "Running: ${options[0]}"
+      eval "${options[0]}"
+      ;;
+    c)
+      echo "Running: ${options[1]}"
+      eval "${options[1]}"
+      ;;
+    r)
+      echo "Running: ${options[2]}"
+      eval "${options[2]}"
+      ;;
+    esc)
+      echo "Exited."
+      ;;
+  esac
+}
+
+gconsole() {
   is_in_git_repo || { echo "Not in a git repository"; return; }
 
   local files selected action file separator
