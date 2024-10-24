@@ -29,6 +29,21 @@ alias vi="nvim"
 alias wp="cd ~/workplace"
 alias aws2="/usr/local/bin/aws"
 
+cdk_deploy() {
+  if [[ -z "$1" ]]; then
+    make -f ~/.dotfiles/Makefile help
+    return 1
+  fi
+
+  case "$1" in
+    deploy|build|help|list)
+      make -f ~/.dotfiles/Makefile "$1"
+      ;;
+    *)
+      echo "Unknown command: $1. Use {deploy|build|help}"
+      ;;
+  esac
+}
 gb() {
   if [ -z "$1" ]; then
     echo "Error: Please provide a branch name."
@@ -51,6 +66,7 @@ gb() {
 }
 
 
+
 bbr() {
   brazil-recursive-cmd --allPackages --continue brazil-build
 }
@@ -69,7 +85,7 @@ compare() {
 pr() {
   # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
   # hub pull-request -o
-  cr --new-review --parent mainline -o
+  cr --new-review --all --parent mainline -o
 }
 
 update_pr() {
