@@ -240,14 +240,14 @@ gconsole() {
           --preview 'git diff --color=always -- {1} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}' \
           --preview-window=down:70% --reverse \
           --height 80% \
-          --header "Press 'a': stage, 'b': blame, 'c': commit, 'd': diff, 'r': reset, 'u': unstage or 'esc' to exit" \
+          --header "Press 'a': stage, 'b': blame, 'c': commit, 'd': diff, 'r': reset, 'u': unstage, 'x': delete or 'esc' to exit" \
           --bind "r:execute(echo reset {1})+reload(echo \"$files\")" \
           --bind "u:execute(echo restore {1})+reload(echo \"$files\")" \
           --bind "a:execute(echo add {1})+reload(echo \"$files\")" \
-          --bind "a:execute(echo commit {1})+reload(echo \"$files\")" \
+          --bind "x:execute(echo delete {1})+reload(echo \"$files\")" \
           --bind "b:execute(echo blame {1})+reload(echo \"$files\")" \
           --bind "esc:abort" \
-          --expect=r,u,a,b,c,d,esc)
+          --expect=r,u,a,b,c,d,x,esc)
 
     action=$(echo "$selected" | head -n1)
     file=$(echo "$selected" | tail -n1)
@@ -279,12 +279,22 @@ gconsole() {
         d)
           git diff --color=always -- "$file"| delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS} | less -R -X -S
           ;;
+        x)
+          read -p "Are you sure you want to delete $file? (y/N) " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm "$file"
+            git rm --cached "$file" 2>/dev/null
+            echo "Deleted: $file"
+          else
+            echo "Delete cancelled"
+          fi
+          ;;
         esc)
           break
           ;;
       esac
       after_status=$(git status  --porcelain -s "$file")
-#      echo "Before: $before_status"
       echo "After:  $after_status"
       echo "$separator"
     fi
@@ -293,7 +303,6 @@ gconsole() {
     [ -z "$files" ] && { echo "No more modified files."; break; }
   done
 }
-
 gcb() {
   local tags branches target
   branches=$(
