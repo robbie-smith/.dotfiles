@@ -44,6 +44,7 @@ cdk_deploy() {
       ;;
   esac
 }
+
 gb() {
   if [ -z "$1" ]; then
     echo "Error: Please provide a branch name."
@@ -93,7 +94,7 @@ update_pr() {
     echo "Error: Please provide a CR-####."
     return 1
   fi
-  cr --update-review $1
+  cr --all --update-review $1
 }
 
 activate() {
