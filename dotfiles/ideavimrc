@@ -21,9 +21,11 @@ nmap ss :action Stop<CR>
 """"""""""""""""""""""""""""""
 " FORMATTING
 " visual  mode
-vmap <leader>f :action ReformatCode<CR> "
+vmap <leader>f :action ReformatCode<CR>
 " normal mode
 nmap <Leader>f :action ReformatCode<CR>
+nmap <leader>c :action CollapseRegionRecursively<CR>
+nmap <leader>e :action ExpandRegionRecursively<CR>
 """"""""""""""""""""""""""""""
 " Searching/Replace
 nmap fu :action FindUsages<CR>

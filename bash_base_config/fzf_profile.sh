@@ -218,24 +218,33 @@ gconsole() {
     echo "Processing repository: $repo"
     cd "$repo" || { echo "Failed to access $repo"; continue; }
 
-    # Check if the current directory is a Git repo
-    is_in_git_repo || { echo "Not in a git repository"; cd - > /dev/null; continue; }
-
-    local files selected action file separator
-
-    # Fetch only modified files
-    files=$(git status --porcelain | sed s/^...// | sort -u)
-
-    # You can run pull even when there are no modified files
-    if [ -z "$files" ]; then
-      echo "No modified files found, but you can still pull and rebase."
+    # Check if the current directory is a Git repo and if there are modified or staged files
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+      echo "Not in a git repository";
+      cd - > /dev/null;
+      continue
     fi
 
+    # Fetch only modified files
+    local files
+    files=$(git status --porcelain | sed 's/^...//' | sort -u)
+    #
     # Function to generate a separator
     generate_separator() {
       local term_width=$(tput cols)
       printf '%*s\n' "${term_width}" '' | tr ' ' '='
     }
+
+    # Skip the repo if there are no modified or staged files
+    if [ -z "$files" ]; then
+      echo "No modified files found in $repo. Skipping."
+      generate_separator
+      cd - > /dev/null
+      continue
+    fi
+
+    local selected action file separator
+
 
     # Function to show git status
     show_git_status() {
