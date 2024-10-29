@@ -204,117 +204,131 @@ bbconsole() {
 }
 
 gconsole() {
-  is_in_git_repo || { echo "Not in a git repository"; return; }
+  # Find all Git repositories recursively from the current directory
+  local repos
+  repos=$(find . -type d -name ".git" | sed 's/\/.git$//')
 
-  local files selected action file separator
-
-  # Fetch only modified files
-  files=$(git status --porcelain | sed s/^...// | sort -u)
-
-  # You can run pull even when there are no modified files
-  if [ -z "$files" ]; then
-    echo "No modified files found, but you can still pull and rebase."
+  if [ -z "$repos" ]; then
+    echo "No Git repositories found."
+    return
   fi
 
-  # Function to generate a separator
-  generate_separator() {
-    local term_width=$(tput cols)
-    printf '%*s\n' "${term_width}" '' | tr ' ' '='
-  }
+  # Process each Git repository
+  for repo in $repos; do
+    echo "Processing repository: $repo"
+    cd "$repo" || { echo "Failed to access $repo"; continue; }
 
-  # Function to show git status
-  show_git_status() {
-    echo "Current git status:"
-    git status
-    generate_separator
-  }
+    # Check if the current directory is a Git repo
+    is_in_git_repo || { echo "Not in a git repository"; cd - > /dev/null; continue; }
 
-  while true; do
-    show_git_status
+    local files selected action file separator
 
-    # If no files are modified, preview will show the rebase message
-    selected=$(echo "$files" | \
-      fzf --ansi \
-         --preview 'if [ -n "{}" ]; then
-              git diff --color=always -- {} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS};
-           else
-              echo "No modified files found, but you can still pull and rebase.";
-           fi' \
-          --preview-window=down:70% --reverse \
-          --height 80% \
-          --header "Press 'p': pull with rebase, 'a': stage, 'b': blame, 'c': commit, 'd': diff, 'r': reset, 'u': unstage, 'x': delete or 'esc' to exit" \
-          --bind "r:execute(git restore -- {1})+reload(echo \"$files\")" \
-          --bind "u:execute(git restore --staged -- {1})+reload(echo \"$files\")" \
-          --bind "a:execute(git add -- {1})+reload(echo \"$files\")" \
-          --bind "x:execute(rm {1}; git rm --cached {1} 2>/dev/null; echo 'Deleted: {1}')+reload(echo \"$files\")" \
-          --bind "b:execute(git blame {1} | less > /dev/tty)" \
-          --bind "p:execute(git pull origin mainline --rebase && echo 'Rebase complete')+abort" \
-          --bind "esc:abort" \
-          --expect=r,u,a,b,c,d,p,x,esc)
+    # Fetch only modified files
+    files=$(git status --porcelain | sed s/^...// | sort -u)
 
-    action=$(echo "$selected" | head -n1)
-    file=$(echo "$selected" | tail -n1)
-
-    if [ -n "$file" ]; then
-      separator=$(generate_separator)
-      before_status=$(git status --short "$file")
-      case "$action" in
-        r)
-          git restore -- "$file"
-          echo "Reset: $file"
-          ;;
-        u)
-          git restore --staged -- "$file"
-          echo "Unstaged: $file"
-          ;;
-        a)
-          git add -- "$file"
-          echo "Added: $file"
-          ;;
-        b)
-          git blame "$file" | less
-          continue
-          ;;
-        c)
-          git commit -v -- "$file"
-          echo "Committing: $file"
-          ;;
-        d)
-          git diff --color=always -- "$file" | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS} | less -R -X -S
-          ;;
-        x)
-          read -p "Are you sure you want to delete $file? (y/N) " -n 1 -r
-          echo
-          if [[ $REPLY =~ ^[Yy]$ ]]; then
-            rm "$file"
-            git rm --cached "$file" 2>/dev/null
-            echo "Deleted: $file"
-          else
-            echo "Delete cancelled"
-          fi
-          ;;
-        p)
-          git pull origin mainline --rebase
-          echo "Rebased with mainline"
-          ;;
-        esc)
-          break
-          ;;
-      esac
-      after_status=$(git status  --porcelain -s "$file")
-      echo "After:  $after_status"
-      echo "$separator"
+    # You can run pull even when there are no modified files
+    if [ -z "$files" ]; then
+      echo "No modified files found, but you can still pull and rebase."
     fi
 
-    # Refresh modified files list only
-    files=$(git status --porcelain | sed s/^...// | sort -u)
+    # Function to generate a separator
+    generate_separator() {
+      local term_width=$(tput cols)
+      printf '%*s\n' "${term_width}" '' | tr ' ' '='
+    }
+
+    # Function to show git status
+    show_git_status() {
+      echo "Current git status:"
+      git status
+      generate_separator
+    }
+
+    while true; do
+      show_git_status
+
+      # If no files are modified, preview will show the rebase message
+      selected=$(echo "$files" | \
+        fzf --ansi \
+           --preview 'if [ -n "{}" ]; then
+                git diff --color=always -- {} | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS};
+             else
+                echo "No modified files found, but you can still pull and rebase.";
+             fi' \
+            --preview-window=down:70% --reverse \
+            --height 80% \
+            --header "Press 'p': pull with rebase, 'a': stage, 'b': blame, 'c': commit, 'd': diff, 'r': reset, 'u': unstage, 'x': delete or 'esc' to exit" \
+            --bind "r:execute(git restore -- {1})+reload(echo \"$files\")" \
+            --bind "u:execute(git restore --staged -- {1})+reload(echo \"$files\")" \
+            --bind "a:execute(git add -- {1})+reload(echo \"$files\")" \
+            --bind "x:execute(rm {1}; git rm --cached {1} 2>/dev/null; echo 'Deleted: {1}')+reload(echo \"$files\")" \
+            --bind "b:execute(git blame {1} | less > /dev/tty)" \
+            --bind "p:execute(git pull origin mainline --rebase && echo 'Rebase complete')+abort" \
+            --bind "esc:abort" \
+            --expect=r,u,a,b,c,d,p,x,esc)
+
+      action=$(echo "$selected" | head -n1)
+      file=$(echo "$selected" | tail -n1)
+
+      if [ -n "$file" ]; then
+        separator=$(generate_separator)
+        before_status=$(git status --short "$file")
+        case "$action" in
+          r)
+            git restore -- "$file"
+            echo "Reset: $file"
+            ;;
+          u)
+            git restore --staged -- "$file"
+            echo "Unstaged: $file"
+            ;;
+          a)
+            git add -- "$file"
+            echo "Added: $file"
+            ;;
+          b)
+            git blame "$file" | less
+            continue
+            ;;
+          c)
+            git commit -v
+            echo "Committing: $file"
+            ;;
+          d)
+            git diff --color=always -- "$file" | delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS} | less -R -X -S
+            ;;
+          x)
+            read -p "Are you sure you want to delete $file? (y/N) " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+              rm "$file"
+              git rm --cached "$file" 2>/dev/null
+              echo "Deleted: $file"
+            else
+              echo "Delete cancelled"
+            fi
+            ;;
+          p)
+            git pull origin mainline --rebase
+            echo "Rebased with mainline"
+            ;;
+          esc)
+            break
+            ;;
+        esac
+        after_status=$(git status  --porcelain -s "$file")
+        echo "After:  $after_status"
+        echo "$separator"
+      fi
+
+      # Refresh modified files list only
+      files=$(git status --porcelain | sed s/^...// | sort -u)
+    done
+
+    # Return to the original directory
+    cd - > /dev/null
   done
 }
-
-
-
-
-
 
 gcb() {
   local tags branches target
