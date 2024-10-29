@@ -29,7 +29,26 @@ alias vi="nvim"
 alias wp="cd ~/workplace"
 alias aws2="/usr/local/bin/aws"
 
-cdk_deploy() {
+# git_recursive () { find -follow -name .git -type d -execdir git "$@" \; }
+
+git_recursive_sequential() {
+  # Find all .git directories and run git commands sequentially
+  find -L . -name .git -type d -print0 | \
+    while IFS= read -r -d '' gitdir; do
+      (
+        cd "$gitdir/.." || exit
+        separator="========================="
+        echo "$separator"
+        echo "Directory: $(pwd)"
+        echo "Running: git $*"
+        echo "$separator"
+        git "$@"
+        echo "$separator Done in $(pwd) $separator"
+        echo
+      )
+    done
+}
+deploy() {
   if [[ -z "$1" ]]; then
     make -f ~/.dotfiles/Makefile help
     return 1
