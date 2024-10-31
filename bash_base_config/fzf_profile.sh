@@ -178,10 +178,20 @@ gkconsole() {
 }
 
 bbconsole() {
+  make_deploy() {
+      find . -type d -name '*CDK*' | while read -r dir; do
+      echo "Changing directories: $dir"
+      cd "$dir" || continue
+      deploy $1
+      cd - > /dev/null
+      done
+  }
   declare -A options=(
     [build]="brazil-build"
     [clean-assemble]="brazil-build clean && brazil-build assemble"
     [clean-build]="brazil-build clean && brazil-build"
+    [make build]="make_deploy build"
+    [make deploy]="make_deploy deploy"
     [recursive-clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
     [recursive-build]="brazil-recursive-cmd --allPackages brazil-build"
     [ws-sync]="brazil ws --sync --md"
