@@ -190,10 +190,12 @@ bbconsole() {
     [build]="brazil-build"
     [clean-assemble]="brazil-build clean && brazil-build assemble"
     [clean-build]="brazil-build clean && brazil-build"
+    [generate-swagger]="brazil-build copyOpenApiModel"
     [make build]="make_deploy build"
     [make deploy]="make_deploy deploy"
     [recursive-clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
     [recursive-build]="brazil-recursive-cmd --allPackages brazil-build"
+    [tasks]="brazil-build tasks --all"
     [ws-sync]="brazil ws --sync --md"
     [ws-show]="brazil workspace show"
   )
