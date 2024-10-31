@@ -180,16 +180,17 @@ gkconsole() {
 bbconsole() {
   declare -A options=(
     [build]="brazil-build"
+    [clean-assemble]="brazil-build clean && brazil-build assemble"
     [clean-build]="brazil-build clean && brazil-build"
     [recursive-clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
-    [recursive-build]="brazil-recursive-cmd --allPackages --continue brazil-build"
+    [recursive-build]="brazil-recursive-cmd --allPackages brazil-build"
     [ws-sync]="brazil ws --sync --md"
-    [workspace]="brazil workspace show"
+    [ws-show]="brazil workspace show"
   )
 
   local selected
 
-  selected=$(printf "%s\n" "${!options[@]}" | \
+  selected=$(printf "%s\n" "${!options[@]}" | sort | \
     fzf --ansi \
         --reverse \
         --height 30% \
@@ -204,13 +205,17 @@ bbconsole() {
 }
 
 gconsole() {
-  # Find all Git repositories recursively from the current directory
-  local repos
-  repos=$(find . -type d -name ".git" | sed 's/\/.git$//')
-
-  if [ -z "$repos" ]; then
-    echo "No Git repositories found."
-    return
+  # Check if the current directory is a Git repository
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Managing the current Git repository only."
+    repos="."
+  else
+    # Find all Git repositories recursively from the current directory
+    repos=$(find . -type d -name ".git" | sed 's/\/.git$//')
+    if [ -z "$repos" ]; then
+      echo "No Git repositories found."
+      return
+    fi
   fi
 
   # Process each Git repository
@@ -218,33 +223,24 @@ gconsole() {
     echo "Processing repository: $repo"
     cd "$repo" || { echo "Failed to access $repo"; continue; }
 
-    # Check if the current directory is a Git repo and if there are modified or staged files
-    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-      echo "Not in a git repository";
-      cd - > /dev/null;
-      continue
-    fi
-
-    # Fetch only modified files
+    # Check if there are modified or staged files
     local files
     files=$(git status --porcelain | sed 's/^...//' | sort -u)
-    #
-    # Function to generate a separator
-    generate_separator() {
-      local term_width=$(tput cols)
-      printf '%*s\n' "${term_width}" '' | tr ' ' '='
-    }
 
     # Skip the repo if there are no modified or staged files
     if [ -z "$files" ]; then
       echo "No modified files found in $repo. Skipping."
-      generate_separator
       cd - > /dev/null
       continue
     fi
 
     local selected action file separator
 
+    # Function to generate a separator
+    generate_separator() {
+      local term_width=$(tput cols)
+      printf '%*s\n' "${term_width}" '' | tr ' ' '='
+    }
 
     # Function to show git status
     show_git_status() {
@@ -334,11 +330,10 @@ gconsole() {
       files=$(git status --porcelain | sed s/^...// | sort -u)
     done
 
-    # Return to the original directory
+    # Return to the original directory if recursion was enabled
     cd - > /dev/null
   done
 }
-
 gcb() {
   local tags branches target
   branches=$(
