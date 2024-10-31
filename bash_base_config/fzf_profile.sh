@@ -179,40 +179,92 @@ gkconsole() {
 
 bbconsole() {
   make_deploy() {
-      find . -type d -name '*CDK*' | while read -r dir; do
+    find . -type d -name '*CDK*' | while read -r dir; do
       echo "Changing directories: $dir"
       cd "$dir" || continue
-      deploy $1
+      deploy "$1"
       cd - > /dev/null
-      done
+    done
   }
-  declare -A options=(
+
+  # Define descriptions and commands as two associative arrays
+  declare -A descriptions=(
+    [build]="Standard Brazil build"
+    [clean-assemble]="Clean and assemble the project"
+    [clean-build]="Clean and build the project"
+    [generate-swagger-docs]="Generate OpenAPI model"
+    [make-build]="Build all CDK projects"
+    [make-deploy]="Deploy all CDK projects"
+    [recursive-clean]="Clean all packages recursively"
+    [recursive-build]="Build all packages recursively"
+    [tasks]="List all available Gradle tasks"
+    [test]="Run unit tests"
+    [integration-test]="Run integration tests"
+    [ws-sync]="Sync workspace and dependencies"
+    [ws-show]="Display workspace information"
+  )
+
+  declare -A commands=(
     [build]="brazil-build"
-    [clean assemble]="brazil-build clean && brazil-build assemble"
-    [clean build]="brazil-build clean && brazil-build"
-    [generate swagger docs]="brazil-build copyOpenApiModel"
-    [make build]="make_deploy build"
-    [make deploy]="make_deploy deploy"
-    [recursive clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
-    [recursive build]="brazil-recursive-cmd --allPackages brazil-build"
+    [clean-assemble]="brazil-build clean && brazil-build assemble"
+    [clean-build]="brazil-build clean && brazil-build"
+    [generate-swagger-docs]="brazil-build copyOpenApiModel"
+    [make-build]="make_deploy build"
+    [make-deploy]="make_deploy deploy"
+    [recursive-clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
+    [recursive-build]="brazil-recursive-cmd --allPackages brazil-build"
     [tasks]="brazil-build tasks --all"
     [test]="brazil-build test"
-    [integration test]="brazil-build integTest"
-    [workspace sync]="brazil ws --sync --md"
-    [workspace show]="brazil workspace show"
+    [integration-test]="brazil-build integTest"
+    [ws-sync]="brazil ws --sync --md"
+    [ws-show]="brazil workspace show"
   )
+
+  # Create a temporary file for the preview data
+  preview_data=$(mktemp)
+
+  # Write the preview data
+  for key in "${!descriptions[@]}"; do
+    echo "$key|${descriptions[$key]}|${commands[$key]}" >> "$preview_data"
+  done
+
+  # Create a temporary file for the preview script
+  preview_script=$(mktemp)
+  chmod +x "$preview_script"
+
+  # Write the preview script
+  cat << 'EOF' > "$preview_script"
+#!/bin/bash
+key="$1"
+while IFS='|' read -r k desc cmd; do
+  if [ "$k" = "$key" ]; then
+    echo -e "Description:\n$desc\n\nCommand:\n$cmd"
+    exit 0
+  fi
+done < "$2"
+echo "No data found for $key"
+EOF
 
   local selected
 
-  selected=$(printf "%s\n" "${!options[@]}" | sort | \
+  # Use fzf to select a command, then show the associated description and command in the preview
+  selected=$(sort "$preview_data" | cut -d'|' -f1 | \
     fzf --ansi \
         --reverse \
         --height 30% \
-        --header $'Choose a command (use arrow keys to navigate, Enter to select, Esc to exit):')
+        --header $'Choose a command (use arrow keys to navigate, Enter to select, Esc to exit):' \
+        --preview "$preview_script {} $preview_data" \
+        --preview-window=right:50%)
 
+  # Remove the temporary files
+  rm "$preview_data"
+  rm "$preview_script"
+
+  # Run the selected command if any
   if [[ -n "$selected" ]]; then
-    echo "Running: ${options[$selected]}"
-    eval "${options[$selected]}"
+    local command="${commands[$selected]}"
+    echo "Running: $command"
+    eval "$command"
   else
     echo "No command selected. Exited."
   fi
