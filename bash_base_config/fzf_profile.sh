@@ -100,6 +100,35 @@ gcrb() {
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+bbdeploy() {
+    # Filter out only the stack names from the output
+    local stack_name
+    stack_name=$(brazil-build cdk list 2>/dev/null | grep -E '^[A-Za-z0-9-]+$' | fzf --prompt="Select CloudFormation stack to deploy: ")
+
+    # Check if a stack was selected
+    if [ -z "$stack_name" ]; then
+        echo "No stack selected. Exiting."
+        return
+    fi
+
+    # Command to deploy the selected stack
+    deploy_command="brazil-build cdk deploy $stack_name"
+
+    # Check if the current directory name contains "CDK"
+    if [[ "$(pwd)" == *CDK* ]]; then
+        echo "Already in a CDK directory: $(pwd)"
+        $deploy_command  # Run deploy command in the current directory
+    else
+        # Find directories containing "CDK" and deploy from each one
+        find . -type d -name '*CDK*' | while read -r dir; do
+            echo "Changing directories: $dir"
+            cd "$dir" || continue
+            $deploy_command  # Run deploy command in each "CDK" directory
+            cd - > /dev/null  # Return to the original directory
+        done
+    fi
+}
+
 gkconsole() {
   local options=(
     "gk-analyze-all"
@@ -179,12 +208,19 @@ gkconsole() {
 
 bbconsole() {
   make_deploy() {
-    find . -type d -name '*CDK*' | while read -r dir; do
-      echo "Changing directories: $dir"
-      cd "$dir" || continue
-      deploy "$1"
-      cd - > /dev/null
-    done
+      # Check if the current directory name contains "CDK"
+      if [[ "$(pwd)" == *CDK* ]]; then
+          echo "Already in a CDK directory: $(pwd)"
+          deploy "$1"
+      else
+          # Find directories containing "CDK" and deploy from each one
+          find . -type d -name '*CDK*' | while read -r dir; do
+              echo "Changing directories: $dir"
+              cd "$dir" || continue
+              deploy "$1"
+              cd - > /dev/null
+          done
+      fi
   }
 
   # Define descriptions and commands as two associative arrays
@@ -193,7 +229,7 @@ bbconsole() {
     [clean-assemble]="Clean and assemble the project"
     [clean-build]="Clean and build the project"
     [generate-swagger-docs]="Generate OpenAPI model"
-    [make-build]="Build all CDK projects"
+    [make-list]="List CDK Stacks"
     [make-deploy]="Deploy all CDK projects"
     [recursive-clean]="Clean all packages recursively"
     [recursive-build]="Build all packages recursively"
@@ -209,7 +245,7 @@ bbconsole() {
     [clean-assemble]="brazil-build clean && brazil-build assemble"
     [clean-build]="brazil-build clean && brazil-build"
     [generate-swagger-docs]="brazil-build copyOpenApiModel"
-    [make-build]="make_deploy build"
+    [make-list]="make_deploy list"
     [make-deploy]="make_deploy deploy"
     [recursive-clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
     [recursive-build]="brazil-recursive-cmd --allPackages brazil-build"
