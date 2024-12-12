@@ -8,7 +8,7 @@ alias browse="hub browse"
 alias c="clear"
 alias deactivate="source deactivate"
 alias dotfiles="cd ~/.dotfiles"
-alias g="git"
+alias g="git_recursive_sequential"
 alias gs="git status"
 alias gc="git commit -v"
 alias gac="git add . && git commit -m"
@@ -32,37 +32,53 @@ alias aws2="/usr/local/bin/aws"
 # git_recursive () { find -follow -name .git -type d -execdir git "$@" \; }
 
 git_recursive_sequential() {
-  # Find all .git directories and run git commands sequentially
+  # Function to create a dynamic separator based on the directory length
+  generate_separator() {
+    local dir_length=${#1}
+    printf '=%.0s' $(seq 1 "$dir_length")
+    echo
+  }
+
+  # Check if the current directory is already a git repository
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    git "$@"
+    return
+  fi
+
+  # If not, find all .git directories and run git commands sequentially
   find -L . -name .git -type d -print0 | \
     while IFS= read -r -d '' gitdir; do
       (
         cd "$gitdir/.." || exit
-        separator="========================="
+        separator=$(generate_separator "$(pwd)")
         echo "$separator"
-        echo "Directory: $(pwd)"
+        echo "Current Directory: $(pwd)"
         echo "Running: git $*"
         echo "$separator"
         git "$@"
-        echo "$separator Done in $(pwd) $separator"
+        echo "$separator"
+        echo "Done in $(pwd)"
+        echo "$separator"
         echo
       )
     done
 }
-deploy() {
-  if [[ -z "$1" ]]; then
-    make -f ~/.dotfiles/Makefile help
-    return 1
-  fi
 
-  case "$1" in
-    deploy|build|help|list)
-      make -f ~/.dotfiles/Makefile "$1"
-      ;;
-    *)
-      echo "Unknown command: $1. Use {deploy|build|help}"
-      ;;
-  esac
-}
+# deploy() {
+#   if [[ -z "$1" ]]; then
+#     make -f ~/.dotfiles/Makefile help
+#     return 1
+#   fi
+
+#   case "$1" in
+#     deploy|build|help|list)
+#       make -f ~/.dotfiles/Makefile "$1"
+#       ;;
+#     *)
+#       echo "Unknown command: $1. Use {deploy|build|help}"
+#       ;;
+#   esac
+# }
 
 gb() {
   if [ -z "$1" ]; then
@@ -70,13 +86,13 @@ gb() {
     return 1
   fi
 
-  git checkout -b "$1"
+  g checkout -b "$1"
   if [ $? -ne 0 ]; then
     echo "Error: Failed to create or switch to branch '$1'."
     return 1
   fi
 
-  git branch --set-upstream-to=origin/mainline "$1" 2>/dev/null
+  g branch --set-upstream-to=origin/mainline "$1" 2>/dev/null
   if [ $? -ne 0 ]; then
     echo "Error: Failed to set upstream to 'origin/mainline'."
     return 1
@@ -235,6 +251,45 @@ update_credentials() {
     fi
 }
 
+deploy() {
+  # Find the directory containing cdk.json by searching downwards, excluding certain directories
+  export STAGE="dev"
+  export AWS_DEV_ACCOUNT="148761656253"
+  export AWS_DEV_REGION="us-west-2"
+  # export STAGE="beta"
+  # export AWS_DEV_ACCOUNT="593793066741"
+  # export AWS_DEV_REGION="us-east-1"
+
+  CDK_DIR=$(find . \
+    \( -type d -name node_modules -o -name .git -o -name dist -o -name build \) -prune \
+    -o -type f -name 'cdk.json' -print -quit | xargs dirname)
+
+  if [ -z "$CDK_DIR" ]; then
+    echo "cdk.json not found in the current directory or any subdirectories."
+    return 1
+  fi
+
+  # Save the current directory
+  CURRENT_DIR="$(pwd)"
+
+  # Change into the CDK directory if not already there
+  if [ "$CURRENT_DIR" != "$(cd "$CDK_DIR" && pwd)" ]; then
+    cd "$CDK_DIR" || { echo "Failed to change directory to $CDK_DIR"; return 1; }
+  fi
+
+  # Run the command
+  brazil-build cdk synth 2>&1 | \
+  grep 'Supply a stack id' | \
+  sed 's/.*(\(.*\)).*/\1/' | \
+  tr ', ' '\n' | \
+  fzf --prompt="Select a stack to deploy: " | \
+  xargs -I {} sh -c 'brazil-build cdk deploy "{}" < /dev/tty > /dev/tty 2> /dev/tty'
+
+  # Return to the original directory if we changed directories
+  if [ "$CURRENT_DIR" != "$(pwd)" ]; then
+    cd "$CURRENT_DIR" || { echo "Failed to return to directory $CURRENT_DIR"; return 1; }
+  fi
+}
 
 bb_clean() {
   # brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean
