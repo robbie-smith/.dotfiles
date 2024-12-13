@@ -1,3 +1,5 @@
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.pre.bash"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export EDITOR=nvim
 export PATH=$HOME/.local/bin:$PATH
@@ -68,3 +70,6 @@ source $HOME/.brazil_completion/bash_completion
 export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
 
 export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"

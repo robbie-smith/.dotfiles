@@ -41,3 +41,8 @@ tags
 .idea/
 build
 package-lock.json
+.factorypath
+smithy-project.json
+.smithy-project.json
+gradlew.bat
+kotlinLspClasspath.sh
