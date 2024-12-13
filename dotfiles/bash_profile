@@ -1,3 +1,5 @@
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash"
 # -s flag checks that the file is > 0 bytes
 [[ -s "$HOME/.tokens" ]] && source "$HOME/.tokens"
 
@@ -24,3 +26,6 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
 
 export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
