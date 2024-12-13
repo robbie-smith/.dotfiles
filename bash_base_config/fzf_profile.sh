@@ -148,8 +148,9 @@ gkconsole() {
     "Tool to explore and visualize dependency graphs."
   )
 
-  local selected action
+  local selected action interactive="--interactive"
 
+  # Use fzf to display options and capture the selected key
   selected=$(printf "%s\n" "${options[@]}" | \
     fzf --ansi \
         --preview "echo 'Command: {}'; echo ''; echo 'Documentation: '; case '{}' in \
@@ -163,45 +164,74 @@ gkconsole() {
         --preview-window=right:50% --reverse \
         --height 30% \
         --header "Choose a command: 'a': analyze all, 'g': guidance, 'i': inconsistencies, 'v': version set, 'f': fix conflicts, 'd': graph, or 'esc' to exit" \
-        --bind "a:execute-silent(echo 'Analyzing all dependencies' && \"${options[0]}\")+abort" \
-        --bind "g:execute-silent(echo 'Providing guidance' && \"${options[1]}\")+abort" \
-        --bind "i:execute-silent(echo 'Analyzing inconsistencies' && \"${options[2]}\")+abort" \
-        --bind "v:execute-silent(echo 'Analyzing version set' && \"${options[3]}\")+abort" \
-        --bind "f:execute-silent(echo 'Fixing conflicts' && \"${options[4]}\")+abort" \
-        --bind "d:execute-silent(echo 'Exploring dependency graph' && \"${options[5]}\")+abort" \
-        --bind "esc:abort" \
-        --expect=a,g,i,v,f,d,esc)
+        --expect a,g,i,v,f,d,esc)
 
+  # Extract the key pressed (first line of the output) and the selected command (second line)
   action=$(echo "$selected" | head -n1)
-  interactive=" --interactive"
+  selected_command=$(echo "$selected" | tail -n1)
 
   case "$action" in
     a)
-      echo "Running: ${options[0]} "
-      eval "${options[0]}"
+      echo "Running: ${options[0]}"
+      "${options[0]}"
       ;;
     g)
-      echo "Running: ${options[1]} ${interactive}"
-      eval "${options[1]} ${interactive}"
+      echo "Running: ${options[1]} $interactive"
+      "${options[1]}" $interactive
       ;;
     i)
-      echo "Running: ${options[2]} ${interactive}"
-      eval "${options[2]} ${interactive}"
+      echo "Running: ${options[2]} $interactive"
+      "${options[2]}" $interactive
       ;;
     v)
       echo "Running: ${options[3]}"
-      eval "${options[3]}"
+      "${options[3]}"
       ;;
     f)
       echo "Running: ${options[4]}"
-      eval "${options[4]}"
+      "${options[4]}"
       ;;
     d)
       echo "Running: ${options[5]}"
-      eval "${options[5]}"
+      "${options[5]}"
       ;;
     esc)
       echo "Exited."
+      ;;
+    "")
+      # Handle cases where no key was pressed, but a selection was made
+      case "$selected_command" in
+        "${options[0]}")
+          echo "Running: ${options[0]}"
+          "${options[0]}"
+          ;;
+        "${options[1]}")
+          echo "Running: ${options[1]} $interactive"
+          "${options[1]}" $interactive
+          ;;
+        "${options[2]}")
+          echo "Running: ${options[2]} $interactive"
+          "${options[2]}" $interactive
+          ;;
+        "${options[3]}")
+          echo "Running: ${options[3]}"
+          "${options[3]}"
+          ;;
+        "${options[4]}")
+          echo "Running: ${options[4]}"
+          "${options[4]}"
+          ;;
+        "${options[5]}")
+          echo "Running: ${options[5]}"
+          "${options[5]}"
+          ;;
+        *)
+          echo "No valid option selected."
+          ;;
+      esac
+      ;;
+    *)
+      echo "No valid option selected."
       ;;
   esac
 }

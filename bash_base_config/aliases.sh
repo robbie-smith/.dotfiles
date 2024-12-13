@@ -64,21 +64,32 @@ git_recursive_sequential() {
     done
 }
 
-# deploy() {
-#   if [[ -z "$1" ]]; then
-#     make -f ~/.dotfiles/Makefile help
-#     return 1
-#   fi
+# Function to list AWS profiles using FZF and set the selected profile
+function set_aws_profile() {
+    # Ensure FZF is installed
+    if ! command -v fzf &>/dev/null; then
+        echo "fzf is not installed. Please install fzf first."
+        return 1
+    fi
 
-#   case "$1" in
-#     deploy|build|help|list)
-#       make -f ~/.dotfiles/Makefile "$1"
-#       ;;
-#     *)
-#       echo "Unknown command: $1. Use {deploy|build|help}"
-#       ;;
-#   esac
-# }
+    # Get a list of AWS profiles
+    profiles=$(aws configure list-profiles 2>/dev/null)
+
+    if [[ -z "$profiles" ]]; then
+        echo "No AWS profiles found."
+        return 1
+    fi
+
+    # Use FZF to select a profile
+    selected_profile=$(echo "$profiles" | fzf --prompt="Select AWS Profile: ")
+
+    if [[ -n "$selected_profile" ]]; then
+        export AWS_PROFILE="$selected_profile"
+        echo "AWS_PROFILE set to '$selected_profile'"
+    else
+        echo "No profile selected."
+    fi
+}
 
 gb() {
   if [ -z "$1" ]; then
