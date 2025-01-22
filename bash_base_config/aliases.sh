@@ -63,7 +63,6 @@ git_recursive_sequential() {
       )
     done
 }
-
 # Function to list AWS profiles using FZF and set the selected profile
 function set_aws_profile() {
     # Ensure FZF is installed
@@ -81,7 +80,7 @@ function set_aws_profile() {
     fi
 
     # Use FZF to select a profile
-    selected_profile=$(echo "$profiles" | fzf --prompt="Select AWS Profile: ")
+    selected_profile=$(echo "$profiles" | sort | fzf --prompt="Select AWS Profile: ")
 
     if [[ -n "$selected_profile" ]]; then
         export AWS_PROFILE="$selected_profile"
