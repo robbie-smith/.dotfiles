@@ -212,6 +212,61 @@ login_ecr() {
   aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 947618278001.dkr.ecr.us-west-2.amazonaws.com
 }
 
+ada_setup() {
+    local role="IibsAdminAccess-DO-NOT-DELETE"  # Default role
+    local account_number=""
+    local profile=""
+    local region=""
+
+    # Parse flags
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            -a|--account)
+                account_number="$2"
+                shift 2
+                ;;
+            -p|--profile)
+                profile="$2"
+                shift 2
+                ;;
+            -r|--region)
+                region="$2"
+                shift 2
+                ;;
+            *)
+                echo "Usage: ada_setup -p <profile> -a <account_number> [-r <region>]"
+                return 1
+                ;;
+        esac
+    done
+
+    # Prompt for account number if not provided
+    if [ -z "$account_number" ]; then
+        read -p "Enter the account number: " account_number
+    fi
+
+    # Prompt for profile if not provided
+    if [ -z "$profile" ]; then
+        read -p "Enter the profile name: " profile
+    fi
+
+    # Prompt for region if not provided
+    if [ -z "$region" ]; then
+        read -p "Enter the AWS region (default: us-east-1): " region
+        region=${region:-us-east-1}  # Default to us-east-1 if no input
+    fi
+
+    echo "Adding credentials for account: $account_number, profile: $profile, region: $region with role: $role"
+
+    # Run the ADA credentials add command with the provided account number, profile, and role
+    if ada profile add --account "$account_number" --profile "$profile" --region "$region" --provider conduit --role "$role"; then
+        echo "Profile successfully added."
+    else
+        echo "Failed to add profile."
+        return 1
+    fi
+}
+
 update_credentials() {
     local role="IibsAdminAccess-DO-NOT-DELETE"  # Default role
     local account_number=""
