@@ -193,13 +193,25 @@ function gpush() {
 }
 
 pull() {
-  if [ $# -eq 0 ]
-    then
-      BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-    else
-      BRANCH=${1}
+  # Get the current branch if no argument is passed
+  if [ $# -eq 0 ]; then
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  else
+    BRANCH=${1}
   fi
-  git pull origin "${BRANCH}"
+
+  # Check if the branch has a remote tracking branch
+  TRACKING_BRANCH=$(git rev-parse --abbrev-ref --symbolic-full-name "@{u}" 2>/dev/null)
+
+  if [ -z "${TRACKING_BRANCH}" ]; then
+    echo "Error: No remote tracking branch set for '${BRANCH}'."
+    echo "Set the upstream branch with:"
+    echo "  git branch --set-upstream-to origin/${BRANCH}"
+    return 1
+  fi
+
+  # Pull from the remote tracking branch
+  git pull --rebase
 }
 
 update_aws() {
