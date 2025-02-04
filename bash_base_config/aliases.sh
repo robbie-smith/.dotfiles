@@ -64,7 +64,7 @@ git_recursive_sequential() {
     done
 }
 # Function to list AWS profiles using FZF and set the selected profile
-function set_aws_profile() {
+function aws_profile() {
     # Ensure FZF is installed
     if ! command -v fzf &>/dev/null; then
         echo "fzf is not installed. Please install fzf first."
@@ -224,7 +224,7 @@ login_ecr() {
 }
 
 ada_setup() {
-    local role="IibsAdminAccess-DO-NOT-DELETE"  # Default role
+    local role=""  # Default role
     local account_number=""
     local profile=""
     local region=""
@@ -244,8 +244,12 @@ ada_setup() {
                 region="$2"
                 shift 2
                 ;;
+            -o|--role)
+                role="$2"
+                shift 2
+                ;;
             *)
-                echo "Usage: ada_setup -p <profile> -a <account_number> [-r <region>]"
+                echo "Usage: ada_setup -p <profile> -a <account_number> [-r <region>] [-o <role>]"
                 return 1
                 ;;
         esac
@@ -267,9 +271,15 @@ ada_setup() {
         region=${region:-us-east-1}  # Default to us-east-1 if no input
     fi
 
+    # Prompt for role if not provided
+    if [ -z "$role" ]; then
+        read -p "Enter the role name (default: IibsAdminAccess-DO-NOT-DELETE): " role
+        role=${role:-IibsAdminAccess-DO-NOT-DELETE}  # Default role if no input
+    fi
+
     echo "Adding credentials for account: $account_number, profile: $profile, region: $region with role: $role"
 
-    # Run the ADA credentials add command with the provided account number, profile, and role
+    # Run the ADA credentials add command with the provided account number, profile, region, and role
     if ada profile add --account "$account_number" --profile "$profile" --region "$region" --provider conduit --role "$role"; then
         echo "Profile successfully added."
     else
