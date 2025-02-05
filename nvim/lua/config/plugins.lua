@@ -57,20 +57,9 @@ require('packer').startup(function(use)
   use { 'scrooloose/nerdtree', cmd = 'NERDTreeToggle' } -- File explorer
   use 'vim-airline/vim-airline' -- Statusline plugin
   use 'vim-airline/vim-airline-themes' -- Themes for vim-airline
+  use 'craigmac/vim-mermaid' -- Themes for vim-airline
   -- use { dir = '~/.dotfiles/neovim/colors' } -- Custom color schemes
 
   -- Markdown Composer Plugin
-  use {
-    'euclio/vim-markdown-composer',
-    run = function()
-      local info = vim.fn['packer#util'].info()
-      if info.status ~= 'unchanged' or info.force then
-        if vim.fn.has('nvim') == 1 then
-          vim.fn.system('cargo build --release')
-        else
-          vim.fn.system('cargo build --release --no-default-features --features json-rpc')
-        end
-      end
-    end
-  }
+  use { 'euclio/vim-markdown-composer', run = 'cargo build --release'}
 end)

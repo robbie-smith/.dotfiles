@@ -202,6 +202,11 @@ _G.packer_plugins = {
     path = "/Users/robsmid/.local/share/nvim/site/pack/packer/start/vim-markdown-composer",
     url = "https://github.com/euclio/vim-markdown-composer"
   },
+  ["vim-mermaid"] = {
+    loaded = true,
+    path = "/Users/robsmid/.local/share/nvim/site/pack/packer/start/vim-mermaid",
+    url = "https://github.com/craigmac/vim-mermaid"
+  },
   ["vim-rhubarb"] = {
     loaded = true,
     path = "/Users/robsmid/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
@@ -236,8 +241,8 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType text ++once lua require("packer.load")({'vim-journal'}, { ft = "text" }, _G.packer_plugins)]]
 vim.cmd [[au FileType txt ++once lua require("packer.load")({'vim-journal'}, { ft = "txt" }, _G.packer_plugins)]]
+vim.cmd [[au FileType text ++once lua require("packer.load")({'vim-journal'}, { ft = "text" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
