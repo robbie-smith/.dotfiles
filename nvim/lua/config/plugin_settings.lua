@@ -1,23 +1,5 @@
 -- Plug-in Configurations
 
--- ALE / Neomake / Syntastic configuration
-vim.g.ale_linters = {
-  javascript = { 'jshint' },
-  html = { 'tidy' },
-  go = { 'golint' },
-  ruby = { 'rubocop' },
-  python = { 'flake8', 'pylint', 'black' }
-}
-
-vim.g.ale_fixers = {
-  javascript = { 'jshint' },
-  ruby = { 'rubocop' },
-  python = { 'black' }
-}
-
-vim.g.coc_global_extensions = { 'coc-pyright' }
-vim.o.statusline = '%{coc#status()}%{get(b:,"coc_current_function","")}'
-
 -- Airline Configuration
 vim.g.airline_theme = 'onedark'
 vim.g.airline_left_sep = ''
@@ -91,27 +73,3 @@ vim.g.nerdtreeindicatormapcustom = {
   clean = '✔︎',
   unknown = '?'
 }
-
--- NeoSnippet Configuration
-vim.g['neosnippet#snippets_directory'] = { vim.fn.expand('$HOME/.dotfiles/nvim/mysnippets'), 'neosnippet' }
-vim.g['neosnippet#enable_snipmate_compatibility'] = 1
-
--- VimTest Configuration
-vim.g['test#strategy'] = 'iterm'
-vim.g['test#python#pytest#options'] = {
-  all = '-s',
-  nearest = '-v',
-  file = '-v',
-  suite = '-v'
-}
-
-vim.g['test#ruby#rspec#options'] = {
-  nearest = '--backtrace',
-  file = '--format documentation',
-  suite = '--tag ~slow'
-}
-
-vim.g['test#scala#runner'] = 'gradletest'
-vim.g['test#typescript#runner'] = 'mocha'
-vim.g['test#javascript#mocha#options'] = '--reporter spec'
-vim.g['test#javascript#mocha#file_pattern'] = '\\v^spec[\\\\/].*spec\\.(js|ts)$'

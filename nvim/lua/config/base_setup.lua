@@ -20,7 +20,7 @@ vim.cmd('filetype plugin indent on')
 vim.opt.encoding = 'utf-8'
 vim.opt.hidden = true
 vim.opt.undolevels = 1000
-vim.opt.undodir = '~/.config/nvim/undodir'
+vim.opt.undodir = '~/.dotfiles/nvim/undodir'
 vim.opt.undofile = true
 vim.opt.updatetime = 100
 vim.opt.backup = false
