@@ -42,3 +42,5 @@ vim.api.nvim_set_keymap('n', '<C-j>', ':wincmd j<CR>', { noremap = true, silent 
 vim.api.nvim_set_keymap('n', '<C-k>', ':wincmd k<CR>', { noremap = true, silent = true }) -- Move to pane above
 vim.api.nvim_set_keymap('n', '<C-h>', ':wincmd h<CR>', { noremap = true, silent = true }) -- Move to pane left
 vim.api.nvim_set_keymap('n', '<C-l>', ':wincmd l<CR>', { noremap = true, silent = true }) -- Move to pane right
+vim.api.nvim_set_keymap('n', '<Leader>q', ':bp<CR>:bd! #<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<SPACE>q', ':bd<CR>', { noremap = true, silent = true }) -- Map <SPACE> + q to close the current buffer
