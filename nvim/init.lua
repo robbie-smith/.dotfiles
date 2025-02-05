@@ -23,8 +23,20 @@ require("lazy").setup({
 })
 
 -- Load Neovim configurations
-require("config.base_setup")      -- Load base settings (e.g., options, theme, etc.)
-require("config.plugin_settings") -- Plugin-specific settings
-require("config.markdown")        -- Markdown settings
-require("config.auto_commands")   -- Define autocommands
-require("config.key_mappings")    -- Define custom key mappings
+
+-- Load base settings such as editor options, themes, tab settings, and clipboard integration
+require("config.base_setup")
+-- Configure Airline, a statusline plugin, for displaying information about the current file and workspace
+require("config.airline_settings")
+-- Configure FZF (Fuzzy Finder), a fast and extensible fuzzy search plugin for file and text searching
+require("config.fzf_settings")
+-- Configure GitGutter to display git changes (added, modified, removed lines) in the sign column
+require("config.gitgutter_settings")
+-- Configure Markdown settings for enhancing Markdown editing and preview capabilities
+require("config.markdown_settings")
+-- Configure NerdTree, a file explorer plugin, to manage and browse files easily
+require("config.nerdtree_settings")
+-- Define custom autocommands for automating tasks such as formatting, refreshing, and buffer-specific settings
+require("config.auto_commands")
+-- Define custom key mappings for streamlined navigation, text manipulation, and plugin-specific shortcuts
+require("config.key_mappings")
