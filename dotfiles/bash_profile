@@ -15,16 +15,16 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 eval "$(starship init bash)"
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(rbenv init -)"
 eval "$(mise activate bash)"
+source ~/.fzf/shell/key-bindings.bash
+source ~/.fzf/shell/completion.bash
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
+. <(asdf completion bash)
+. $(brew --prefix asdf)/libexec/asdf.sh
+. ~/.asdf/plugins/java/set-java-home.bash
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"

@@ -46,3 +46,4 @@ smithy-project.json
 .smithy-project.json
 gradlew.bat
 kotlinLspClasspath.sh
+.tool-versions
