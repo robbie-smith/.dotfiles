@@ -237,22 +237,6 @@ gkconsole() {
 }
 
 bbconsole() {
-  make_deploy() {
-      # Check if the current directory name contains "CDK"
-      if [[ "$(pwd)" == *CDK* ]]; then
-          echo "Already in a CDK directory: $(pwd)"
-          deploy "$1"
-      else
-          # Find directories containing "CDK" and deploy from each one
-          find . -type d -name '*CDK*' | while read -r dir; do
-              echo "Changing directories: $dir"
-              cd "$dir" || continue
-              deploy "$1"
-              cd - > /dev/null
-          done
-      fi
-  }
-
   # Define descriptions and commands as two associative arrays
   declare -A descriptions=(
     [build]="Standard Brazil build"
@@ -260,8 +244,6 @@ bbconsole() {
     [clean-build]="Clean and build the project"
     [generate-swagger-docs]="Generate OpenAPI model"
     [generate-gradle-wrapper]="Generate a new Gradle wrapper"
-    [make-list]="List CDK Stacks"
-    [make-deploy]="Deploy all CDK projects"
     [recursive-clean]="Clean all packages recursively"
     [recursive-build]="Build all packages recursively"
     [tasks]="List all available Gradle tasks"
@@ -277,8 +259,6 @@ bbconsole() {
     [clean-build]="brazil-build clean && brazil-build"
     [generate-swagger-docs]="brazil-build copyOpenApiModel"
     [generate-gradle-wrapper]="brazil-recursive-cmd --allPackages --continue brazil-build wrapper 2>/dev/null"
-    [make-list]="make_deploy list"
-    [make-deploy]="make_deploy deploy"
     [recursive-clean]="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
     [recursive-build]="brazil-recursive-cmd --allPackages brazil-build"
     [tasks]="brazil-build tasks --all"

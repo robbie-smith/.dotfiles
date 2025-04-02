@@ -45,7 +45,7 @@ export PATH="/usr/local/sbin:$PATH"
 export PERSONAL_BINDLE_ID="amzn1.bindle.resource.35vyr5y3vo4tuftbazogsdjsq"
 export AWS_PROFILE="robsmid-dev"
 export AWS_DEV_ACCOUNT="148761656253"
-export AWS_DEV_REGION="us-west-2"
+# export AWS_DEV_REGION="us-west-2"
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"

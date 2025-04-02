@@ -211,7 +211,7 @@ pull() {
   fi
 
   # Pull from the remote tracking branch
-  git pull --rebase
+  git pull
 }
 
 update_aws() {
@@ -371,46 +371,6 @@ destroy() {
   tr ', ' '\n' | \
   fzf --prompt="Select a stack to destroy: " | \
   xargs -I {} sh -c 'brazil-build cdk destroy "{}" --force < /dev/tty > /dev/tty 2> /dev/tty'
-
-  # Return to the original directory if we changed directories
-  if [ "$CURRENT_DIR" != "$(pwd)" ]; then
-    cd "$CURRENT_DIR" || { echo "Failed to return to directory $CURRENT_DIR"; return 1; }
-  fi
-}
-
-deploy() {
-  # Find the directory containing cdk.json by searching downwards, excluding certain directories
-  export STAGE="dev"
-  export AWS_DEV_ACCOUNT="148761656253"
-  export AWS_DEV_REGION="us-west-2"
-  # export STAGE="beta"
-  # export AWS_DEV_ACCOUNT="593793066741"
-  # export AWS_DEV_REGION="us-east-1"
-
-  CDK_DIR=$(find . \
-    \( -type d -name node_modules -o -name .git -o -name dist -o -name build \) -prune \
-    -o -type f -name 'cdk.json' -print -quit | xargs dirname)
-
-  if [ -z "$CDK_DIR" ]; then
-    echo "cdk.json not found in the current directory or any subdirectories."
-    return 1
-  fi
-
-  # Save the current directory
-  CURRENT_DIR="$(pwd)"
-
-  # Change into the CDK directory if not already there
-  if [ "$CURRENT_DIR" != "$(cd "$CDK_DIR" && pwd)" ]; then
-    cd "$CDK_DIR" || { echo "Failed to change directory to $CDK_DIR"; return 1; }
-  fi
-
-  # Run the command
-  brazil-build cdk synth 2>&1 | \
-  grep 'Supply a stack id' | \
-  sed 's/.*(\(.*\)).*/\1/' | \
-  tr ', ' '\n' | \
-  fzf --prompt="Select a stack to deploy: " | \
-  xargs -I {} sh -c 'brazil-build cdk deploy "{}" < /dev/tty > /dev/tty 2> /dev/tty'
 
   # Return to the original directory if we changed directories
   if [ "$CURRENT_DIR" != "$(pwd)" ]; then
