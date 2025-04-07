@@ -101,32 +101,45 @@ gcrb() {
 }
 
 bbdeploy() {
-    # Filter out only the stack names from the output
-    local stack_name
-    stack_name=$(brazil-build cdk list 2>/dev/null | grep -E '^[A-Za-z0-9-]+$' | fzf --prompt="Select CloudFormation stack to deploy: ")
+    local cdk_dir
 
-    # Check if a stack was selected
+if [[ "$(pwd)" != *CDK* ]]; then
+    echo "Current directory ($(pwd)) is not a CDK directory."
+    # Get the parent directory
+    parent_dir=$(dirname "$(pwd)")
+
+    # Check if the parent directory is a CDK directory
+    if [[ "$parent_dir" == *CDK* ]]; then
+        echo "Parent directory ($parent_dir) is a CDK directory. Changing to parent."
+        cd "$parent_dir" || { echo "Failed to change to parent directory."; exit 1; }
+    else
+        echo "Parent directory ($parent_dir) is not a CDK directory. Searching for a CDK directory under it..."
+        # Search recursively for a directory containing 'CDK' under the parent
+        cdk_dir=$(find "$parent_dir" -type d -name '*CDK*' | head -n 1)
+        if [ -z "$cdk_dir" ]; then
+            echo "No CDK directory found under $parent_dir. Exiting."
+            exit 1
+        else
+            echo "Found CDK directory: $cdk_dir. Changing directory."
+            cd "$cdk_dir" || { echo "Failed to change directory to $cdk_dir"; exit 1; }
+        fi
+    fi
+else
+    echo "Current directory ($(pwd)) is already a CDK directory."
+fi
+
+    # Now that we're in a CDK directory, list stacks.
+    local stack_name
+    stack_name=$(brazil-build cdk list 2>/dev/null | grep -E '^[A-Za-z0-9-]+$' | sort | fzf --prompt="Select CloudFormation stack to deploy: ")
+
     if [ -z "$stack_name" ]; then
         echo "No stack selected. Exiting."
-        return
+        return 1
     fi
 
-    # Command to deploy the selected stack
-    deploy_command="brazil-build cdk deploy $stack_name"
-
-    # Check if the current directory name contains "CDK"
-    if [[ "$(pwd)" == *CDK* ]]; then
-        echo "Already in a CDK directory: $(pwd)"
-        $deploy_command  # Run deploy command in the current directory
-    else
-        # Find directories containing "CDK" and deploy from each one
-        find . -type d -name '*CDK*' | while read -r dir; do
-            echo "Changing directories: $dir"
-            cd "$dir" || continue
-            $deploy_command  # Run deploy command in each "CDK" directory
-            cd - > /dev/null  # Return to the original directory
-        done
-    fi
+    # Deploy the selected stack.
+    echo "Deploying stack: $stack_name in $(pwd)"
+    brazil-build cdk deploy "$stack_name"
 }
 
 gkconsole() {
