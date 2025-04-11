@@ -16,8 +16,6 @@ eval "$(starship init bash)"
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(mise activate bash)"
-source ~/.fzf/shell/key-bindings.bash
-source ~/.fzf/shell/completion.bash
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
@@ -28,3 +26,4 @@ export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
 . ~/.asdf/plugins/java/set-java-home.bash
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
+. "$HOME/.cargo/env"

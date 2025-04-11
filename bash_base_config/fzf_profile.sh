@@ -6,7 +6,7 @@ csi() {
   echo -en "\x1b[$@"
 }
 
-fzf-down() {
+fzf_down() {
 fzf --height 50% "$@"
 }
 
@@ -530,7 +530,7 @@ esac
 ghist() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+  fzf_down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
     --preview-window=up:50% --reverse \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -200' |
@@ -543,7 +543,7 @@ bind '"\er": redraw-current-line'
 gd() {
   is_in_git_repo || return
   git -c color.status=always status --short |
-  fzf-down -m --ansi --nth 2..,.. \
+  fzf_down -m --ansi --nth 2..,.. \
     --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
   cut -c4- | sed 's/.* -> //'
 }

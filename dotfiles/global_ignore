@@ -47,3 +47,4 @@ smithy-project.json
 gradlew.bat
 kotlinLspClasspath.sh
 .tool-versions
+*/lazy-lock.json
