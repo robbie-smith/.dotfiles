@@ -3,6 +3,7 @@ return {
     dependencies = {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        "rafamadriz/friendly-snippets", -- ~1000 ready-made snippets (Python, JS, etc.)
         'hrsh7th/cmp-path',
     },
     config = function()
@@ -10,6 +11,8 @@ return {
         local luasnip = require("luasnip")
 
         luasnip.config.setup({})
+        -- Load friendly-snippets' VS Code-format snippet packs.
+        require("luasnip.loaders.from_vscode").lazy_load()
 
         cmp.setup({
             snippet = {
