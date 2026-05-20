@@ -1,72 +1,80 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason.nvim", -- Mason for managing LSP servers, DAP, etc.
-      "williamboman/mason-lspconfig.nvim", -- Integrates Mason with LSP
-      "WhoIsSethDaniel/mason-tool-installer.nvim", -- Tool installer
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local lspconfig = require("lspconfig")
-      local mason = require("mason")
-      local mason_lspconfig = require("mason-lspconfig")
-      local mason_tool_installer = require("mason-tool-installer")
+      -- Build default capabilities (with cmp completion advertised if cmp-nvim-lsp is available).
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+      if ok_cmp then
+        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+      end
 
-      local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- Defaults applied to every server.
+      vim.lsp.config("*", { capabilities = capabilities })
 
-      -- Define LSP server configurations
-      local server_configs = {
-        tsserver = {}, -- TypeScript/JavaScript
-        pyright = {}, -- Python
-        rust_analyzer = {}, -- Rust
-      }
-
-      mason.setup() -- Setup Mason
-
-      -- Collect all servers to ensure installation with Mason
-      local mason_ensure_installed = {
-        "typescript-language-server",
-        "pyright",
-        "rust-analyzer",
-        "prettier", -- Formatter
-        "eslint_d", -- Linter
-      }
-      mason_tool_installer.setup({
-        ensure_installed = mason_ensure_installed, -- Auto-install servers/tools
+      -- Per-server overrides. mason-lspconfig v2 `automatic_enable` will read these
+      -- when it calls vim.lsp.enable() for each installed server.
+      vim.lsp.config("pyright", {
+        settings = {
+          pyright = {
+            disableOrganizeImports = true, -- ruff handles imports
+          },
+        },
+      })
+      vim.lsp.config("ruff", {
+        on_attach = function(client, _)
+          -- defer hover to pyright so we don't get two hovers
+          client.server_capabilities.hoverProvider = false
+        end,
       })
 
-      -- Setup Mason-LSPConfig and attach server configurations
-      mason_lspconfig.setup({
-        handlers = {
-          function(server_name)
-            local server_config = server_configs[server_name] or {}
-            server_config.capabilities = vim.tbl_deep_extend(
-              "force",
-              default_capabilities,
-              server_config.capabilities or {}
-            )
-            lspconfig[server_name].setup(server_config)
-          end,
+      require("mason").setup()
+
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "typescript-language-server",
+          "pyright",
+          "ruff",
+          "rust-analyzer",
+          "prettier",
+          "eslint_d",
         },
       })
 
-      -- Create key mappings when an LSP attaches to a buffer
+      require("mason-lspconfig").setup({
+        ensure_installed = { "ts_ls", "pyright", "ruff", "rust_analyzer" },
+        automatic_enable = true,
+      })
+
+      -- LSP keybindings, set when an LSP attaches to a buffer.
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach-keybinds", { clear = true }),
         callback = function(e)
           local keymap = function(keys, func)
             vim.keymap.set("n", keys, func, { buffer = e.buf })
           end
-          local builtin = require("telescope.builtin")
 
-          -- Keybindings
-          keymap("gd", builtin.lsp_definitions)
+          keymap("gd", vim.lsp.buf.definition)
           keymap("gD", vim.lsp.buf.declaration)
-          keymap("gr", builtin.lsp_references)
-          keymap("gI", builtin.lsp_implementations)
-          keymap("<leader>D", builtin.lsp_type_definitions)
-          keymap("<leader>ds", builtin.lsp_document_symbols)
-          keymap("<leader>ws", builtin.lsp_dynamic_workspace_symbols)
+          keymap("gr", vim.lsp.buf.references)
+          keymap("<leader>fu", function()
+            -- "find usages" — references + auto-open the quickfix list
+            vim.lsp.buf.references()
+            vim.defer_fn(function()
+              vim.cmd("copen")
+            end, 200)
+          end)
+          keymap("gI", vim.lsp.buf.implementation)
+          keymap("<leader>D", vim.lsp.buf.type_definition)
+          keymap("<leader>ds", vim.lsp.buf.document_symbol)
+          keymap("<leader>ws", vim.lsp.buf.workspace_symbol)
           keymap("<leader>rn", vim.lsp.buf.rename)
           keymap("<leader>ca", vim.lsp.buf.code_action)
           keymap("K", vim.lsp.buf.hover)

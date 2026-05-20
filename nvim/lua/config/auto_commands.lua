@@ -50,3 +50,12 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufRead", "BufNewFile"}, {
     pattern = "*.txt",
     callback = set_journal_filetype,
 })
+
+-- The global <CR> -> G remap (see key_mappings.lua) breaks quickfix navigation.
+-- Restore <CR> = "jump to entry under cursor" inside qf/location list windows.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf",
+    callback = function(args)
+        vim.keymap.set("n", "<CR>", "<CR>", { buffer = args.buf, remap = false })
+    end,
+})

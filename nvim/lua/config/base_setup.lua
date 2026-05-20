@@ -8,9 +8,9 @@ vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.opt.wrapmargin = 2
 vim.opt.textwidth = 80
 
--- Python provider setup
-vim.g.python2_host_prog = '~/neovim2/bin/python'
-vim.g.python3_host_prog = '/Users/robertsmith/.pyenv/shims/python3.10'
+-- Python provider setup (used by python-based vim plugins, not pyright/ruff).
+-- The per-project interpreter for the LSP is managed by venv-selector.nvim.
+vim.g.python3_host_prog = vim.fn.expand('~/.pyenv/shims/python3')
 
 -- Enable filetype detection
 vim.cmd('filetype on')
@@ -52,6 +52,14 @@ vim.opt.incsearch = true
 vim.opt.syntax = 'on'
 vim.opt.ruler = true
 vim.opt.number = true
+
+-- Diagnostics: show messages inline as virtual text, plus gutter signs.
+vim.diagnostic.config({
+  virtual_text = { spacing = 2, prefix = "●" },
+  signs = true,
+  underline = true,
+  severity_sort = true,
+})
 
 -- Color scheme and highlighting
 vim.opt.background = 'dark'
