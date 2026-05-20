@@ -1,14 +1,10 @@
 alias ..="cd .."
-alias b="brazil"
-alias bb="brazil-build"
-alias bbr_clean="brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean"
-alias clean_build="brazil-build clean && brazil-build"
 alias openbash="nvim ~/.dotfiles/bash/bash_profile.sh"
 alias browse="hub browse"
 alias c="clear"
 alias deactivate="source deactivate"
 alias dotfiles="cd ~/.dotfiles"
-alias g="git_recursive_sequential"
+alias g="git"
 alias gs="git status"
 alias gc="git commit -v"
 alias gac="git add . && git commit -m"
@@ -29,40 +25,6 @@ alias vi="nvim"
 alias wp="cd ~/workplace"
 alias aws2="/usr/local/bin/aws"
 
-# git_recursive () { find -follow -name .git -type d -execdir git "$@" \; }
-
-git_recursive_sequential() {
-  # Function to create a dynamic separator based on the directory length
-  generate_separator() {
-    local dir_length=${#1}
-    printf '=%.0s' $(seq 1 "$dir_length")
-    echo
-  }
-
-  # Check if the current directory is already a git repository
-  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    git "$@"
-    return
-  fi
-
-  # If not, find all .git directories and run git commands sequentially
-  find -L . -name .git -type d -print0 | \
-    while IFS= read -r -d '' gitdir; do
-      (
-        cd "$gitdir/.." || exit
-        separator=$(generate_separator "$(pwd)")
-        echo "$separator"
-        echo "Current Directory: $(pwd)"
-        echo "Running: git $*"
-        echo "$separator"
-        git "$@"
-        echo "$separator"
-        echo "Done in $(pwd)"
-        echo "$separator"
-        echo
-      )
-    done
-}
 # Function to list AWS profiles using FZF and set the selected profile
 function aws_profile() {
     # Ensure FZF is installed
@@ -90,40 +52,6 @@ function aws_profile() {
     fi
 }
 
-gb() {
-  if [ -z "$1" ]; then
-    echo "Error: Please provide a branch name."
-    return 1
-  fi
-
-  g checkout -b "$1"
-  if [ $? -ne 0 ]; then
-    echo "Error: Failed to create or switch to branch '$1'."
-    return 1
-  fi
-
-  g branch --set-upstream-to=origin/mainline "$1" 2>/dev/null
-  if [ $? -ne 0 ]; then
-    echo "Error: Failed to set upstream to 'origin/mainline'."
-    return 1
-  fi
-
-  echo "Branch '$1' created and set to track 'origin/mainline'."
-}
-
-
-
-bbr() {
-  brazil-recursive-cmd --allPackages --continue brazil-build
-}
-
-brazil_setup_mac() {
-  brazil ws clean
-  brazil ws sync --md
-  brazil setup platform-support
-}
-
-
 compare() {
   hub compare `git rev-parse --abbrev-ref HEAD`
 }
@@ -132,14 +60,6 @@ pr() {
   # hub pull-request -l "Needs Code Review,Needs Testing,#squad-insights" -o
   # hub pull-request -o
   cr --new-review --all --parent mainline -o
-}
-
-update_pr() {
-  if [ -z "$1" ]; then
-    echo "Error: Please provide a CR-####."
-    return 1
-  fi
-  cr --all --update-review $1
 }
 
 activate() {
@@ -223,177 +143,6 @@ login_ecr() {
   aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 947618278001.dkr.ecr.us-west-2.amazonaws.com
 }
 
-ada_setup() {
-    local role=""  # Default role
-    local account_number=""
-    local profile=""
-    local region=""
-
-    # Parse flags
-    while [[ "$#" -gt 0 ]]; do
-        case "$1" in
-            -a|--account)
-                account_number="$2"
-                shift 2
-                ;;
-            -p|--profile)
-                profile="$2"
-                shift 2
-                ;;
-            -r|--region)
-                region="$2"
-                shift 2
-                ;;
-            -o|--role)
-                role="$2"
-                shift 2
-                ;;
-            *)
-                echo "Usage: ada_setup -p <profile> -a <account_number> [-r <region>] [-o <role>]"
-                return 1
-                ;;
-        esac
-    done
-
-    # Prompt for account number if not provided
-    if [ -z "$account_number" ]; then
-        read -p "Enter the account number: " account_number
-    fi
-
-    # Prompt for profile if not provided
-    if [ -z "$profile" ]; then
-        read -p "Enter the profile name: " profile
-    fi
-
-    # Prompt for region if not provided
-    if [ -z "$region" ]; then
-        read -p "Enter the AWS region (default: us-east-1): " region
-        region=${region:-us-east-1}  # Default to us-east-1 if no input
-    fi
-
-    # Prompt for role if not provided
-    if [ -z "$role" ]; then
-        read -p "Enter the role name (default: IibsAdminAccess-DO-NOT-DELETE): " role
-        role=${role:-IibsAdminAccess-DO-NOT-DELETE}  # Default role if no input
-    fi
-
-    echo "Adding credentials for account: $account_number, profile: $profile, region: $region with role: $role"
-
-    # Run the ADA credentials add command with the provided account number, profile, region, and role
-    if ada profile add --account "$account_number" --profile "$profile" --region "$region" --provider conduit --role "$role"; then
-        echo "Profile successfully added."
-    else
-        echo "Failed to add profile."
-        return 1
-    fi
-}
-
-update_credentials() {
-    local role="IibsAdminAccess-DO-NOT-DELETE"  # Default role
-    local account_number=""
-    local profile=""
-
-    # Parse flags
-    while [[ "$#" -gt 0 ]]; do
-        case "$1" in
-            -a|--account)
-                account_number="$2"
-                shift 2
-                ;;
-            -p|--profile)
-                profile="$2"
-                shift 2
-                ;;
-            -r|--role)
-                role="$2"
-                shift 2
-                ;;
-            *)
-                echo "Usage: update_credentials -p <profile> -a <account_number> [-r <role>]"
-                return 1
-                ;;
-        esac
-    done
-
-    # Debugging output to see the parsed variables
-    echo "Parsed account number: $account_number"
-    echo "Parsed profile: $profile"
-    echo "Parsed role: $role"
-
-    # Ensure both account number and profile are provided
-    if [ -z "$account_number" ] || [ -z "$profile" ]; then
-        echo "Error: Both account number (-a) and profile (-p) are required."
-        echo "Usage: update_credentials -p <profile> -a <account_number> [-r <role>]"
-        return 1
-    fi
-
-    echo "Updating credentials for account: $account_number, profile: $profile with role: $role"
-
-    # Run the ADA credentials update command with the provided account number, profile, and role
-    if ada credentials update --profile "$profile" --provider conduit --account "$account_number" --role "$role" --once; then
-        echo "Credentials updated successfully."
-    else
-        echo "Failed to update credentials."
-        return 1
-    fi
-}
-
-destroy() {
-  # Find the directory containing cdk.json by searching downwards, excluding certain directories
-  export STAGE="dev"
-  export AWS_DEV_ACCOUNT="148761656253"
-  export AWS_DEV_REGION="us-west-2"
-  # export STAGE="beta"
-  # export AWS_DEV_ACCOUNT="593793066741"
-  # export AWS_DEV_REGION="us-east-1"
-
-  CDK_DIR=$(find . \
-    \( -type d -name node_modules -o -name .git -o -name dist -o -name build \) -prune \
-    -o -type f -name 'cdk.json' -print -quit | xargs dirname)
-
-  if [ -z "$CDK_DIR" ]; then
-    echo "cdk.json not found in the current directory or any subdirectories."
-    return 1
-  fi
-
-  # Save the current directory
-  CURRENT_DIR="$(pwd)"
-
-  # Change into the CDK directory if not already there
-  if [ "$CURRENT_DIR" != "$(cd "$CDK_DIR" && pwd)" ]; then
-    cd "$CDK_DIR" || { echo "Failed to change directory to $CDK_DIR"; return 1; }
-  fi
-
-  # Run the command to list stacks and select one for teardown
-  brazil-build cdk synth 2>&1 | \
-  grep 'Supply a stack id' | \
-  sed 's/.*(\(.*\)).*/\1/' | \
-  tr ', ' '\n' | \
-  fzf --prompt="Select a stack to destroy: " | \
-  xargs -I {} sh -c 'brazil-build cdk destroy "{}" --force < /dev/tty > /dev/tty 2> /dev/tty'
-
-  # Return to the original directory if we changed directories
-  if [ "$CURRENT_DIR" != "$(pwd)" ]; then
-    cd "$CURRENT_DIR" || { echo "Failed to return to directory $CURRENT_DIR"; return 1; }
-  fi
-}
-
-bb_clean() {
-  # brazil-recursive-cmd --allPackages --reverse --continue brazil-build clean
-  for dir in */ ; do
-    if [ -d "$dir" ]; then
-      echo "Entering $dir..."
-      cd "$dir" || continue  # Change into the directory or skip if it fails
-
-      echo "================================================="
-      echo "Running Command"
-      # Example command: clean up any .tmp files
-      brazil-build clean
-      cd ..  # Return to the parent directory
-    fi
-  done
-}
-#
 # Colorized man command
 man() {
   env \

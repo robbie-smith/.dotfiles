@@ -42,10 +42,6 @@ export SPARK_HOME=$HOMEBREW_CELLAR/apache-spark/3.5.1/libexec
 export DOCKER_CLI_HINTS=false
 export PATH=$PATH:$HOME/.toolbox/bin
 export PATH="/usr/local/sbin:$PATH"
-export PERSONAL_BINDLE_ID="amzn1.bindle.resource.35vyr5y3vo4tuftbazogsdjsq"
-# export AWS_PROFILE="robsmid-dev"
-export AWS_DEV_ACCOUNT="148761656253"
-# export AWS_DEV_REGION="us-west-2"
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
@@ -63,8 +59,6 @@ if [ -f /sw/etc/bash_completion ]; then
 fi
 . "$HOME/.cargo/env"
 eval "$(/opt/homebrew/bin/brew shellenv)"
-source $HOME/.brazil_completion/bash_completion
-
 
 export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
 
