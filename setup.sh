@@ -55,9 +55,14 @@ install_powerline_fonts() {
 }
 
 set_shell_to_bash() {
-  chsh -s /bin/bash
-  source $HOME/.bash_profile
+  local brew_bash="/opt/homebrew/bin/bash"
 
+  if ! grep -q "$brew_bash" /etc/shells; then
+    echo "$brew_bash" | sudo tee -a /etc/shells
+  fi
+
+  chsh -s "$brew_bash"
+  source $HOME/.bash_profile
 }
 
 asdf_ensure_plugin() {
