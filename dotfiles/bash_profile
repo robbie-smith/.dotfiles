@@ -17,3 +17,7 @@ eval "$(mise activate bash)"
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 . "$HOME/.cargo/env"
+
+# >>> gitlab-pat-rotate >>>
+[ -f "$HOME/.config/gitlab-pat/env.sh" ] && . "$HOME/.config/gitlab-pat/env.sh"
+# <<< gitlab-pat-rotate <<<

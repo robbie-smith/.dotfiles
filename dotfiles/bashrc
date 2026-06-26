@@ -41,11 +41,10 @@ export DOCKER_CLI_HINTS=false
 export PATH=$PATH:$HOME/.toolbox/bin
 export PATH="/usr/local/sbin:$PATH"
 export UV_INDEX_GITLAB_USERNAME="robbie.smith1"
-export UV_INDEX_GITLAB_PASSWORD="$(security find-generic-password -s gitlab-pypi -a $UV_INDEX_GITLAB_USERNAME -w 2>/dev/null)"
+export UV_INDEX_GITLAB_PASSWORD="$GITLAB_TOKEN"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 
@@ -59,11 +58,12 @@ fi
 . "$HOME/.cargo/env"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export THERAPI_API_BASE_URL=https://api.getgarner.com
+export THERAPI_AUTH_URL=https://internal-auth.getgarner.com/oauth2/authorize
+export THERAPI_TOKEN_URL=https://internal-auth.getgarner.com/oauth2/token
+export THERAPI_CLIENT_ID=3rl8p4htposa55cdtr3hncjvv9
+export THERAPI_CLIENT_SECRET="$(security find-generic-password -s therapi-client-secret -a robbie.smith@getgarner.com -w 2>/dev/null)"
+# Added by devn onboard
+source /Users/robbie/.config/devn/devn_shell_functions.sh

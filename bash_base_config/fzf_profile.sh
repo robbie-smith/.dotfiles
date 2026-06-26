@@ -242,6 +242,26 @@ gcb() {
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
+gcw() {
+  # Find and cd to a worktree managed by the .worktrees/index.json workspace tool.
+  local root index target rel
+  root=$PWD
+  while [ "$root" != "/" ] && [ ! -f "$root/.worktrees/index.json" ]; do
+    root=$(dirname "$root")
+  done
+  index="$root/.worktrees/index.json"
+  if [ ! -f "$index" ]; then
+    echo "gcw: no .worktrees/index.json found above $PWD" >&2
+    return 1
+  fi
+  target=$(
+  jq -r '.worktrees[] | "\(.branch)\t\(.project)\t\(.path)"' "$index" |
+  awk -F'\t' '{print "\x1b[34;1m"$1"\x1b[m\t\x1b[32m"$2"\x1b[m\t"$3}' |
+  fzf-tmux -l40 -- --no-hscroll --ansi +m -d "\t" -n 1,2 -1 -q "$*") || return
+  rel=$(echo "$target" | awk -F'\t' '{print $3}')
+  cd "$root/$rel"
+}
+
 fdb() {
   local tags branches target
   branches=$(
