@@ -145,20 +145,6 @@ aws_login() {
   aws sso login --sso-session foundry24
 }
 
-# Account is resolved at call time rather than hardcoded -- this pointed at
-# 947618278001 for a long time, an account that isn't even in this org.
-login_ecr() {
-  local region="${1:-us-west-2}"
-  local account
-  account="$(aws sts get-caller-identity --query Account --output text)" || {
-    echo "Not authenticated. Run: aws_login" >&2
-    return 1
-  }
-  aws ecr get-login-password --region "$region" \
-    | docker login --username AWS --password-stdin \
-        "${account}.dkr.ecr.${region}.amazonaws.com"
-}
-
 # Colorized man command
 man() {
   env \

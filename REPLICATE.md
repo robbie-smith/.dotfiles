@@ -109,9 +109,6 @@ Tokens live in `~/.aws/sso/cache` and expire (~8h). When they do, `aws_login`.
 `aws_profile` is an fzf picker for switching. CDK is bootstrapped in both
 `us-west-2` and `us-east-1` for `788962774977`.
 
-Note: `login_ecr()` was hardcoded to account `947618278001`, which is not in
-this org at all — it now resolves the account from `sts get-caller-identity`.
-
 ## iOS signing
 
 `fastlane match` needs two things beyond the Brewfile:
