@@ -75,11 +75,42 @@ Nothing below can be committed. Move it via 1Password or an encrypted archive.
 | `~/.ssh/id_ed25519` | `~/.ssh/` | **Blocks everything.** Every remote is `git@github.com:`. Without this, no repo clones. Cleaner alternative for a device handoff: generate a fresh key on the new Mac and add it to GitHub, then retire this one. |
 | `~/.tokens` | `$HOME` | Sourced first thing by `dotfiles/bash_profile`. Holds `GITLAB_TOKEN` among others. |
 | `~/.npmrc` | `$HOME` | GitHub PAT with `read:packages`, needed for `@foundry24/cdk-app-patterns`. |
-| `~/.aws/credentials` | `~/.aws/` | `dotfiles/bashrc` sets `AWS_PROFILE="foundry24"`, so the profile must exist. |
+| ~~`~/.aws/credentials`~~ | — | **No longer needed.** AWS moved to IAM Identity Center (SSO); see below. Nothing secret on disk. |
 | `~/.config/gh/hosts.yml` | `~/.config/gh/` | Or just re-run `gh auth login`. |
 | `~/dev/keys/` | `~/dev/` | Apple App Store Connect key `AuthKey_N3F3YUNWLD.p8` + API credentials. |
 | Therapi client secret | macOS keychain | Work machine only. Recreate with `security add-generic-password -s therapi-client-secret -a robbie.smith@getgarner.com -w '<secret>'`. |
 | Per-repo `.env` files | across ~11 repos in `~/dev` | Gitignored, so no push carried them. Also `floyd/.secrets/`, `radda/scripts/AuthKey_6YG4J7Q256.p8`, `radda/ios/DinnerLens/Configuration/Secrets.xcconfig`, `tenlines/proxy-poc-rust/certs/ca.key`, `tenlines/web/ca.pem`. |
+
+## AWS — IAM Identity Center (SSO)
+
+No access keys, nothing to move between machines. `~/.aws/config` is not in this
+repo (it holds account IDs), so recreate it on a new Mac:
+
+```bash
+mkdir -p ~/.aws && chmod 700 ~/.aws
+aws configure sso --profile foundry24     # or copy the config below
+aws sso login --sso-session foundry24
+```
+
+| | |
+| --- | --- |
+| Start URL | `https://d-9267f6b182.awsapps.com/start` |
+| SSO region | `us-west-2` |
+| Org ID | `o-10whhowyom` |
+| foundry24 | account `788962774977` — `AdministratorAccess`, `Billing` |
+| SmithHoldings | account `787472921332` — `AdministratorAccess`, `Billing` |
+
+All four profiles share one `[sso-session foundry24]` block, so a single
+`aws sso login` covers them. `bashrc` exports `AWS_PROFILE="foundry24"`, so that
+profile must exist or **every** `aws` command fails with "config profile could
+not be found".
+
+Tokens live in `~/.aws/sso/cache` and expire (~8h). When they do, `aws_login`.
+`aws_profile` is an fzf picker for switching. CDK is bootstrapped in both
+`us-west-2` and `us-east-1` for `788962774977`.
+
+Note: `login_ecr()` was hardcoded to account `947618278001`, which is not in
+this org at all — it now resolves the account from `sts get-caller-identity`.
 
 ## iOS signing
 
