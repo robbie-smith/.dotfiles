@@ -1,0 +1,28 @@
+# Brewfile.work -- Garner work machine
+#
+# Layered on top of Brewfile.  Run:  ./install.sh work
+#
+# INCOMPLETE. This file was seeded by inference, not inventory: it was written
+# on the Foundry24 machine, which has no access to the work Mac's package list.
+# The entries below are the tools implied by the work-only exports in
+# dotfiles/bashrc (uv/GitLab, Therapi, devn).
+#
+# To make this accurate, run on the work Mac:
+#
+#   brew bundle dump --file=/tmp/work.txt --describe --force
+#
+# then diff /tmp/work.txt against Brewfile and move the work-only entries here.
+
+# uv drives the private GitLab index configured in dotfiles/bashrc via
+# UV_INDEX_GITLAB_USERNAME / UV_INDEX_GITLAB_PASSWORD ($GITLAB_TOKEN).
+brew "uv"
+
+# Work-only shell config in dotfiles/bashrc that this file does NOT install:
+#
+#   - devn        sourced from ~/.config/devn/devn_shell_functions.sh
+#                 (installed by "devn onboard", not Homebrew)
+#   - Therapi     THERAPI_CLIENT_SECRET is read from the macOS keychain:
+#                 security find-generic-password -s therapi-client-secret \
+#                   -a robbie.smith@getgarner.com -w
+#                 The keychain item must be recreated by hand.
+#   - GITLAB_TOKEN   expected in ~/.tokens, which is not in this repo.

@@ -38,8 +38,6 @@ export SPARK_HOME=$HOMEBREW_CELLAR/apache-spark/3.5.1/libexec
 export DOCKER_CLI_HINTS=false
 export PATH=$PATH:$HOME/.toolbox/bin
 export PATH="/usr/local/sbin:$PATH"
-export UV_INDEX_GITLAB_USERNAME="robbie.smith1"
-export UV_INDEX_GITLAB_PASSWORD="$GITLAB_TOKEN"
 export AWS_PROFILE="foundry24"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
@@ -59,10 +57,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-export THERAPI_API_BASE_URL=https://api.getgarner.com
-export THERAPI_AUTH_URL=https://internal-auth.getgarner.com/oauth2/authorize
-export THERAPI_TOKEN_URL=https://internal-auth.getgarner.com/oauth2/token
-export THERAPI_CLIENT_ID=3rl8p4htposa55cdtr3hncjvv9
-export THERAPI_CLIENT_SECRET="$(security find-generic-password -s therapi-client-secret -a robbie.smith@getgarner.com -w 2>/dev/null)"
-# Added by devn onboard
-source /Users/robbie/.config/devn/devn_shell_functions.sh
+# Work (Garner) config -- devn, Therapi, GitLab/uv. Loaded only on the work
+# machine, keyed off devn's presence. See bash_base_config/work.sh.
+[[ -f "$HOME/.config/devn/devn_shell_functions.sh" ]] && \
+  source "$HOME/.dotfiles/bash_base_config/work.sh"

@@ -1,0 +1,68 @@
+# Brewfile.personal -- Foundry24 / personal machine
+#
+# Layered on top of Brewfile.  Run:  ./install.sh personal
+
+# ---------------------------------------------------------------------------
+# AWS
+# ---------------------------------------------------------------------------
+brew "awscli"
+cask "session-manager-plugin"
+cask "gcloud-cli"            # mise also pins a gcloud version in ~/.config/mise/config.toml
+
+# ---------------------------------------------------------------------------
+# Databases / geo
+# ---------------------------------------------------------------------------
+brew "pgcli"
+brew "postgis"
+brew "gdal"
+cask "postgres-unofficial"
+
+# ---------------------------------------------------------------------------
+# iOS / mobile
+#
+# Xcode is not installable here -- get it from the App Store first, then:
+#   xcode-select --install && sudo xcodebuild -license accept
+# Signing also needs the ios-certificates match repo and the App Store Connect
+# API key, neither of which is in any repo. See REPLICATE.md.
+# ---------------------------------------------------------------------------
+brew "fastlane"
+brew "cocoapods"
+brew "xcodegen"
+cask "maestro"
+
+# ---------------------------------------------------------------------------
+# Personal GUI
+# ---------------------------------------------------------------------------
+cask "spotify"
+cask "protonvpn"
+cask "charles"
+cask "chatgpt"
+cask "claude"
+cask "superkey"
+cask "multitouch"
+cask "logi-options-plus"
+cask "wispr-flow"
+
+# ---------------------------------------------------------------------------
+# Go tools
+# ---------------------------------------------------------------------------
+go "github.com/wailsapp/wails/v2/cmd/wails"   # foundry/desktop-apps/* are Wails apps
+
+# ---------------------------------------------------------------------------
+# Global npm packages
+#
+# @foundry24/cdk-app-patterns is published to GitHub Packages, not npmjs, so it
+# needs ~/.npmrc auth before this will resolve:
+#
+#   @foundry24:registry=https://npm.pkg.github.com
+#   //npm.pkg.github.com/:_authToken=<GitHub PAT with read:packages>
+#
+# Source: github.com/Foundry24/cdk-app-patterns
+# ---------------------------------------------------------------------------
+npm "aws-cdk"
+npm "tailwindcss"
+npm "@redocly/cli"
+npm "@google/gemini-cli"
+npm "clawhub"
+npm "server"
+npm "@foundry24/cdk-app-patterns"
