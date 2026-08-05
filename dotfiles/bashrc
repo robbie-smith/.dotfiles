@@ -8,9 +8,7 @@ export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
 export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/12/bin:$PATH
 export GOPATH=$HOME/Go
-export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
 export PYTEST_ADDOPTS='-s'
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -42,6 +40,7 @@ export PATH=$PATH:$HOME/.toolbox/bin
 export PATH="/usr/local/sbin:$PATH"
 export UV_INDEX_GITLAB_USERNAME="robbie.smith1"
 export UV_INDEX_GITLAB_PASSWORD="$GITLAB_TOKEN"
+export AWS_PROFILE="foundry24"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
