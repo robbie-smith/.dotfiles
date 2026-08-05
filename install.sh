@@ -58,6 +58,28 @@ brew update --force
 # `brew bundle install` exit nonzero, and with `set -e` that would skip
 # everything below it.
 
+# node comes from mise, not brew. The Brewfiles' `npm "..."` entries still need
+# an npm on PATH at bundle time, so mise and node have to land first -- hence
+# this block rather than leaving mise to the Brewfile.
+if ! command -v mise >/dev/null 2>&1; then
+  fancy_echo "Installing mise ..."
+  brew install mise
+else
+  fancy_echo "mise already installed. Skipping..."
+fi
+
+# Prepend the shims dir rather than `eval "$(mise activate bash)"` -- this
+# script runs under /bin/sh and the activate output is bash-specific.
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+if ! command -v node >/dev/null 2>&1; then
+  fancy_echo "Installing Node via mise ..."
+  mise use -g node@22
+  mise reshim 2>/dev/null || true
+else
+  fancy_echo "node already on PATH ($(node --version)). Skipping..."
+fi
+
 # lazy.nvim is the neovim plugin manager; nvim/lazy-lock.json pins the versions.
 if [ ! -d "$HOME/.local/share/nvim/lazy/lazy.nvim" ]; then
   fancy_echo "Installing lazy.nvim ..."

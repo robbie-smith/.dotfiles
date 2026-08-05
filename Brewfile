@@ -40,14 +40,18 @@ brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 # mise is the active polyglot manager (see dotfiles/bash_profile).
 # pyenv + pyenv-virtualenv are also activated there and currently own python3.
 # rustup is installed by install.sh into ~/.cargo, NOT via brew.
+#
+# node and ruby come from mise, NOT brew. node used to be two formulae here --
+# `node, link: false` plus `node@22, link: true` -- and when that link failed
+# there was no npm on PATH, so every `npm "..."` entry below failed with it.
+# install.sh now installs mise + node before bundling so npm exists by then.
+# rbenv was removed alongside: it was installed but no shell config ever
+# init'd it, so mise was already the only thing providing ruby.
 # ---------------------------------------------------------------------------
 brew "mise"
 brew "pyenv"
 brew "pyenv-virtualenv"
-brew "rbenv"
 brew "python@3.13"
-brew "node", link: false
-brew "node@22", link: true
 brew "go"
 brew "tcl-tk"
 brew "libyaml"
@@ -83,7 +87,9 @@ brew "zbar"
 # ---------------------------------------------------------------------------
 # AI coding tools
 # ---------------------------------------------------------------------------
-brew "codex"
+# codex is a cask, not a formula -- as `brew "codex"` it installed fine but
+# `brew bundle check` looked for a formula and always reported it missing.
+cask "codex"
 brew "gastown"
 cask "claude-code"
 

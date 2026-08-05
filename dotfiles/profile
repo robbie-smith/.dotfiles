@@ -1,21 +1,11 @@
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/profile.pre.bash"
+# Login shell is brew bash, so ~/.bash_profile is what actually gets read.
+# This file exists for the shells that read ~/.profile instead (sh, and any
+# tool that spawns a POSIX login shell) -- it just hands off to bash_profile.
+#
+# Keep this POSIX sh. No [[ ]], no bashisms; ~/.profile is not always bash.
+
 . "$HOME/.cargo/env"
-if [ -f ~/.bash_profile ]; then
-    source ~/.bash_profile
+
+if [ -f "$HOME/.bash_profile" ]; then
+    . "$HOME/.bash_profile"
 fi
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-export PATH="/Applications/Fortify/Fortify_SCA_24.2.0/bin:$PATH"
-
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/profile.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/profile.post.bash"

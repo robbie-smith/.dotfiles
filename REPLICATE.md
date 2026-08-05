@@ -18,6 +18,21 @@ cd ~/.dotfiles
 ./setup.sh
 ```
 
+The clone path is no longer load-bearing — the scripts and `bashrc` resolve
+their own location, so a clone outside `~/.dotfiles` works too.
+
+If you *move* the repo, the symlinks in `$HOME` still point at the old path and
+every one of them breaks. Re-run `./setup.sh` after deleting the stale links, or
+repoint them in place:
+
+```bash
+for f in ~/.bashrc ~/.bash_profile ~/.gitconfig ~/.profile ~/.ctags ~/.gemrc \
+         ~/.gitconfig-* ~/.global_ignore ~/.ideavimrc ~/.pryrc ~/.rspec \
+         ~/.themes.gitconfig ~/.config/nvim; do
+  [ -L "$f" ] && [ ! -e "$f" ] && echo "broken: $f -> $(readlink "$f")"
+done
+```
+
 Then open a **new** terminal — `setup.sh` runs `chsh`, which only applies to new
 sessions.
 
@@ -33,7 +48,23 @@ though `dotfiles/bash_profile` assumes brew bash 5.x. If it reads `/bin/bash`,
 re-run `chsh -s /opt/homebrew/bin/bash`.
 
 `install.sh` reports package failures rather than aborting on them, so check its
-output for a ⚠️ line before assuming everything installed.
+output for a ⚠️ line before assuming everything installed. Confirm with:
+
+```bash
+brew bundle check --verbose --file=Brewfile
+brew bundle check --verbose --file=Brewfile.personal
+```
+
+**Verify the runtimes came from mise, not brew:**
+
+```bash
+command -v node ruby java mvn    # all should be under ~/.local/share/mise/
+```
+
+If `node` resolves to `/opt/homebrew/bin/node`, a brew node formula has crept
+back in — remove it. Two node installs is what broke the 2026-08-05 run: the
+`node@22` link failed, leaving no npm on PATH, and all ten `npm "..."` entries
+in the Brewfiles failed silently behind a single ⚠️ line.
 
 ## Secrets — none of this is in any repo
 
