@@ -44,6 +44,7 @@ pre-existing virtualenvs. `rustup` manages Rust in `~/.cargo`, not brew.
 | `dotfiles/profile` | POSIX-sh handoff to `.bash_profile`. `setup.sh` backs up rustup's `~/.profile` to `.profile.bak` to claim it |
 | `bash_base_config/work.sh` | Garner-only shell config, sourced from `bashrc` only when devn is present |
 | `nvim/` | symlinked to `~/.config/nvim`; `lazy-lock.json` pins plugin versions |
+| `macos/` | exported GUI app preferences — imported by hand, **not** symlinked |
 
 **[REPLICATE.md](REPLICATE.md)** covers what the scripts can't do: Xcode, SSH
 keys, `~/.tokens`, `~/.npmrc`, AWS creds, iOS signing, and how the four runtime

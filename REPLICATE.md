@@ -186,6 +186,13 @@ nothing reads it — but it can be deleted.
   separately at `github.com/Foundry24/dev-config`.
 - **iTerm2 profile/preferences** — not exported. Redo by hand or export
   `com.googlecode.iterm2.plist` before wiping.
+- **Rectangle** — the app itself is `cask "rectangle"` in the shared `Brewfile`,
+  but its settings are not. `macos/RectangleConfig.json` is an export; restore it
+  from Rectangle's menu bar icon → Settings → gear → *Import Config…*. This is
+  deliberately outside `dotfiles/`: `setup.sh` symlinks every file in there to
+  `~/.<basename>`, and Rectangle never reads such a path — it stores live prefs
+  in `~/Library/Preferences/com.knollsoft.Rectangle.plist`. Re-export after
+  changing shortcuts; the JSON does not update itself.
 
 ## Stale entries in `dotfiles/bashrc`
 
