@@ -21,6 +21,20 @@ cd ~/.dotfiles
 Then open a **new** terminal — `setup.sh` runs `chsh`, which only applies to new
 sessions.
 
+**Verify the shell actually changed:**
+
+```bash
+dscl . -read ~/ UserShell     # want /opt/homebrew/bin/bash, not /bin/bash
+```
+
+`chsh` prompts for your password and silently no-ops if you decline, and this
+failed on the old machine — its login shell was still `/bin/bash` (3.2) even
+though `dotfiles/bash_profile` assumes brew bash 5.x. If it reads `/bin/bash`,
+re-run `chsh -s /opt/homebrew/bin/bash`.
+
+`install.sh` reports package failures rather than aborting on them, so check its
+output for a ⚠️ line before assuming everything installed.
+
 ## Secrets — none of this is in any repo
 
 Nothing below can be committed. Move it via 1Password or an encrypted archive.
@@ -91,6 +105,19 @@ starship → pyenv → pyenv-virtualenv → mise
 `~/.tool-versions` currently pins `python 3.13.3` and `ruby 3.4.2`, both of
 which `mise list` reports as **(missing)** — pre-existing breakage carried over
 from the asdf era. Either `mise install` them or repin.
+
+**Neither mise config file is tracked in this repo**, so the pins don't
+replicate on their own:
+
+- `~/.tool-versions` — `python 3.13.3`, `ruby 3.4.2`
+- `~/.config/mise/config.toml` — pins `gcloud 549.0.1`
+
+`setup.sh` installs `@latest` for java/python/ruby, which will not match those
+pins. Copy both files over by hand if you want the exact versions.
+
+`dotfiles/asdfrc` is still in the repo and still gets symlinked to `~/.asdfrc`
+by `symlink_dotfiles`, even though asdf is gone everywhere else. Harmless —
+nothing reads it — but it can be deleted.
 
 ## Not managed by any script
 

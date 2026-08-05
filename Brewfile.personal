@@ -51,13 +51,15 @@ go "github.com/wailsapp/wails/v2/cmd/wails"   # foundry/desktop-apps/* are Wails
 # ---------------------------------------------------------------------------
 # Global npm packages
 #
-# @foundry24/cdk-app-patterns is published to GitHub Packages, not npmjs, so it
-# needs ~/.npmrc auth before this will resolve:
+# @foundry24/cdk-app-patterns is deliberately NOT listed here. It's published to
+# GitHub Packages rather than npmjs (source: github.com/Foundry24/cdk-app-patterns),
+# so it 401s until ~/.npmrc carries a PAT:
 #
 #   @foundry24:registry=https://npm.pkg.github.com
 #   //npm.pkg.github.com/:_authToken=<GitHub PAT with read:packages>
 #
-# Source: github.com/Foundry24/cdk-app-patterns
+# That's a manual step, so listing it here would fail the bundle on a fresh
+# machine. Install it after setting up ~/.npmrc -- see REPLICATE.md.
 # ---------------------------------------------------------------------------
 npm "aws-cdk"
 npm "tailwindcss"
@@ -65,4 +67,3 @@ npm "@redocly/cli"
 npm "@google/gemini-cli"
 npm "clawhub"
 npm "server"
-npm "@foundry24/cdk-app-patterns"

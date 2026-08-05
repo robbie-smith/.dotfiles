@@ -25,6 +25,9 @@ brew "fzf"
 brew "git"
 brew "git-delta"             # git pager, see dotfiles/gitconfig
 brew "gh"
+brew "hub"                   # deprecated, but bash_base_config/aliases.sh still
+                             # uses `hub browse` / `hub compare`, and both
+                             # gitconfig-personal and gitconfig-work have [hub]
 brew "jq"
 brew "ripgrep"
 brew "gnu-sed"               # gsed; BSD sed breaks GNU-style scripts

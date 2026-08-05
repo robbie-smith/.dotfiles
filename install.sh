@@ -54,16 +54,9 @@ fi
 fancy_echo "Updating Homebrew formulae ..."
 brew update --force
 
-fancy_echo "Installing shared dependencies from Brewfile ..."
-brew bundle install -v --file="$SCRIPT_DIR/Brewfile"
-
-if [ -n "$PROFILE" ]; then
-  fancy_echo "Installing $PROFILE dependencies from Brewfile.$PROFILE ..."
-  brew bundle install -v --file="$SCRIPT_DIR/Brewfile.$PROFILE"
-else
-  fancy_echo "No profile given -- skipping machine-specific packages."
-  fancy_echo "Re-run as './install.sh personal' or './install.sh work' to add them."
-fi
+# These run BEFORE the bundles on purpose. A single failing cask makes
+# `brew bundle install` exit nonzero, and with `set -e` that would skip
+# everything below it.
 
 # lazy.nvim is the neovim plugin manager; nvim/lazy-lock.json pins the versions.
 if [ ! -d "$HOME/.local/share/nvim/lazy/lazy.nvim" ]; then
@@ -82,6 +75,28 @@ if ! command -v rustup >/dev/null 2>&1; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 else
   fancy_echo "rustup already installed. Skipping..."
+fi
+
+# Bundle failures are reported, not fatal: ~30 casks means one flaky download
+# or a privileged installer shouldn't abort the whole run. Re-running is safe
+# and skips whatever already succeeded.
+BUNDLE_FAILED=0
+
+fancy_echo "Installing shared dependencies from Brewfile ..."
+brew bundle install -v --file="$SCRIPT_DIR/Brewfile" || BUNDLE_FAILED=1
+
+if [ -n "$PROFILE" ]; then
+  fancy_echo "Installing $PROFILE dependencies from Brewfile.$PROFILE ..."
+  brew bundle install -v --file="$SCRIPT_DIR/Brewfile.$PROFILE" || BUNDLE_FAILED=1
+else
+  fancy_echo "No profile given -- skipping machine-specific packages."
+  fancy_echo "Re-run as './install.sh personal' or './install.sh work' to add them."
+fi
+
+if [ "$BUNDLE_FAILED" -ne 0 ]; then
+  fancy_echo "⚠️  Some packages failed to install -- scroll up for which."
+  fancy_echo "    Re-run this script to retry, or check with:"
+  fancy_echo "      brew bundle check --verbose --file=$SCRIPT_DIR/Brewfile"
 fi
 
 fancy_echo "Done. Next: ./setup.sh"
