@@ -6,9 +6,8 @@ Written 2026-08-05 while trading in the Foundry24 MacBook. `install.sh` and
 ## Order
 
 ```bash
-# 1. Xcode from the App Store first -- fastlane/cocoapods/xcodegen need it
+# 1. Command Line Tools -- git, clang, headers. NOT Xcode; see step 4.
 xcode-select --install
-sudo xcodebuild -license accept
 
 # 2. SSH key (see "Secrets" below) -- required before any git clone
 
@@ -16,7 +15,38 @@ git clone git@github.com:robbie-smith/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh personal     # or: ./install.sh work
 ./setup.sh
+
+# 3. Xcode -- fastlane/cocoapods/xcodegen/maestro need the full app, not the CLT.
+#    `xcodes` comes from Brewfile.personal, so this runs after install.sh.
+#    App Store also works: open "macappstore://apps.apple.com/app/xcode/id497799835"
+xcodes install --latest --select
+
+# 4. Point the toolchain at Xcode.app and clear its first-run gates. Without the
+#    switch, xcode-select stays on /Library/Developer/CommandLineTools from step 1
+#    and every xcodebuild call fails with "requires Xcode". `--select` above
+#    already does the switch -- this line is for the App Store route. Harmless to
+#    re-run either way; the license and first-launch steps are always needed.
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -license accept
+sudo xcodebuild -runFirstLaunch
+
+# 5. Simulator runtimes -- a separate multi-GB download. Xcode ships with none,
+#    so `xcrun simctl list runtimes` is empty until this runs and maestro/fastlane
+#    have nothing to boot. Easy to miss: the failures name the simulator, not Xcode.
+xcodebuild -downloadPlatform iOS
 ```
+
+Verify before trusting any of it:
+
+```bash
+xcodebuild -version                     # expect a version, not "requires Xcode"
+xcrun simctl list devices available     # expect >0 iPhones
+maestro list-devices                    # expect those iPhones, grouped by platform
+```
+
+`maestro list-devices` is the one that proves the whole chain: it only succeeds
+if Xcode is selected, a runtime is installed, *and* maestro found a JVM. An
+empty iOS group means step 5 didn't run.
 
 The clone path is no longer load-bearing — the scripts and `bashrc` resolve
 their own location, so a clone outside `~/.dotfiles` works too.
