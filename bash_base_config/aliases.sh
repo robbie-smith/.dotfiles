@@ -89,23 +89,8 @@ function gpush() {
   # Get the current branch name
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-  # Define the restricted mainline branches
-  MAINLINE_BRANCHES=("main" "master" "mainline")
-
-  # Check if the current local branch is restricted
-  if [[ " ${MAINLINE_BRANCHES[@]} " =~ " ${BRANCH} " ]]; then
-    echo "Error: Pushes from the '${BRANCH}' branch are not allowed!"
-    return 1  # Non-zero exit to indicate failure
-  fi
-
   # Extract the remote branch from the push command (if any)
   REMOTE_BRANCH=$(git config --get branch.${BRANCH}.merge | sed 's|refs/heads/||')
-
-  # Check if the remote branch is a restricted branch
-  if [[ " ${MAINLINE_BRANCHES[@]} " =~ " ${REMOTE_BRANCH} " ]]; then
-    echo "Error: Pushes to the '${REMOTE_BRANCH}' branch are not allowed!"
-    return 1  # Non-zero exit to indicate failure
-  fi
 
   # Proceed with the push if all checks pass
   git push -u origin "${BRANCH}"

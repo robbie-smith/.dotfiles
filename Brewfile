@@ -32,6 +32,10 @@ brew "jq"
 brew "ripgrep"
 brew "gnu-sed"               # gsed; BSD sed breaks GNU-style scripts
 brew "neovim"
+brew "tree-sitter-cli"       # the CLI, not the `tree-sitter` formula (that's the
+                             # library only). nvim-treesitter's main branch
+                             # shells out to it to build parsers; without it
+                             # every install fails with ENOENT
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
 # ---------------------------------------------------------------------------
