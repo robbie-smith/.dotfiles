@@ -44,11 +44,11 @@ export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 # Intel path and then silently corrected by `brew shellenv` further down -- but
 # too late for SPARK_HOME, which had already expanded to a directory that does
 # not exist. apache-spark is not installed via brew either.
-
 export DOCKER_CLI_HINTS=false
 export PATH=$PATH:$HOME/.toolbox/bin
 export PATH="/usr/local/sbin:$PATH"
 export AWS_PROFILE="foundry24"
+export GITHUB_TOKEN="$(security find-generic-password -a "$USER" -s claude-github-token -w 2>/dev/null)"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
